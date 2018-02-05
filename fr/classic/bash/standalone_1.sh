@@ -175,7 +175,7 @@ function code(){
 [ -d "$HOME/House" ] && echo "Erreur innatendu, ${HOME}/House existe déjà sur votre système ! Supprimez ce dossier $HOME/House et relancer ce script." && exit
 cd ~/
 talk justumen "Hey salut tout le monde et bienvenu sur la ligne de commande linux."
-talk justumen "Avant de pouvoir utiliser notre première commande, il va falloir d'abord comprendre la logique derrière l'organisation des répertoires et des fichiers sur Linux."
+talk justumen "Avant de pouvoir apprendre notre première commande, il va falloir d'abord comprendre la logique derrière l'organisation des répertoires et des fichiers sur Linux."
 talk justumen "Commençons par nous intéresser aux 'répertoires', qui portent aussi le nom de 'dossiers'."
 real_tree_1
 talk justumen "Vous pouvez imaginer le système d'organisation des dossiers linux comme un arbre."
@@ -551,7 +551,7 @@ function quiz(){
 }
 
 function unlock(){
-  talk_not_press_key justumen "mot de passe pour debloquer le niveau 1 : 24d8b826ff016" #Super secure password ! Please don't cheat for your own good. :-)
+  talk_not_press_key justumen "Pour débloquer \"bash 1\" dans le chat, allez sur https://rocket.bjornulf.org/direct/boti et tapez : password 24d8b826ff016" #Super secure password ! Please don't cheat for your own good. :-)
 }
 
 function enter(){
