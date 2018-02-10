@@ -292,6 +292,7 @@ answer_run "ls -w 100" justumen "Non"
 talk justumen "La version longue des options avec valeur est parfois différente avec l'utilisation du signe ${voc}=${reset} au lieu d'un espace."
 talk_not_press_key justumen "Essayez d'utiliser la version longue avec ${learn}ls --width=100${reset}"
 answer_run "ls --width=100" justumen "Non"
+talk justumen "Maintenant le quiz, pour vérifier que vous connaissez tout ça."
 }
 function quiz(){
   echo -en "\e[0;33m...\e[0m"
