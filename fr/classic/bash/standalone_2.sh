@@ -309,6 +309,7 @@ talk justumen "La version longue des options avec valeur est parfois différente
 talk_not_press_key justumen "Essayez d'utiliser la version longue avec ${learn}ls --width=100${reset}"
 answer_run "ls --width=100" justumen "Non"
 talk justumen "Vous êtes maintenant prêt pour le questionnaire ! Allez vérifier vos connaissances !"
+rmdir $HOME/.GameScript_bash2
 }
 function quiz(){
   echo -en "\e[0;33m...\e[0m"
