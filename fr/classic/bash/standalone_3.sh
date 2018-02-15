@@ -28,6 +28,13 @@ function talk_not_press_key(){
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
 	restore=$(expr $restore + 1)
 }
+function talk_not_press_key_ASNWER(){
+	echo -en "($restore)\e[0;32m $1\e[0m - "
+	echo -ne "\\e[4;37m"
+	echo -nE "$2"
+	echo -e "\\e[0m"
+	restore=$(expr $restore + 1)
+}
 function answer_quiz(){
 	key="9"
 	while [ "$key" != "1" ] || [ "$key" != "2" ] || [ "$key" != "3" ]; do
@@ -61,7 +68,8 @@ function answer_run(){
 	while [ ! "$USER_CODE" == "$1" ]; do
 		#$3 is the correct answer
 		#~ talk_not_press_key "$2" "$3 \\e[4;37m$1\\e[0m"
-		talk_not_press_key "$2" "\\e[4;37m$1\\e[0m"
+		#~ talk_not_press_key "$2" "\\e[4;37m$1\\e[0m"
+		talk_not_press_key_ASNWER "$2" "$1"
 		echo -en "\\e[1;31;42m # \\e[0m"
 		read -r USER_CODE < /dev/tty
 	done
@@ -292,7 +300,7 @@ talk justumen "Cependant dans cet exemple il y a toujours deux arguments, le pre
 talk justumen "Pour avoir un seul et unique argument il faut supprimer cet espace après le 'a'."
 talk_not_press_key justumen "Essayez donc avec un seul argument : ${learn}echo a\\ b${reset}"
 answer_run "echo a\ b" justumen "Non"
-talk_not_press_key justumen "Maintenant rajoutez un deuxième espace."
+talk_not_press_key justumen "Maintenant, essayez d'afficher un deuxième espace entre a et b."
 answer_run "echo a\ \ b" justumen "Non"
 talk justumen "Ce caractère d'échappement est très utile pour afficher des caractères que vous ne pouvez pas afficher autrement."
 talk justumen "Comme par exemple le symbole ${learn}>${reset}, qui comme vous le savez est aussi interprété par bash comme un caractère spécial."
@@ -350,7 +358,7 @@ function quiz(){
   answer_text_fr "Comment afficher le contenu du fichier 'test' ?" "cat test"
   answer_text_fr "Sur bash, quel est le caractère d'échappement ?" "\\"
   answer_text_fr "Comment afficher dans le terminal 'a>b' ?" "echo a\>b"
-  answer_text_fr "Quel est le code qui représente une mise à la ligne ?" "\\n"
+  answer_text_fr "Quel est la lettre à utiliser après le caractère d'échappement pour représenter une mise à la ligne ?" "n"
   answer_text_fr "Affichez, sans utiliser le caractère d'échappement, la phrase : j'ai bon" "echo \"j'ai bon\""
   answer_text_fr "Affichez trois guillemets (\"), sans utiliser le caractère d'échappement." "echo '\"\"\"'"
   unlock
