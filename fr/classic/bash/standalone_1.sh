@@ -1,6 +1,9 @@
 #!/bin/bash
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
 
+function encode(){
+	echo -n "$2$1$3" | base64
+}
 
 function press_key(){
 	echo -en "\e[0;33m...\e[0m"
@@ -258,7 +261,7 @@ talk_not_press_key justumen "Pour savoir dans quel répertoire votre terminal es
 answer_run "pwd" justumen "Non"
 talk justumen "Le résultat que vous voyiez ici est le ${voc}chemin absolu${reset} du répertoire ou vous êtes en ce moment."
 talk justumen "Ce répertoire où vous êtes porte un nom spécial : le ${voc}${voc}répertoire courant${reset} ${reset}."
-talk justumen "Comme je vous l'ai déjà dit, il n'est pas obligatoire de mettre un / pour le dernier dossier c'est pourquoi vous voyez ici ${learn}$(pwd)${reset} et£Non pas ${learn}$(pwd)/${reset}."
+talk justumen "Comme je vous l'ai déjà dit, il n'est pas obligatoire de mettre un / pour le dernier dossier c'est pourquoi vous voyez ici ${learn}$(pwd)${reset} et non pas ${learn}$(pwd)/${reset}."
 talk justumen "Voilà donc 4 commandes linux fondamentales : ${learn}pwd${reset}, ${learn}ls${reset}, ${learn}cd${reset} et ${learn}mkdir${reset}."
 talk justumen "${learn}pwd${reset} et ${learn}ls${reset} sont des commandes particulièrement innoffensives, elle ne font que vous donnez des renseignements."
 talk justumen "N'hésitez donc pas à les taper systématiquement, dès que vous êtes dans un terminal."
@@ -572,7 +575,12 @@ function quiz(){
 }
 
 function unlock(){
-  talk_not_press_key justumen "Pour débloquer \"bash 1\" dans le chat, allez sur https://rocket.bjornulf.org/direct/boti et tapez : password 24d8b826ff016" #Super secure password ! Please don't cheat for your own good. :-)
+  #~ talk_not_press_key justumen "Pour débloquer \"bash 1\" dans le chat, allez sur https://rocket.bjornulf.org/direct/boti et tapez : password 24d8b826ff016" #Super secure password ! Please don't cheat for your own good. :-)
+  talk_not_press_key justumen "Pour débloquer \"bash 1\" dans le chat, veuillez saisir votre pseudo :"
+  echo -n " > "
+  read -r PSEUDO
+  PASS=`encode $PSEUDO "24d8" "f016"`
+  talk_not_press_key justumen "Allez sur https://rocket.bjornulf.org/direct/boti et tapez : password$PASS"
 }
 
 function enter(){

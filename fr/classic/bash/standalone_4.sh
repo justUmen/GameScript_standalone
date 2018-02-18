@@ -1,6 +1,9 @@
 #!/bin/bash
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
 
+function encode(){
+	echo -n "$2$1$3" | base64
+}
 
 function press_key(){
 	echo -en "\e[0;33m...\e[0m"
@@ -260,8 +263,34 @@ answer_run "echo " tout le monde">>DOS2/test3" justumen "Non"
 talk_not_press_key justumen "Enfin, affichez le contenu de 'test3'."
 answer_run "cat DOS2/test3" justumen "Non"
 talk justumen "Et voilà, bonjour tout le monde !"
+talk justumen "Quand une commande ne fait pas exactement ce que voulez qu'elle fasse, visitez son manuel !"
+talk justumen "Il est très probable qu'une simple option soit la réponse à votre problème."
+talk justumen "${code}mv${reset} utilise deux arguments, le premier est ${voc}<SOURCE>${reset} et le deuxième est ${voc}<DESTINATION>${reset}."
+talk justumen "Et la syntaxe comme on l'a déjà vu est donc : ${code}mv <SOURCE> <DESTINATION>${reset}"
+talk justumen "${voc}<SOURCE>${reset} et ${voc}<DESTINATION>${reset} sont à remplacer par les fichiers ou les dossiers voulus."
+talk justumen "Lorsqu'une commande a besoin de deux arguments, la plupart du temps cette logique s'applique."
+talk justumen "Pour ${voc}copier${reset} ou ${voc}dupliquer${reset} un fichier sur linux il faudra utiliser la commande ${code}cp${reset}."
+talk justumen "Son comportement est sensiblement identique à ${code}mv${reset}, sauf que le fichier ${voc}<SOURCE>${reset} ne sera pas supprimée."
+talk_not_press_key justumen "Affichez les éléments du répertoire courant."
+answer_run "ls" justumen "Non"
+talk_not_press_key justumen "Copiez donc le fichier 'test3' dans votre répertoire courant."
+answer_run "cp DOS2/test3 ." justumen "Non"
+talk justumen "Et ici nous avons notre première utilisation pratique du ${code}.${reset} qui je vous le rappelle représente le répertoire courant."
+talk_not_press_key justumen "Listez à nouveau les éléments du répertoire courant."
+answer_run "ls" justumen "Non"
+talk justumen "Encore une fois ${code}.${reset} étant un dossier, vous pouvez également utiliser ${code}./${reset} à la place."
+talk_not_press_key justumen "Maintenant testez cette commande : ${learn}cp DOS2/test3 .new${reset}"
+answer_run "cp DOS2/test3 .new" justumen "Non"
+talk_not_press_key justumen "Puis listez les éléments du répertoire courant."
+answer_run "ls" justumen "Non"
+talk justumen "Ce résultat ne devrait pas vous choquer."
+talk justumen "Encore une fois, ${code}.new${reset} et  ${code}./new${reset} représentent deux choses différentes."
+talk justumen "${code}.new${reset} est bien évidemment un fichier caché."
+talk_not_press_key justumen "Listez les fichiers cachés du répertoire courant."
+answer_run "ls -a" justumen "Non"
+talk justumen "Si vous vouliez copier le fichier 'test3' et renommer cette copie en 'new' dans le répertoire courant, la commande sera : ${learn}cp DOS2/test3 ./new${reset}."
+talk justumen "Ici la commande ${learn}cp DOS2/test3 .new${reset} est identique à ${learn}cp DOS2/test3 ./.new${reset}."
 talk justumen ""
-answer_run "cat DOS2/test3" justumen "Non"
 talk justumen ""
 talk justumen ""
 rmdir $HOME/.GameScript_bash4
@@ -287,12 +316,19 @@ function quiz(){
   answer_text_fr "Quelle est la commande pour déplacer des fichiers ou dossiers ?" "mv"
   answer_text_fr "Quelle est la commande pour renommer des fichiers ou dossiers ?" "mv"
   answer_text_fr "Comment renommer un fichier nommé 'oui' en 'non' et le déplacer dans son répertoire parent ?" "mv oui ../non"
+  answer_text_fr "Comment copier dans votre répertoire courant un fichier dont le chemin absolu est '/root/file' ?" "cp /root/file ."
+  answer_text_fr "Comment copier un fichier caché '.file' situé dans votre répertoire parent et le renommer en un fichier non caché 'file' dans le dossier '/root' ?" "cp ../.file /root/file "
   answer_text_fr "" ""
   unlock
 }
 
 function unlock(){
-  talk_not_press_key justumen "Pour débloquer \"bash 3\" dans le chat, allez sur https://rocket.bjornulf.org/direct/boti et tapez : password 2421a9d18fbb" #Super secure password ! Please don't cheat for your own good. :-)
+  #~ talk_not_press_key justumen "Pour débloquer \"bash 3\" dans le chat, allez sur https://rocket.bjornulf.org/direct/boti et tapez : password 2421a9d18fbb" #Super secure password ! Please don't cheat for your own good. :-)
+  talk_not_press_key justumen "Pour débloquer \"bash 1\" dans le chat, veuillez saisir votre pseudo :"
+  echo -n " > "
+  read -r PSEUDO
+  PASS=`encode $PSEUDO "2421" "8fbb"`
+  talk_not_press_key justumen "Allez sur https://rocket.bjornulf.org/direct/boti et tapez : password$PASS"
 }
 
 function enter(){

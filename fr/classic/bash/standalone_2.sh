@@ -1,6 +1,9 @@
 #!/bin/bash
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
 
+function encode(){
+	echo -n "$2$1$3" | base64
+}
 
 function press_key(){
 	echo -en "\e[0;33m...\e[0m"
@@ -336,7 +339,12 @@ function quiz(){
 }
 
 function unlock(){
-  talk_not_press_key justumen "Pour débloquer \"bash 2\" dans le chat, allez sur https://rocket.bjornulf.org/direct/boti et tapez : password 246eb9c41f13" #Super secure password ! Please don't cheat for your own good. :-)
+  #~ talk_not_press_key justumen "Pour débloquer \"bash 2\" dans le chat, allez sur https://rocket.bjornulf.org/direct/boti et tapez : password 246eb9c41f13" #Super secure password ! Please don't cheat for your own good. :-)
+  talk_not_press_key justumen "Pour débloquer \"bash 1\" dans le chat, veuillez saisir votre pseudo :"
+  echo -n " > "
+  read -r PSEUDO
+  PASS=`encode $PSEUDO "246e" "1f13"`
+  talk_not_press_key justumen "Allez sur https://rocket.bjornulf.org/direct/boti et tapez : password$PASS"
 }
 
 function enter(){

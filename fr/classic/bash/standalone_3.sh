@@ -1,6 +1,9 @@
 #!/bin/bash
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
 
+function encode(){
+	echo -n "$2$1$3" | base64
+}
 
 function press_key(){
 	echo -en "\e[0;33m...\e[0m"
@@ -346,6 +349,9 @@ talk_not_press_key justumen "Supprimez maintenant 'tab' et 'test' en une seule c
 answer_run "rm tab test" justumen "Non"
 talk justumen "Excellent ! Vous êtes prêt pour le questionnaire."
 rmdir $HOME/.GameScript_bash3
+talk justumen ""
+talk justumen ""
+talk justumen "echo 'alias gamescript="wget --no-cache -q -O - https://raw.githubusercontent.com/justUmen/GameScript/master/gamescript.sh | bash -s --"'>>~/.bashrc"
 }
 function quiz(){
   echo -en "\e[0;33m...\e[0m"
@@ -365,7 +371,12 @@ function quiz(){
 }
 
 function unlock(){
-  talk_not_press_key justumen "Pour débloquer \"bash 3\" dans le chat, allez sur https://rocket.bjornulf.org/direct/boti et tapez : password 2452a8c193a3" #Super secure password ! Please don't cheat for your own good. :-)
+  #~ talk_not_press_key justumen "Pour débloquer \"bash 3\" dans le chat, allez sur https://rocket.bjornulf.org/direct/boti et tapez : password 2452a8c193a3" #Super secure password ! Please don't cheat for your own good. :-)
+  talk_not_press_key justumen "Pour débloquer \"bash 1\" dans le chat, veuillez saisir votre pseudo :"
+  echo -n " > "
+  read -r PSEUDO
+  PASS=`encode $PSEUDO "2452" "93a3"`
+  talk_not_press_key justumen "Allez sur https://rocket.bjornulf.org/direct/boti et tapez : password$PASS"
 }
 
 function enter(){
