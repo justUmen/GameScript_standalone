@@ -246,7 +246,7 @@ talk_not_press_key justumen "Déplacez 'test2' dans 'DOS2' et renommez le en 'te
 answer_run "mv test2 DOS2/test3" justumen "Non"
 talk_not_press_key justumen "Affichez les éléments du répertoire DOS2."
 answer_run "ls DOS2" justumen "Non"
-talk justumen "Le fichier 'test2' a bien été déplacé dans DOS2 et renommé en 'test'."
+talk justumen "Le fichier 'test2' a bien été déplacé dans DOS2 et renommé en 'test3'."
 talk_not_press_key justumen "Affichez le contenu de ce fichier 'test3'."
 answer_run "cat DOS2/test3" justumen "Non"
 talk justumen "Le contenu est toujours identique."
