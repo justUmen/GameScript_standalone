@@ -327,6 +327,7 @@ talk justumen "Vous êtes prêt pour le questionnaire !"
 rm $HOME/.GameScript_bash4/DIR/.new
 rm $HOME/.GameScript_bash4/DIR/test3
 rm $HOME/.GameScript_bash4/DIR/DOS2/test3
+rmdir $HOME/.GameScript_bash4/DIR/DOS2
 rmdir $HOME/.GameScript_bash4/DIR
 rmdir $HOME/.GameScript_bash4
 }
