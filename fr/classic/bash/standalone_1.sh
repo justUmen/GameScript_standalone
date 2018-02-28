@@ -23,12 +23,14 @@ function press_key(){
 }
 
 function talk(){
+	pkill mplayer > /dev/null 2>&1
 mplayer -af volume=10 "$AUDIO_LOCAL/$restore.mp3" > /dev/null 2>&1 &
 ( wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 3`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 3`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 4`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 4`.mp3 ) > /dev/null 2>&1 & #download next one, or next one, or next one
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
 	press_key
 }
 function talk_not_press_key(){
+	pkill mplayer > /dev/null 2>&1
 mplayer -af volume=10 "$AUDIO_LOCAL/$restore.mp3" > /dev/null 2>&1 &
 ( wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 3`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 3`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 4`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 4`.mp3 ) > /dev/null 2>&1 & #download next one, or next one, or next one
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
@@ -63,15 +65,19 @@ function answer_quiz(){
 						read choice < /dev/tty
 						case $choice in
 							1)  cd `cat "$HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER"`
-								start_lecture `cat "$HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER"` ;;
+								start_lecture `cat "$HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER"`
+								start_quiz
+								;;
 							2) 	clean
 								start_lecture 1
+								start_quiz
 								;;
 							3) exit ;;
 						esac
 					done
 				fi
 				start_lecture 1
+				start_quiz
 				;;
 			2) start_quiz ;;
 			3) exit ;;
@@ -259,7 +265,7 @@ case $1 in
 58) echo -n 58 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "cd House" justumen "Non"; restore=$(expr $restore + 1) ;&
 59) echo -n 59 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Maintenant réaffichons les fichiers et dossiers avec un simple ${learn}ls${reset}."; restore=$(expr $restore + 1) ;&
 60) echo -n 60 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
-61) echo -n 61 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ici le répertoire House est vide, c'est normal puisque vous venez de le créer."; restore=$(expr $restore + 1) ;&
+61) echo -n 61 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ici le répertoire House est vide, c'est normal puisque nous venons de le créer."; restore=$(expr $restore + 1) ;&
 62) echo -n 62 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Mais qu'en est-il ici du ${voc}chemin absolu${reset} dont je vous ai parlé avant ?"; restore=$(expr $restore + 1) ;&
 63) echo -n 63 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "En fait, un terminal tourne toujours dans un dossier, et peut se 'déplacer' dans l'arborescense du système."; restore=$(expr $restore + 1) ;&
 64) echo -n 64 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "C'est ce que vous avez fait avec la commande ${learn}cd House${reset}, vous avez déplacé votre terminal dans le dossier House."; restore=$(expr $restore + 1) ;&
@@ -419,7 +425,7 @@ echo -e "$basic
                                ;%@@@@%@@;.${CLREOL}
                               ;%@@@$code / $reset$basic@@@;.${CLREOL}
                          ...;%@@@@@@@@@@@@%..${CLREOL}$reset"
-restore=$(expr $restore + 1)
+#~ restore=$(expr $restore + 1)
 }
 
 
@@ -452,7 +458,7 @@ echo -e "$basic
                                ;%@@@@%@@;.${CLREOL}
                               ;%@@@$code / $reset$basic@@@;.${CLREOL}
                          ...;%@@@@@@@@@@@@%..${CLREOL}$reset"
-restore=$(expr $restore + 1)
+#~ restore=$(expr $restore + 1)
 }
 
 
@@ -485,7 +491,7 @@ echo -e "$basic
                                ;%@@@@%@@;.${CLREOL}
                               ;%@@@$code / $reset$basic@@@;.${CLREOL}
                          ...;%@@@@@@@@@@@@%..${CLREOL}$reset"
-restore=$(expr $restore + 1)
+#~ restore=$(expr $restore + 1)
 }
 function real_tree_4(){
 echo -e "$basic
@@ -516,7 +522,7 @@ echo -e "$basic
                                ;%@@@@%@@;.${CLREOL}
                               ;%@@@$code / $reset$basic@@@;.${CLREOL}
                          ...;%@@@@@@@@@@@@%..${CLREOL}$reset"
-restore=$(expr $restore + 1)
+#~ restore=$(expr $restore + 1)
 }
 
 function tree_1(){
@@ -527,7 +533,7 @@ $code / $reset$basic
 |   |   |-- $code /home/user/Pictures/ $reset$basic
 |-- $code /bin/ $reset$basic
 |-- $code /var/ $reset$basic"
-restore=$(expr $restore + 1)
+#~ restore=$(expr $restore + 1)
 }
 
 function tree_2(){
@@ -544,7 +550,7 @@ $code / $reset$basic
 |-- $codeFile /fichier1 $reset$basic
 |-- $codeFile /fichier2 $reset$basic
 |-- $codeFile /Home $reset$basic"
-restore=$(expr $restore + 1)
+#~ restore=$(expr $restore + 1)
 }
 
 function tree_3(){
@@ -561,7 +567,7 @@ $code /var/ $reset$basic
 $codeFile /fichier1 $reset$basic
 $codeFile /fichier2 $reset$basic
 $codeFile /Home $reset$basic"
-restore=$(expr $restore + 1)
+#~ restore=$(expr $restore + 1)
 }
 function clean(){ #in enter_chapter
 rm $HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
