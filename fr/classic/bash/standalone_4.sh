@@ -8,37 +8,36 @@ function encode_b64(){
 function press_key(){
 	echo -en "\e[0;33m...\e[0m"
 	read -s -n1 key < /dev/tty
-	if [ "$key" == 'q' ] || [ "$key" == 'e' ]; then
-		pkill mpg123  > /dev/null 2>&1
-		echo -e "\e[0m "
-		exit 1
-	fi
-	if [ "$key" == 'r' ]; then
-		pkill mpg123  > /dev/null 2>&1
-		normal_line $restore
-	fi
-	pkill mpg123
+	#OBSOLETE ?
+	#~ if [ "$key" == 'q' ] || [ "$key" == 'e' ]; then
+		#~ pkill mpg123  > /dev/null 2>&1
+		#~ echo -e "\e[0m "
+		#~ exit 1
+	#~ fi
+	#~ if [ "$key" == 'r' ]; then
+		#~ pkill mpg123  > /dev/null 2>&1
+		#~ normal_line $restore
+	#~ fi
+	#~ pkill mpg123
+	pkill mplayer > /dev/null 2>&1
 }
 
-#	echo -en "\e[0;33m...\e[0m "
 function talk(){
+mplayer -af volume=10 "$AUDIO_LOCAL/$restore.mp3" > /dev/null 2>&1 &
+( wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 3`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 3`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 4`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 4`.mp3 ) > /dev/null 2>&1 & #download next one, or next one, or next one
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
-	#~ echo -n "$restore" > ~/PERSONAL_PROGRESS
 	press_key
-	#~ restore=$(expr $restore + 1)
-	#~ echo "==> $restore $CHAPTER_NAME $CHAPTER_NUMBER"
 }
 function talk_not_press_key(){
+mplayer -af volume=10 "$AUDIO_LOCAL/$restore.mp3" > /dev/null 2>&1 &
+( wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 3`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 3`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 4`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 4`.mp3 ) > /dev/null 2>&1 & #download next one, or next one, or next one
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
-	#~ restore=$(expr $restore + 1)
-	#~ echo "==> $restore"
 }
 function talk_not_press_key_ANSWER(){
 	echo -en "($restore)\e[0;32m $1\e[0m - "
 	echo -ne "\\e[4;37m"
 	echo -nE "$2"
 	echo -e "\\e[0m"
-	#~ restore=$(expr $restore + 1)
 }
 
 function answer_quiz(){
@@ -107,8 +106,6 @@ function answer_run(){
 		printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 		echo -e "\\e[0m"
 	fi
-	#~ restore=$(expr $restore + 1)
-	#~ echo "==> $restore"
 }
 function start_dots(){
 	echo -en "\e[0;33m...\e[0m"
@@ -138,41 +135,6 @@ voc='\e[1m'
 #BLUE
 learn='\e[40;38;5;10m'
 
-function justumen_intro_fr(){
-echo -e "
-Bonjour,
-Vous êtes ici dans un ${voc}terminal${reset} linux.
-Ce fichier que vous avez lancé est un script bash qui peut vous aider a apprendre le ${voc}bash${reset}.
-Bash est le ${voc}shell${reset} par défaut de la grande majorité des systèmes linux.
-Ce script est interactif :
-  Lorsque vous voyez \e[0;33m...\e[0m le script attend que vous pressiez une touche pour continuer. (comme la touche Espace ou Entrée)
-  Lorsque vous voyez \\e[1;31;45m # \\e[0m le script attend que vous tapiez une commande linux. (lettre par lettre)
-
-Le code bash que vous allez taper s'exécutera réellement sur votre machine.
-Tous les codes que vous tapez sont donc strictement controlés, il ne laissera passer qu'une seule commande, ce n'est donc pas un véritable terminal.
-
-Tous les chapitres fonctionneront de la même manière :
-  Au début vous devez choisir entre 'accéder au cours' ou 'accéder au questionnaire'.
-
-Si vous pensez ne pas avoir besoin du cours, vous pouvez directement aller au questionnaire.
-Si vous répondez parfaitement au questionnaire, vous pourrez donc débloquer le prochain niveau sans avoir besoin du cours.
-
-En revanche si vous devez suivre le cours, le questionnaire reviendra à la fin et vous aurez aussi besoin d'y répondre parfaitement pour allez plus loin.
-
-Si le contenu du cours est nouveau pour vous, n'hésitez pas à relancer ce script à plusieures reprises, notamment à des intervalles de temps différentes.
-Par exemple, une fois aujourd'hui, une autre fois demain et une autre la semaine prochaine. Le contenu doit être entièrement assimillé avant d'aller plus loin.
-Ne passez pas trop vite au niveau suivant si votre compréhension du cours précédent est incertaine.
-
-Je vous recommande de ne pas quitter un cours au milieu, même si pouvez le faire avec CTRL + C.
-Le script nettoie derrière lui tout ce qu'il a créé, si vous coupez le script au milieu il vous faudra donc nettoyer manuellement.
-
-Bonne journée et bonne chance !
-
-Merci de soutenir mes cours et mes projets sur https://www.patreon.com/justumen
-Et merci de me signalez les bugs si vous en trouvez.
-Justumen
-"
-}
 
 
 #OBSOLETE ?
@@ -229,6 +191,7 @@ function unlock(){
 
 function enter_chapter(){
 	#Usage : enter_chapter bash 1 1 (first 1 is chapter, next one is for case)
+	wget -nc $AUDIO_DL/1.mp3 -O ~/.GameScript/Audio/c$2/1.mp3 > /dev/null 2>&1 #Wait for download of first one
 	echo ""
 	echo -e "\e[15;5;44m - $1, Chapitre $2 \e[0m"
 	answer_quiz "Cours" "Questionnaire" "Retour" "4" "5" "6" "$1" "$2"
