@@ -57,7 +57,7 @@ function answer_quiz(){
 		echo -e "\\e[0;100m 1) \\e[0m $1"
 		echo -e "\\e[0;100m 2) \\e[0m $2"
 		echo -e "\\e[0;100m 3) \\e[0m $3"
-		echo -en "\\e[1;15;45m # \\e[0m"
+		echo -en "\\e[97;45m # \\e[0m"
 		read key < /dev/tty
 		case $key in
 			1) 	if [ -f "$HOME/.GameScript/restore_$7$8" ];then
@@ -66,7 +66,7 @@ function answer_quiz(){
 						echo -e "\\e[0;100m 1) \\e[0m Continuer"
 						echo -e "\\e[0;100m 2) \\e[0m Recommencer"
 						echo -e "\\e[0;100m 3) \\e[0m Retour"
-						echo -en "\\e[1;15;45m # \\e[0m"
+						echo -en "\\e[97;45m # \\e[0m"
 						read choice < /dev/tty
 						case $choice in
 							1)  cd `cat "$HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER"`
@@ -91,7 +91,7 @@ function answer_quiz(){
 }
 function answer_text_fr(){
 	echo "> $1"
-	echo -en "\\e[1;15;45m # \\e[0m"
+	echo -en "\\e[97;45m # \\e[0m"
 	read -r USER_CODE < /dev/tty
 	if [ ! "$USER_CODE" == "$2" ]; then
 		talk_not_press_key justumen "\\e[4;37mDésolé, réponse fausse ou trop longue. Je vous conseille de suivre le cours.\\e[0m"
@@ -101,13 +101,13 @@ function answer_text_fr(){
 	fi
 }
 function answer_run(){
-	echo -en "\\e[1;15;45m # \\e[0m"
+	echo -en "\\e[97;45m # \\e[0m"
 	read -r USER_CODE < /dev/tty
 	while [ ! "$USER_CODE" == "$1" ]; do
 		if [ ! "$USER_CODE" == "" ]; then
 			talk_not_press_key_ANSWER "$2" "$1"
 		fi
-		echo -en "\\e[1;15;45m # \\e[0m"
+		echo -en "\\e[97;45m # \\e[0m"
 		read -r USER_CODE < /dev/tty
 	done
 	if [ ! "$1" == "" ];then
@@ -133,7 +133,7 @@ function title(){
 black_on_green='\e[30;48;5;82m'
 black_on_lightblue='\e[30;48;5;81m'
 black_on_red='\e[41m'
-On_Black='\e[40m'
+On_Black='\e[97;40m'
 reset='\e[0m'
 
 basic=$On_Black
@@ -207,7 +207,7 @@ function unlock(){
 function enter_chapter(){
 	#Usage : enter_chapter bash 1 1 (first 1 is chapter, next one is for case)
 	echo ""
-	echo -e "\e[15;5;44m - $1, Chapitre $2 \e[0m"
+	echo -e "\e[97;44m - $1, Chapitre $2 \e[0m"
 	answer_quiz "Cours" "Questionnaire" "Retour" "4" "5" "6" "$1" "$2"
 }
 function start_lecture(){
@@ -246,7 +246,7 @@ case $1 in
 31) echo -n 31 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ici, il suffit d'appeler le deuxième fichier 'fichier2' et le tour est joué."; restore=$(expr $restore + 1) ;&
 32) echo -n 32 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Pour ${codeError}home${reset}, il suffit également de lui donner un autre nom qui ne pose pas de problème comme 'Home', avec un h majuscule."; restore=$(expr $restore + 1) ;&
 33) echo -n 33 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Oui ! Dans un système d'exploitation de type Unix, les majuscules sont importantes. 'Home', avec un grand H et 'home' sont deux noms différents."; restore=$(expr $restore + 1) ;&
-34) echo -n 34 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "En informatique, quand les majuscules ne sont pas équivalentes au minuscules, on dit que les noms sont ${voc}sensibles à la casse${reset}."; restore=$(expr $restore + 1) ;&
+34) echo -n 34 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "En informatique, quand les majuscules ne sont pas équivalentes aux minuscules, on dit que les noms sont ${voc}sensibles à la casse${reset}."; restore=$(expr $restore + 1) ;&
 35) echo -n 35 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Effectivement, les systèmes de type Unix sont ${voc}sensibles à la casse${reset}. C'est à dire que 'home', 'Home', 'hOme', 'hoMe', 'homE', 'HoMe', 'hOmE', 'HOme', 'hoME', 'HomE', 'hOMe', 'HOME', etc... sont valides et différents !"; restore=$(expr $restore + 1) ;&
 36) echo -n 36 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; tree_1; restore=$(expr $restore + 1) ;&
 37) echo -n 37 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Il est aussi possible de représenter l'arborescence linux de cette manière."; restore=$(expr $restore + 1) ;&
