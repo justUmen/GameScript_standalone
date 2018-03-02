@@ -22,17 +22,23 @@ function press_key(){
 	#~ pkill mplayer > /dev/null 2>&1
 }
 
+function new_mplayer(){
+	pkill mplayer &> /dev/null
+	pkill mpg123 &> /dev/null
+	( mplayer -af volume=10 "$AUDIO_LOCAL/$AUDIOCMP.mp3" || mpg123 --scale 100000 "$AUDIO_LOCAL/$AUDIOCMP.mp3" ) &> /dev/null &
+	(
+		wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3
+		||
+		wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3
+	) &> /dev/null & #download next one, or next one if 
+}
 function talk(){
-	pkill mplayer > /dev/null 2>&1
-mplayer -af volume=10 "$AUDIO_LOCAL/$restore.mp3" > /dev/null 2>&1 &
-( wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 3`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 3`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 4`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 4`.mp3 ) > /dev/null 2>&1 & #download next one, or next one, or next one
+	new_mplayer
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
 	press_key
 }
 function talk_not_press_key(){
-	pkill mplayer > /dev/null 2>&1
-mplayer -af volume=10 "$AUDIO_LOCAL/$restore.mp3" > /dev/null 2>&1 &
-( wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 3`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 3`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 4`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 4`.mp3 ) > /dev/null 2>&1 & #download next one, or next one, or next one
+	new_mplayer
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
 }
 function talk_not_press_key_ANSWER(){
@@ -197,7 +203,6 @@ function unlock(){
 
 function enter_chapter(){
 	#Usage : enter_chapter bash 1 1 (first 1 is chapter, next one is for case)
-	wget -nc $AUDIO_DL/1.mp3 -O ~/.GameScript/Audio/c$2/1.mp3 > /dev/null 2>&1 #Wait for download of first one
 	echo ""
 	echo -e "\e[15;5;44m - $1, Chapitre $2 \e[0m"
 	answer_quiz "Cours" "Questionnaire" "Retour" "4" "5" "6" "$1" "$2"
@@ -206,7 +211,7 @@ function start_lecture(){
 restore=$1
 case $1 in
 1) echo -n 1 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; [ -d "$HOME/.GameScript_bash5" ] && echo "Erreur innatendu, ${HOME}/.GameScript_bash5 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash5 et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
-2) echo -n 2 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; mkdir $HOME/.GameScript_bash5; restore=$(expr $restore + 1) ;&
+2) echo -n 2 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; mkdir $HOME/.GameScript_bash5 && mkdir -p $HOME/.GameScript/Audio/fr/bash/c5/ && wget -q -nc $AUDIO_DL/6.mp3 -O $HOME/.GameScript/Audio/fr/bash/c5/6.mp3 > /dev/null 2>&1; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; cd $HOME/.GameScript_bash5; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; mkdir Dossier;touch Dossier/X;touch Dossier/Y;chmod 644 Dossier; restore=$(expr $restore + 1) ;&
 5) echo -n 5 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; echo "a">f1;chmod 000 f1;echo "ab">f2;chmod 444 f2;echo "abc">f3;chmod 400 f3;echo "abcd">f4;chmod 477 f4; restore=$(expr $restore + 1) ;&
@@ -217,12 +222,12 @@ case $1 in
 10) echo -n 10 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Avec cette option, ${code}ls${reset} nous donne plus d'informations sur les éléments du répertoire courant."; restore=$(expr $restore + 1) ;&
 11) echo -n 11 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Vous avez au début une chaine de caractères étrange composé de ${code}-${reset} et de lettres à gauche du premier espace de chaque ligne."; restore=$(expr $restore + 1) ;&
 12) echo -n 12 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Le premier caractère représente le type de l'élément."; restore=$(expr $restore + 1) ;&
-13) echo -n 13 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Si c'est un ${code}-${reset}, c'est un fichier, si c'est un ${code}d${reset}, c'est un dossier."; restore=$(expr $restore + 1) ;&
+13) echo -n 13 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Si c'est un ${code}-${reset}, cet élément est un fichier, si c'est un ${code}d${reset}, il s'agit d'un dossier."; restore=$(expr $restore + 1) ;&
 14) echo -n 14 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Avec ce premier caractère, on voit clairement que 'Dossier' est un dossier et que les autres sont des fichiers."; restore=$(expr $restore + 1) ;&
-15) echo -n 15 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Les neufs autres caractères représentent les ${voc}permissions${reset} de l'élément en question."; restore=$(expr $restore + 1) ;&
+15) echo -n 15 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Les neufs autres caractères qui suivent représentent les ${voc}permissions${reset} de l'élément en question."; restore=$(expr $restore + 1) ;&
 16) echo -n 16 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Il est possible d'avoir plusieurs utilisateurs sur un même ordinateur."; restore=$(expr $restore + 1) ;&
 17) echo -n 17 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Mais certains de vos fichiers méritent peut-être d'être protégés."; restore=$(expr $restore + 1) ;&
-18) echo -n 18 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Par exemple, il semblerai raissonnable que votre petite soeur ne puisse pas supprimer vos fichier personnels."; restore=$(expr $restore + 1) ;&
+18) echo -n 18 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Par exemple, il semblerai raisonnable que votre petite soeur ne puisse pas supprimer vos fichier personnels."; restore=$(expr $restore + 1) ;&
 19) echo -n 19 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "En revanche, même si vous ne voulez pas qu'elle puisse supprimer vos fichiers, vous avez peut-être besoin de lui donner la permission de les lire."; restore=$(expr $restore + 1) ;&
 20) echo -n 20 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ces neufs caractères sont utilisés pour définir avec précision les permissions que vous désirez."; restore=$(expr $restore + 1) ;&
 21) echo -n 21 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "La permission 'minimale' est ${code}---------${reset} et la permission 'maximale' est ${code}rwxrwxrwx${reset}."; restore=$(expr $restore + 1) ;&
@@ -233,7 +238,7 @@ case $1 in
 26) echo -n 26 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Le premier caractère pourra être soit un ${code}-${reset} soit un ${code}r${reset}."; restore=$(expr $restore + 1) ;&
 27) echo -n 27 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ce ${code}r${reset} vient de l'anglais ${code}r${reset}ead et donne le droit de lecture."; restore=$(expr $restore + 1) ;&
 28) echo -n 28 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Le second caractère pourra être soit un ${code}-${reset} soit un ${code}w${reset}."; restore=$(expr $restore + 1) ;&
-29) echo -n 29 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ce ${code}w${reset} vient de l'anglais ${code}W${reset}rite et donne le droit d'écriture : modification et suppression."; restore=$(expr $restore + 1) ;&
+29) echo -n 29 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ce ${code}w${reset} vient de l'anglais ${code}W${reset}rite et donne le droit d'écriture : la modification ou la suppression."; restore=$(expr $restore + 1) ;&
 30) echo -n 30 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Le troisième caractère pourra être soit un ${code}-${reset} soit un ${code}x${reset}."; restore=$(expr $restore + 1) ;&
 31) echo -n 31 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ce ${code}x${reset} vient de l'anglais e${code}X${reset}ecute et donne le droit d'exécution."; restore=$(expr $restore + 1) ;&
 32) echo -n 32 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Et ce schéma de trois caractères ${code}rwx${reset} se répète trois fois."; restore=$(expr $restore + 1) ;&
@@ -251,7 +256,7 @@ case $1 in
 44) echo -n 44 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Les membres du groupe 'familleEinstein' ont uniquement le droit de lecture sur ce fichier avec ce ${code}r${reset}."; restore=$(expr $restore + 1) ;&
 45) echo -n 45 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ils n'ont pas le droit de le modifier ou de le supprimer, car il n'y a pas de ${code}w${reset} !"; restore=$(expr $restore + 1) ;&
 46) echo -n 46 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Le reste des utilisateurs n'ont aucune permission, car il n'y a pour eux aucune lettre : ${codeFile}---${reset}."; restore=$(expr $restore + 1) ;&
-47) echo -n 47 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Maintenant revenons à nos fichiers et relançons : ${learn}ls -l${reset}"; restore=$(expr $restore + 1) ;&
+47) echo -n 47 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Maintenant revenons à nos fichiers et relançons la commande ${learn}ls -l${reset}"; restore=$(expr $restore + 1) ;&
 48) echo -n 48 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "ls -l" justumen "Non"; restore=$(expr $restore + 1) ;&
 49) echo -n 49 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Sur un système simple, il est probable que vous ayez un nom de groupe similaire à votre nom d'utilisateur, mais ça n'est pas un problème."; restore=$(expr $restore + 1) ;&
 50) echo -n 50 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Il y a donc de nombreuses combinaisons de permission possibles, ici nous avons 'f1' avec les permissions minimales : ${code}---------${reset}."; restore=$(expr $restore + 1) ;&
@@ -269,7 +274,7 @@ case $1 in
 62) echo -n 62 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Sur 'f2' nous avons encore un problème de permission."; restore=$(expr $restore + 1) ;&
 63) echo -n 63 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Cette fois c'est un ${code}w${reset} qui nous manque à la place de ce tiret rouge : -r${codeError}-${reset}-r--r--."; restore=$(expr $restore + 1) ;&
 64) echo -n 64 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Mais 'f3' semble avoir à la fois le ${code}r${reset} et le ${code}w${reset}."; restore=$(expr $restore + 1) ;&
-65) echo -n 65 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Affichez les permissions de 'f3' avec le nom du fichier en argument de ls :  ${learn}ls -l f3${reset}."; restore=$(expr $restore + 1) ;&
+65) echo -n 65 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Affichez les permissions de 'f3' avec le nom du fichier en argument : ${learn}ls -l f3${reset}."; restore=$(expr $restore + 1) ;&
 66) echo -n 66 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "ls -l f3" justumen "Non"; restore=$(expr $restore + 1) ;&
 67) echo -n 67 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Affichez le contenu de 'f3'."; restore=$(expr $restore + 1) ;&
 68) echo -n 68 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "cat f3" justumen "Non"; restore=$(expr $restore + 1) ;&
@@ -278,18 +283,18 @@ case $1 in
 71) echo -n 71 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Affichez le contenu de 'f3' a nouveau."; restore=$(expr $restore + 1) ;&
 72) echo -n 72 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "cat f3" justumen "Non"; restore=$(expr $restore + 1) ;&
 73) echo -n 73 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Parfait ! Nous pouvons enfin utiliser les commandes que nous avons apprises."; restore=$(expr $restore + 1) ;&
-74) echo -n 74 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Mais nous n'avons jamais vu ce problème de permission dans les chapitres précédents..."; restore=$(expr $restore + 1) ;&
-75) echo -n 75 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Car je viens de les simuler pour vous..."; restore=$(expr $restore + 1) ;&
+74) echo -n 74 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Mais nous n'avons jamais eu ce problème de permission dans les chapitres précédents..."; restore=$(expr $restore + 1) ;&
+75) echo -n 75 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Je viens ici en fait de les simuler pour vous..."; restore=$(expr $restore + 1) ;&
 76) echo -n 76 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Vous savez déjà créer un fichier texte avec ${code}echo${reset}."; restore=$(expr $restore + 1) ;&
 77) echo -n 77 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Mais vous pouvez aussi utiliser la commande ${code}touch${reset}, faites donc : ${learn}touch file${reset}"; restore=$(expr $restore + 1) ;&
 78) echo -n 78 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "touch file" justumen "Non"; restore=$(expr $restore + 1) ;&
-79) echo -n 79 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Maintenant nous pouvons voir les permissions qui sont par défaut lors de la création d'un nouveau fichier."; restore=$(expr $restore + 1) ;&
-80) echo -n 80 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Pour avoir les permissions de 'file' : ${learn}ls -l file${reset}"; restore=$(expr $restore + 1) ;&
+79) echo -n 79 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Maintenant nous pouvons voir les permissions par défaut lors de la création d'un nouveau fichier."; restore=$(expr $restore + 1) ;&
+80) echo -n 80 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Pour avoir les permissions de 'file', faites ${learn}ls -l file${reset}"; restore=$(expr $restore + 1) ;&
 81) echo -n 81 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "ls -l file" justumen "Non"; restore=$(expr $restore + 1) ;&
 82) echo -n 82 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Si le fichier a été créé par vous, vous aurez par défaut le droit de lecture et d'écriture."; restore=$(expr $restore + 1) ;&
 83) echo -n 83 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Attention par contre si ce fichier ne vient pas de vous, il peut avoir des permissions limités ou inattendues."; restore=$(expr $restore + 1) ;&
 84) echo -n 84 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Nous pouvons voir ici le nom du propriétaire du fichier, mais est-ce bien vous ?"; restore=$(expr $restore + 1) ;&
-85) echo -n 85 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Pour connaitre votre nom d'utilisateur dans ce terminal, vous pouvez taper : ${learn}whoami${reset}"; restore=$(expr $restore + 1) ;&
+85) echo -n 85 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Pour connaitre votre nom d'utilisateur, vous pouvez taper : ${learn}whoami${reset}"; restore=$(expr $restore + 1) ;&
 86) echo -n 86 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "whoami" justumen "Non"; restore=$(expr $restore + 1) ;&
 87) echo -n 87 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "'Who am I ?' est l'anglais pour 'Qui suis-je ?'."; restore=$(expr $restore + 1) ;&
 88) echo -n 88 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ici votre nom correspond effectivement au nom du propriétaire de ce fichier."; restore=$(expr $restore + 1) ;&
@@ -316,7 +321,7 @@ case $1 in
 109) echo -n 109 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Pour un fichier texte, les permissions ${codeFile}x${reset} n'ont aucun effet..."; restore=$(expr $restore + 1) ;&
 110) echo -n 110 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Mais ici avec un ${voc}dossier${reset}, le ${codeFile}x${reset} joue un rôle important !"; restore=$(expr $restore + 1) ;&
 111) echo -n 111 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Etrangement, nous avons le droit de lecture avec ce d${codeFile}r${reset}w-r--r--"; restore=$(expr $restore + 1) ;&
-112) echo -n 112 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Donc nous pouvons afficher les éléments de ce dossier."; restore=$(expr $restore + 1) ;&
+112) echo -n 112 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Donc nous pouvons afficher les éléments de ce dossier, faites le donc."; restore=$(expr $restore + 1) ;&
 113) echo -n 113 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "ls Dossier" justumen "Non"; restore=$(expr $restore + 1) ;&
 114) echo -n 114 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Le contenu de 'Dossier' s'affiche. Il contient un fichier 'X' et un fichier 'Y'."; restore=$(expr $restore + 1) ;&
 115) echo -n 115 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Affichons maintenant les permissions des fichiers dans ce dossier."; restore=$(expr $restore + 1) ;&
@@ -327,24 +332,24 @@ case $1 in
 120) echo -n 120 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "C'est ce que nous allons voir maintenant : Comment changer ces permissions ?"; restore=$(expr $restore + 1) ;&
 121) echo -n 121 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Donc en premier lieu il faut que vous soyiez capable d'identifier la permission qu'il vous manque !"; restore=$(expr $restore + 1) ;&
 122) echo -n 122 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "La commande ${code}cat${reset} par exemple a besoin d'une permission de lecture : ${codeFile}r${reset}."; restore=$(expr $restore + 1) ;&
-123) echo -n 123 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Le fichier 'f1' ne nous donne pas cette permission qu'il nous faut pour l'afficher."; restore=$(expr $restore + 1) ;&
+123) echo -n 123 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Le fichier 'f1' ne nous donne pas cette permission pour l'afficher."; restore=$(expr $restore + 1) ;&
 124) echo -n 124 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Pour changer ces permissions il faudra utiliser la commande : ${code}chmod${reset}."; restore=$(expr $restore + 1) ;&
 125) echo -n 125 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Il faudra d'abord mémoriser 3 nouvelles lettres :"; restore=$(expr $restore + 1) ;&
-126) echo -n 126 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "${code}u${reset} pour l'${code}u${reset}tilisateur / le propriétaire : -${codeFile}rwx${reset}rwxrwx"; restore=$(expr $restore + 1) ;&
+126) echo -n 126 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "${code}u${reset} pour l'${code}u${reset}tilisateur ou le propriétaire : -${codeFile}rwx${reset}rwxrwx"; restore=$(expr $restore + 1) ;&
 127) echo -n 127 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "${code}g${reset} pour le ${code}g${reset}roupe : -rwx${codeFile}rwx${reset}rwx"; restore=$(expr $restore + 1) ;&
 128) echo -n 128 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "et ${code}o${reset} pour '${code}o${reset}thers', l'anglais de 'autres' : -rwxrwx${codeFile}rwx${reset}"; restore=$(expr $restore + 1) ;&
 129) echo -n 129 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Vous pouvez ensuite utilisez ces lettres en conjonction avec les lettres 'r', 'w' et 'x' que vous connaissez déjà."; restore=$(expr $restore + 1) ;&
 130) echo -n 130 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Vous devez également utiliser les symboles ${code}+${reset} et ${code}-${reset}, pour ajouter ou supprimer une permission."; restore=$(expr $restore + 1) ;&
 131) echo -n 131 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Relancez : ${learn}ls -l${reset}"; restore=$(expr $restore + 1) ;&
 132) echo -n 132 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "ls -l" justumen "Non"; restore=$(expr $restore + 1) ;&
-133) echo -n 133 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Et prenons un exemple : Comment pour pouvoir nous autoriser l'affichage de 'f1' ?"; restore=$(expr $restore + 1) ;&
+133) echo -n 133 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Et prenons un exemple : Comment pouvoir nous autoriser l'affichage de 'f1' ?"; restore=$(expr $restore + 1) ;&
 134) echo -n 134 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Autrement dit : transformer ---------- en -r--------."; restore=$(expr $restore + 1) ;&
 135) echo -n 135 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "D'abord nous voulons changer les permissions du propriétaire, il faudra donc utiliser la lettre ${code}u${reset}."; restore=$(expr $restore + 1) ;&
 136) echo -n 136 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Nous voulons ajouter une permission, il faudra donc utiliser le symbole ${code}+${reset}."; restore=$(expr $restore + 1) ;&
 137) echo -n 137 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Nous voulons le droit de lecture, il faudra donc bien sûr utiliser la lettre ${code}r${reset}."; restore=$(expr $restore + 1) ;&
 138) echo -n 138 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Et la cible de chmod sera le fichier 'f1'."; restore=$(expr $restore + 1) ;&
 139) echo -n 139 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "La syntaxe sera donc la suivante : ${learn}chmod u+r f1${reset}"; restore=$(expr $restore + 1) ;&
-140) echo -n 140 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Avant de lancer cette commande, essayez donc d'afficher 'f1'."; restore=$(expr $restore + 1) ;&
+140) echo -n 140 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Avant de lancer cette commande, essayez donc d'afficher le contenu de 'f1'."; restore=$(expr $restore + 1) ;&
 141) echo -n 141 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "cat f1" justumen "Non"; restore=$(expr $restore + 1) ;&
 142) echo -n 142 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Ajoutons donc le droit de lecture à 'f1' pour le propriétaire avec : ${learn}chmod u+r f1${reset}"; restore=$(expr $restore + 1) ;&
 143) echo -n 143 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "chmod u+r f1" justumen "Non"; restore=$(expr $restore + 1) ;&
@@ -354,10 +359,10 @@ case $1 in
 147) echo -n 147 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Et enfin, affichez le fichier 'f1'."; restore=$(expr $restore + 1) ;&
 148) echo -n 148 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; answer_run "cat f1" justumen "Non"; restore=$(expr $restore + 1) ;&
 149) echo -n 149 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Vous pouvez donc utiliser toutes les combinaisons que vous voulez : ${learn}u+r${reset}, ${learn}g-w${reset}, ${learn}u+x${reset}, etc..."; restore=$(expr $restore + 1) ;&
-150) echo -n 150 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Mais vous pouvez aussi les cumuler avec d'autres, comme par exemple pour donner au propriétaire le droit de lecture ET d'écriture : ${learn}u+rw${reset}."; restore=$(expr $restore + 1) ;&
-151) echo -n 151 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Pour enlever aux membres du groupe et aux autres le droit d'écriture : ${learn}go-w${reset}"; restore=$(expr $restore + 1) ;&
-152) echo -n 152 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ou encore pour donner tous les droits à tout le monde : ${learn}ugo+rwx${reset}."; restore=$(expr $restore + 1) ;&
-153) echo -n 153 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ou enlever tous les droits de tout le monde : ${learn}ugo-rwx${reset}."; restore=$(expr $restore + 1) ;&
+150) echo -n 150 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Mais vous pouvez aussi les cumuler avec d'autres, comme par exemple pour donner au propriétaire le droit de lecture ET d'écriture, vous pouvez faire : ${learn}u+rw${reset}."; restore=$(expr $restore + 1) ;&
+151) echo -n 151 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Pour enlever aux membres du groupe et aux autres le droit d'écriture, vous pouvez faire : ${learn}go-w${reset}"; restore=$(expr $restore + 1) ;&
+152) echo -n 152 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ou encore pour donner tous les droits à tout le monde, vous pouvez faire : ${learn}ugo+rwx${reset}."; restore=$(expr $restore + 1) ;&
+153) echo -n 153 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Ou enlever tous les droits de tout le monde avec ${learn}ugo-rwx${reset}."; restore=$(expr $restore + 1) ;&
 154) echo -n 154 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Avant de passer au questionnaire je vous rappelle que le droit d'écriture donne le droit de ${voc}suppression${reset}."; restore=$(expr $restore + 1) ;&
 155) echo -n 155 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Bonne chance !"; restore=$(expr $restore + 1) ;&
 156) echo -n 156 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; clean; restore=$(expr $restore + 1) ;&

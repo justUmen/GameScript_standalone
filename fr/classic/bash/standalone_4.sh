@@ -22,17 +22,23 @@ function press_key(){
 	#~ pkill mplayer > /dev/null 2>&1
 }
 
+function new_mplayer(){
+	pkill mplayer &> /dev/null
+	pkill mpg123 &> /dev/null
+	( mplayer -af volume=10 "$AUDIO_LOCAL/$AUDIOCMP.mp3" || mpg123 --scale 100000 "$AUDIO_LOCAL/$AUDIOCMP.mp3" ) &> /dev/null &
+	(
+		wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3
+		||
+		wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3
+	) &> /dev/null & #download next one, or next one if 
+}
 function talk(){
-	pkill mplayer > /dev/null 2>&1
-mplayer -af volume=10 "$AUDIO_LOCAL/$restore.mp3" > /dev/null 2>&1 &
-( wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 3`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 3`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 4`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 4`.mp3 ) > /dev/null 2>&1 & #download next one, or next one, or next one
+	new_mplayer
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
 	press_key
 }
 function talk_not_press_key(){
-	pkill mplayer > /dev/null 2>&1
-mplayer -af volume=10 "$AUDIO_LOCAL/$restore.mp3" > /dev/null 2>&1 &
-( wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 3`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 3`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 4`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 4`.mp3 ) > /dev/null 2>&1 & #download next one, or next one, or next one
+	new_mplayer
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
 }
 function talk_not_press_key_ANSWER(){
@@ -197,7 +203,6 @@ function unlock(){
 
 function enter_chapter(){
 	#Usage : enter_chapter bash 1 1 (first 1 is chapter, next one is for case)
-	wget -nc $AUDIO_DL/1.mp3 -O ~/.GameScript/Audio/c$2/1.mp3 > /dev/null 2>&1 #Wait for download of first one
 	echo ""
 	echo -e "\e[15;5;44m - $1, Chapitre $2 \e[0m"
 	answer_quiz "Cours" "Questionnaire" "Retour" "4" "5" "6" "$1" "$2"
@@ -206,11 +211,11 @@ function start_lecture(){
 restore=$1
 case $1 in
 1) echo -n 1 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; [ -d "$HOME/.GameScript_bash4" ] && echo "Erreur innatendu, ${HOME}/.GameScript_bash4 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash4 et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
-2) echo -n 2 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; mkdir $HOME/.GameScript_bash4; restore=$(expr $restore + 1) ;&
+2) echo -n 2 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; mkdir $HOME/.GameScript_bash4 && mkdir -p $HOME/.GameScript/Audio/fr/bash/c4/ && wget -q -nc $AUDIO_DL/4.mp3 -O $HOME/.GameScript/Audio/fr/bash/c4/4.mp3 > /dev/null 2>&1; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; cd $HOME/.GameScript_bash4; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Dans le chapitre précédent, nous avons vu comment créer et modifier les fichiers textes."; restore=$(expr $restore + 1) ;&
-5) echo -n 5 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Ici nous allons continuer sur d'autres types de contrôles."; restore=$(expr $restore + 1) ;&
-6) echo -n 6 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Commencez par créer un nouveau fichier 'test' avec comme contenu le mot 'bonjour'."; restore=$(expr $restore + 1) ;&
+5) echo -n 5 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Ici nous allons continuer avec d'autres types de contrôles."; restore=$(expr $restore + 1) ;&
+6) echo -n 6 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Commençons par créer un nouveau fichier 'test' avec comme contenu le mot 'bonjour'."; restore=$(expr $restore + 1) ;&
 7) echo -n 7 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "echo bonjour>test" justumen "Non"; restore=$(expr $restore + 1) ;&
 8) echo -n 8 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Créez un nouveau dossier nommé 'DIR'."; restore=$(expr $restore + 1) ;&
 9) echo -n 9 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "mkdir DIR" justumen "Non"; restore=$(expr $restore + 1) ;&
@@ -228,12 +233,12 @@ case $1 in
 21) echo -n 21 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "pwd" justumen "Non"; restore=$(expr $restore + 1) ;&
 22) echo -n 22 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Affichez les éléments du répertoire courant."; restore=$(expr $restore + 1) ;&
 23) echo -n 23 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
-24) echo -n 24 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Ici le fichier 'test' a bien été déplacé dans le répertoire 'DIR' avec la commande : ${learn}mv test DIR${reset}"; restore=$(expr $restore + 1) ;&
+24) echo -n 24 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Ici le fichier 'test' a bien été déplacé dans le répertoire 'DIR' avec cette commande : ${learn}mv test DIR${reset}"; restore=$(expr $restore + 1) ;&
 25) echo -n 25 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Dans cet exemple, notre premier argument est un fichier et le second est un dossier."; restore=$(expr $restore + 1) ;&
 26) echo -n 26 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Comme le deuxième argument est un dossier, la commande aurait pu être : ${learn}mv test DIR/${reset}"; restore=$(expr $restore + 1) ;&
 27) echo -n 27 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Cette version est nettement plus lisible que la première."; restore=$(expr $restore + 1) ;&
 28) echo -n 28 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Parce que ${code}mv${reset} peut avoir indifféremment en arguments des fichiers ou des dossiers."; restore=$(expr $restore + 1) ;&
-29) echo -n 29 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Mais si le premier argument est un fichier et que le deuxième est aussi un fichier, la commande agira différemment : le fichier sera déplacé dans un autre fichier avec un nom différent."; restore=$(expr $restore + 1) ;&
+29) echo -n 29 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Mais si le premier argument est un fichier et que le deuxième n'est pas un dossier, la commande agira différemment : le fichier sera déplacé dans un autre fichier avec un nom différent, celui de deuxième argument."; restore=$(expr $restore + 1) ;&
 30) echo -n 30 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Ou pour plus de clarté on peut dire qu'il sera simplement ${voc}renommé${reset}."; restore=$(expr $restore + 1) ;&
 31) echo -n 31 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Dans votre répertoire courant vous avez toujours ce fichier 'test'."; restore=$(expr $restore + 1) ;&
 32) echo -n 32 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Utilisez cette commande pour renommer 'test' en 'test2' : ${learn}mv test test2${reset}"; restore=$(expr $restore + 1) ;&
@@ -246,14 +251,14 @@ case $1 in
 39) echo -n 39 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Maintenant créez un nouveau dossier nommé : 'DOS'."; restore=$(expr $restore + 1) ;&
 40) echo -n 40 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "mkdir DOS" justumen "Non"; restore=$(expr $restore + 1) ;&
 41) echo -n 41 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Je le répète, ${code}mv${reset} peut avoir indifféremment en arguments des fichiers ou des dossiers."; restore=$(expr $restore + 1) ;&
-42) echo -n 42 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "C'est à dire que si les deux arguments sont des dossiers, ${code}mv${reset} va encore une fois simplement renommer."; restore=$(expr $restore + 1) ;&
+42) echo -n 42 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "C'est à dire que si le premier argument est un dossier, et que le second n'existe pas, ${code}mv${reset} va encore une fois simplement renommer le dossier en argument."; restore=$(expr $restore + 1) ;&
 43) echo -n 43 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Renommez donc ce dossier 'DOS' en 'DOS2'."; restore=$(expr $restore + 1) ;&
 44) echo -n 44 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "mv DOS DOS2" justumen "Non"; restore=$(expr $restore + 1) ;&
 45) echo -n 45 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Et affichez les éléments du répertoire courant."; restore=$(expr $restore + 1) ;&
 46) echo -n 46 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
-47) echo -n 47 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Attention donc à la commande ${code}mv${reset} qui peut avoir deux rôles différents, déplacer et renommer."; restore=$(expr $restore + 1) ;&
+47) echo -n 47 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Attention donc à la commande ${code}mv${reset} qui peut avoir deux rôles différents : déplacer et renommer."; restore=$(expr $restore + 1) ;&
 48) echo -n 48 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "${code}mv${reset} peut également faire les deux en une seule commande."; restore=$(expr $restore + 1) ;&
-49) echo -n 49 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Déplacez 'test2' dans 'DOS2' et renommez le en 'test3' avec : ${learn}mv test2 DOS2/test3${reset}"; restore=$(expr $restore + 1) ;&
+49) echo -n 49 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Déplacez 'test2' dans le dossier 'DOS2' et renommez le en 'test3' avec : ${learn}mv test2 DOS2/test3${reset}"; restore=$(expr $restore + 1) ;&
 50) echo -n 50 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "mv test2 DOS2/test3" justumen "Non"; restore=$(expr $restore + 1) ;&
 51) echo -n 51 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Affichez les éléments du répertoire DOS2."; restore=$(expr $restore + 1) ;&
 52) echo -n 52 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "ls DOS2" justumen "Non"; restore=$(expr $restore + 1) ;&
@@ -268,23 +273,23 @@ case $1 in
 61) echo -n 61 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "echo -n bonjour>DOS2/test3" justumen "Non"; restore=$(expr $restore + 1) ;&
 62) echo -n 62 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Maintenant ajoutez le texte ' tout le monde' à ce fichier 'test3', en utisant ${learn}\"${reset}."; restore=$(expr $restore + 1) ;&
 63) echo -n 63 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "echo \" tout le monde\">>DOS2/test3" justumen "Non"; restore=$(expr $restore + 1) ;&
-64) echo -n 64 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Enfin, affichez le contenu de 'test3'."; restore=$(expr $restore + 1) ;&
+64) echo -n 64 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Et enfin, affichez le contenu de 'test3'."; restore=$(expr $restore + 1) ;&
 65) echo -n 65 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "cat DOS2/test3" justumen "Non"; restore=$(expr $restore + 1) ;&
 66) echo -n 66 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Et voilà, bonjour tout le monde !"; restore=$(expr $restore + 1) ;&
 67) echo -n 67 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Quand une commande ne fait pas exactement ce que voulez qu'elle fasse, visitez son manuel !"; restore=$(expr $restore + 1) ;&
 68) echo -n 68 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Il est très probable qu'une simple option soit la réponse à votre problème."; restore=$(expr $restore + 1) ;&
-69) echo -n 69 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "${code}mv${reset} utilise deux arguments, le premier est ${voc}<SOURCE>${reset} et le deuxième est ${voc}<DESTINATION>${reset}."; restore=$(expr $restore + 1) ;&
-70) echo -n 70 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Et la syntaxe comme on l'a déjà vu est donc : ${code}mv <SOURCE> <DESTINATION>${reset}"; restore=$(expr $restore + 1) ;&
+69) echo -n 69 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "${code}mv${reset} utilise deux arguments, le premier est la ${voc}<SOURCE>${reset} et le deuxième est la ${voc}<DESTINATION>${reset}."; restore=$(expr $restore + 1) ;&
+70) echo -n 70 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Et la syntaxe comme on l'a déjà vu est : ${code}mv <SOURCE> <DESTINATION>${reset}"; restore=$(expr $restore + 1) ;&
 71) echo -n 71 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "${voc}<SOURCE>${reset} et ${voc}<DESTINATION>${reset} sont à remplacer par les fichiers ou les dossiers voulus."; restore=$(expr $restore + 1) ;&
 72) echo -n 72 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Lorsqu'une commande a besoin de deux arguments, la plupart du temps cette logique s'applique."; restore=$(expr $restore + 1) ;&
 73) echo -n 73 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Le premier argument est la ${voc}source${reset}, le second est la ${voc}destination${reset}."; restore=$(expr $restore + 1) ;&
-74) echo -n 74 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Pour ${voc}copier${reset} ou ${voc}dupliquer${reset} un fichier sur linux il faudra utiliser la commande ${code}cp${reset}."; restore=$(expr $restore + 1) ;&
+74) echo -n 74 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Pour ${voc}copier${reset} ou ${voc}dupliquer${reset} un fichier, il faudra utiliser la commande ${code}cp${reset}."; restore=$(expr $restore + 1) ;&
 75) echo -n 75 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Son comportement est sensiblement identique à ${code}mv${reset}, sauf que le fichier ${voc}<SOURCE>${reset} ne sera pas supprimé."; restore=$(expr $restore + 1) ;&
 76) echo -n 76 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Affichez les éléments du répertoire courant."; restore=$(expr $restore + 1) ;&
 77) echo -n 77 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
 78) echo -n 78 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Copiez donc le fichier 'test3' dans votre répertoire courant."; restore=$(expr $restore + 1) ;&
 79) echo -n 79 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "cp DOS2/test3 ." justumen "Non"; restore=$(expr $restore + 1) ;&
-80) echo -n 80 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Et ici nous avons notre première utilisation pratique du ${code}.${reset} qui je vous le rappelle représente le répertoire courant."; restore=$(expr $restore + 1) ;&
+80) echo -n 80 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Et ici nous avons notre première utilisation pratique du ${code}.${reset}, qui je vous le rappelle représente le répertoire courant."; restore=$(expr $restore + 1) ;&
 81) echo -n 81 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Listez à nouveau les éléments du répertoire courant."; restore=$(expr $restore + 1) ;&
 82) echo -n 82 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
 83) echo -n 83 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Encore une fois ${code}.${reset} étant un dossier, vous pouvez également utiliser ${code}./${reset} à la place."; restore=$(expr $restore + 1) ;&
@@ -293,32 +298,32 @@ case $1 in
 86) echo -n 86 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Puis listez les éléments du répertoire courant."; restore=$(expr $restore + 1) ;&
 87) echo -n 87 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
 88) echo -n 88 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Ce résultat ne devrait pas vous choquer."; restore=$(expr $restore + 1) ;&
-89) echo -n 89 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Encore une fois, ${code}.new${reset} et  ${code}./new${reset} représentent deux choses différentes."; restore=$(expr $restore + 1) ;&
+89) echo -n 89 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Encore une fois, ${code}.new${reset} et ${code}./new${reset} représentent deux choses différentes."; restore=$(expr $restore + 1) ;&
 90) echo -n 90 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "${code}.new${reset} est bien évidemment un fichier caché."; restore=$(expr $restore + 1) ;&
 91) echo -n 91 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Listez les fichiers cachés du répertoire courant."; restore=$(expr $restore + 1) ;&
 92) echo -n 92 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "ls -a" justumen "Non"; restore=$(expr $restore + 1) ;&
-93) echo -n 93 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Si vous vouliez copier le fichier 'test3' et renommer cette copie en 'new' dans le répertoire courant, la commande sera : ${learn}cp DOS2/test3 ./new${reset}."; restore=$(expr $restore + 1) ;&
+93) echo -n 93 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Si vous voulez copier le fichier 'test3' et renommer cette copie en 'new' dans le répertoire courant, la commande serait : ${learn}cp DOS2/test3 ./new${reset}."; restore=$(expr $restore + 1) ;&
 94) echo -n 94 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Ici la commande ${learn}cp DOS2/test3 .new${reset} est identique à ${learn}cp DOS2/test3 ./.new${reset}."; restore=$(expr $restore + 1) ;&
-95) echo -n 95 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Sur bash, il est possible d'avoir plusieures commandes sur une seule ligne, il suffit de les séparer par des ${code};${reset}."; restore=$(expr $restore + 1) ;&
+95) echo -n 95 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Il est aussi possible d'avoir plusieures commandes sur une seule ligne, il suffit de les séparer par des ${code};${reset}."; restore=$(expr $restore + 1) ;&
 96) echo -n 96 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Essayez donc d'afficher 'a', puis sur une autre ligne 'b'. Avec deux commandes et un ${code};${reset}."; restore=$(expr $restore + 1) ;&
 97) echo -n 97 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "echo a;echo b" justumen "Non"; restore=$(expr $restore + 1) ;&
 98) echo -n 98 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Maintenant, essayez de vous déplacer dans le dossier DOS et de créer un dossier NEW à l'intérieur."; restore=$(expr $restore + 1) ;&
 99) echo -n 99 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "cd DOS;mkdir NEW" justumen "Non"; restore=$(expr $restore + 1) ;&
 100) echo -n 100 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Listez les éléments de votre répertoire courant."; restore=$(expr $restore + 1) ;&
 101) echo -n 101 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
-102) echo -n 102 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Avec ${code};${reset}, quel que soit le résultat de la première commande, la deuxième se lancera également."; restore=$(expr $restore + 1) ;&
+102) echo -n 102 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Avec ${code};${reset}, quel que soit le résultat de la première commande, la deuxième se lancera."; restore=$(expr $restore + 1) ;&
 103) echo -n 103 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Ici le dossier 'DOS' n'existait pas, pourtant la commande ${learn}mkdir NEW${reset} a été lancée dans ${code}.${reset}."; restore=$(expr $restore + 1) ;&
 104) echo -n 104 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Le ${code};${reset} ne donne aucun contrôle sur l'état des commandes précédentes."; restore=$(expr $restore + 1) ;&
 105) echo -n 105 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Mais vous pouvez aussi créer des conditions avant de passer à la prochaine commande."; restore=$(expr $restore + 1) ;&
 106) echo -n 106 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Si vous voulez que la deuxième commande s'exécute uniquement si la première a été un succès, vous pouvez utiliser ${code}&&${reset} à la place du ${code};${reset}."; restore=$(expr $restore + 1) ;&
-107) echo -n 107 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Commencez par supprimez ce dossier NEW, que nous avons créé par erreur."; restore=$(expr $restore + 1) ;&
+107) echo -n 107 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Commencez par supprimer ce dossier NEW, que nous avons créé par erreur dans le mauvais répertoire."; restore=$(expr $restore + 1) ;&
 108) echo -n 108 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "rmdir NEW" justumen "Non"; restore=$(expr $restore + 1) ;&
 109) echo -n 109 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Maintenant, pour créer un dossier NEW dans DOS, essayez : ${learn}cd DOS&&mkdir NEW${reset}"; restore=$(expr $restore + 1) ;&
 110) echo -n 110 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "cd DOS&&mkdir NEW" justumen "Non"; restore=$(expr $restore + 1) ;&
 111) echo -n 111 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Listez les éléments de votre répertoire courant."; restore=$(expr $restore + 1) ;&
 112) echo -n 112 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
 113) echo -n 113 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "La commande ${learn}cd DOS${reset} renvoyant une erreur, ${code}&&${reset} a bloqué le lancement de la prochaine commande."; restore=$(expr $restore + 1) ;&
-114) echo -n 114 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Cette technique est particulièrement importante si vous utilisez des commandes ${voc}destructrice${reset}, comme ${code}rm${reset}, ou ${code}echo${reset} avec un ${code}>${reset}."; restore=$(expr $restore + 1) ;&
+114) echo -n 114 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Cette technique est particulièrement importante si vous utilisez des commandes ${voc}destructrice${reset}, comme ${code}rm${reset}, ou ${code}echo${reset} avec le ${code}>${reset}."; restore=$(expr $restore + 1) ;&
 115) echo -n 115 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Si vous ne prenez pas de précaution, vous risquez de supprimer accidentellement un fichier important."; restore=$(expr $restore + 1) ;&
 116) echo -n 116 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Il est possible d'utiliser ${code};${reset} et ${code}&&${reset} avec toutes les commandes que vous connaissez déjà."; restore=$(expr $restore + 1) ;&
 117) echo -n 117 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Mais il existe une autre syntaxe : ${code}||${reset}, qui fait l'inverse de ${code}&&${reset}."; restore=$(expr $restore + 1) ;&
@@ -330,10 +335,10 @@ case $1 in
 123) echo -n 123 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Mais il est aussi possible d'avoir les deux conditions sur une seule ligne."; restore=$(expr $restore + 1) ;&
 124) echo -n 124 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Essayez cette commande : ${learn}cd DOS&&echo SUCCESS||echo ERROR${reset}"; restore=$(expr $restore + 1) ;&
 125) echo -n 125 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "cd DOS&&echo SUCCESS||echo ERROR" justumen "Non"; restore=$(expr $restore + 1) ;&
-126) echo -n 126 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Si vous savez programmer, cette commande peut être vu comme une condition de programmation if/else."; restore=$(expr $restore + 1) ;&
+126) echo -n 126 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Si vous savez déjà programmer, cette commande peut être vu comme une condition de programmation if/else."; restore=$(expr $restore + 1) ;&
 127) echo -n 127 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk_not_press_key justumen "Ici le dossier 'DOS' n'existe pas, utilisez donc DOS2 avec cette commande : ${learn}cd DOS2&&ls||pwd${reset}"; restore=$(expr $restore + 1) ;&
 128) echo -n 128 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; answer_run "cd DOS2&&ls||pwd" justumen "Non"; restore=$(expr $restore + 1) ;&
-129) echo -n 129 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Comme le dossier 'DOS2' existe, la commande ${learn}pwd${reset}, ne sera pas exécuté."; restore=$(expr $restore + 1) ;&
+129) echo -n 129 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Comme le dossier 'DOS2' existe, la commande ${learn}pwd${reset}, ne sera pas exécutée."; restore=$(expr $restore + 1) ;&
 130) echo -n 130 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Vous êtes prêt pour le questionnaire !"; restore=$(expr $restore + 1) ;&
 131) echo -n 131 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; clean; restore=$(expr $restore + 1) ;&
 esac
