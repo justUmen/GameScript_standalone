@@ -236,7 +236,7 @@ function unlock(){
 	#Usage : unlock "bash" "1" "24d8" "f016"
 	PSEUDO=`cat "$HOME/.GameScript/username"`
 	PASS=`encode_b64 $PSEUDO "$3" "$4"`
-	talk_not_press_key justumen "Pour débloquer '$1 $2' sur le chat, allez sur \e[4;37mhttps://rocket.bjornulf.org/direct/boti\e[0m et copiez/collez : \e[97;42mpassword$PASS\e[0m"
+	talk_not_press_key justumen "Pour débloquer '$1 $2' sur le chat, allez sur \e[4;37mhttps://rocket.bjornulf.org/direct/boti\e[0m et copiez/collez :\n\t\e[97;42mpassword$PASS\e[0m"
 	touch "$HOME/.GameScript/good_$1$2" 2> /dev/null
 	mkdir $HOME/.GameScript/passwords/ 2> /dev/null
 	echo -n "$PASS" > "$HOME/.GameScript/passwords/$1$2"
@@ -253,7 +253,7 @@ function start_lecture(){
 restore=$1
 case $1 in
 1) echo -n 1 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; [ -d "$HOME/.GameScript_bash4" ] && echo "Erreur innatendu, ${HOME}/.GameScript_bash4 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash4 et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
-2) echo -n 2 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; ( mkdir $HOME/.GameScript_bash4 ; wget -q -nc $AUDIO_DL/4.mp3 -O $AUDIO_LOCAL/4.mp3 || rm $AUDIO_LOCAL/4.mp3 ) > /dev/null 2>&1; restore=$(expr $restore + 1) ;&
+2) echo -n 2 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; mkdir $HOME/.GameScript_bash4 2> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; cd $HOME/.GameScript_bash4; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Dans le chapitre précédent, nous avons vu comment créer et modifier les fichiers textes."; restore=$(expr $restore + 1) ;&
 5) echo -n 5 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Ici nous allons continuer avec d'autres types de contrôles."; restore=$(expr $restore + 1) ;&

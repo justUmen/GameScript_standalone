@@ -236,7 +236,7 @@ function unlock(){
 	#Usage : unlock "bash" "1" "24d8" "f016"
 	PSEUDO=`cat "$HOME/.GameScript/username"`
 	PASS=`encode_b64 $PSEUDO "$3" "$4"`
-	talk_not_press_key justumen "Pour débloquer '$1 $2' sur le chat, allez sur \e[4;37mhttps://rocket.bjornulf.org/direct/boti\e[0m et copiez/collez : \e[97;42mpassword$PASS\e[0m"
+	talk_not_press_key justumen "Pour débloquer '$1 $2' sur le chat, allez sur \e[4;37mhttps://rocket.bjornulf.org/direct/boti\e[0m et copiez/collez :\n\t\e[97;42mpassword$PASS\e[0m"
 	touch "$HOME/.GameScript/good_$1$2" 2> /dev/null
 	mkdir $HOME/.GameScript/passwords/ 2> /dev/null
 	echo -n "$PASS" > "$HOME/.GameScript/passwords/$1$2"
@@ -253,7 +253,7 @@ function start_lecture(){
 restore=$1
 case $1 in
 1) echo -n 1 > $HOME/.GameScript/restore_bash6; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash6; [ -d "$HOME/.GameScript_bash6" ] && echo "Erreur innatendu, ${HOME}/.GameScript_bash6 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash6 et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
-2) echo -n 2 > $HOME/.GameScript/restore_bash6; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash6; ( mkdir $HOME/.GameScript_bash6 ; wget -q -nc $AUDIO_DL/5.mp3 -O $AUDIO_LOCAL/5.mp3 || rm $AUDIO_LOCAL/5.mp3 ) > /dev/null 2>&1; restore=$(expr $restore + 1) ;&
+2) echo -n 2 > $HOME/.GameScript/restore_bash6; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash6; mkdir $HOME/.GameScript_bash6 2> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash6; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash6; cd $HOME/.GameScript_bash6; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash6; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash6; echo "xxxxxx">intrus;echo "contenu f">f;chmod 222 f;echo "contenu f1">f1;chmod 000 f1;echo "contenu f10">f10;chmod 010 f10;echo "contenu f2">f2;chmod 444 f2;echo "contenu f3">f3;chmod 400 f3;echo "contenu f4">f4;chmod 455 f4;echo "contenu f50">f50;chmod 111 f50; restore=$(expr $restore + 1) ;&
 5) echo -n 5 > $HOME/.GameScript/restore_bash6; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash6; talk_not_press_key justumen "Commençons par évaluer notre situation avec un : ${learn}ls -l${reset}"; restore=$(expr $restore + 1) ;&

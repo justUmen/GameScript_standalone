@@ -236,7 +236,7 @@ function unlock(){
 	#Usage : unlock "bash" "1" "24d8" "f016"
 	PSEUDO=`cat "$HOME/.GameScript/username"`
 	PASS=`encode_b64 $PSEUDO "$3" "$4"`
-	talk_not_press_key justumen "Pour débloquer '$1 $2' sur le chat, allez sur \e[4;37mhttps://rocket.bjornulf.org/direct/boti\e[0m et copiez/collez : \e[97;42mpassword$PASS\e[0m"
+	talk_not_press_key justumen "Pour débloquer '$1 $2' sur le chat, allez sur \e[4;37mhttps://rocket.bjornulf.org/direct/boti\e[0m et copiez/collez :\n\t\e[97;42mpassword$PASS\e[0m"
 	touch "$HOME/.GameScript/good_$1$2" 2> /dev/null
 	mkdir $HOME/.GameScript/passwords/ 2> /dev/null
 	echo -n "$PASS" > "$HOME/.GameScript/passwords/$1$2"
@@ -302,7 +302,7 @@ case $1 in
 48) echo -n 48 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Essayez donc de faire ${learn}ls${reset} : le dossier ne sera toujours pas affiché."; restore=$(expr $restore + 1) ;&
 49) echo -n 49 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
 50) echo -n 50 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "La plupart des commandes peuvent avoir des arguments spéciaux, qui donnent plus de détails à cette commande."; restore=$(expr $restore + 1) ;&
-51) echo -n 51 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Ces arguments spéciaux commence par un ${code}-${reset} et se nomment ${code}options${reset}."; restore=$(expr $restore + 1) ;&
+51) echo -n 51 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Ces arguments spéciaux commence par un ${code}-${reset} et se nomment ${voc}options${reset}."; restore=$(expr $restore + 1) ;&
 52) echo -n 52 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Pour que ${learn}ls${reset} affiche les éléments ${voc}cachés${reset}, il vous faudra faire ${learn}ls -a${reset}"; restore=$(expr $restore + 1) ;&
 53) echo -n 53 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls -a" justumen "Non"; restore=$(expr $restore + 1) ;&
 54) echo -n 54 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Ici vous devriez pourvoir voir le dossier ${code}.GameScript_bash2${reset}, mais aussi beaucoup d'autres éléments ${voc}cachés${reset}."; restore=$(expr $restore + 1) ;&
@@ -326,7 +326,7 @@ case $1 in
 72) echo -n 72 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "pwd" justumen "Non"; restore=$(expr $restore + 1) ;&
 73) echo -n 73 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "${code}~${reset} remplace dans votre cas ce chemin absolu : ${code}$HOME${reset}"; restore=$(expr $restore + 1) ;&
 74) echo -n 74 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Pour cibler ce dossier, vous pouvez donc utiliser comme chemin relatif ${code}.GameScript_bash2${reset} ou ${code}./.GameScript_bash2${reset}"; restore=$(expr $restore + 1) ;&
-75) echo -n 75 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Mais vous avez également, grace à ${code}~${reset}, utiliser un nouveau chemin absolu : ${code}~/.GameScript_bash2${reset}"; restore=$(expr $restore + 1) ;&
+75) echo -n 75 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Mais vous pouvez également, grâce à ${code}~${reset}, utiliser un nouveau chemin absolu : ${code}~/.GameScript_bash2${reset}"; restore=$(expr $restore + 1) ;&
 76) echo -n 76 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Supprimez le dossier 'enfant' avec ${learn}rmdir .GameScript_bash2/enfant${reset}"; restore=$(expr $restore + 1) ;&
 77) echo -n 77 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "rmdir .GameScript_bash2/enfant" justumen "Non"; restore=$(expr $restore + 1) ;&
 78) echo -n 78 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Déplacez vous donc dans le répertoire racine."; restore=$(expr $restore + 1) ;&
@@ -334,7 +334,7 @@ case $1 in
 80) echo -n 80 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Maintenant supprimez le dossier ${code}.GameScript_bash2${reset} en utilisant le symbole ${code}~${reset} dans votre commande !"; restore=$(expr $restore + 1) ;&
 81) echo -n 81 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "rmdir ~/.GameScript_bash2" justumen "Non"; restore=$(expr $restore + 1) ;&
 82) echo -n 82 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Parfait !"; restore=$(expr $restore + 1) ;&
-83) echo -n 83 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Maintenant revenons sur les commandes et leurs ${code}options${reset}."; restore=$(expr $restore + 1) ;&
+83) echo -n 83 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Maintenant revenons sur les commandes et leurs ${voc}options${reset}."; restore=$(expr $restore + 1) ;&
 84) echo -n 84 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Listez les éléments ${voc}cachés${reset} du répertoire courant avec ${learn}ls -a${reset}."; restore=$(expr $restore + 1) ;&
 85) echo -n 85 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls -a" justumen "Non"; restore=$(expr $restore + 1) ;&
 86) echo -n 86 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "La plupart des options ont aussi une version longue, parfois plus facile à mémoriser, qui commence elle par ${code}--${reset}."; restore=$(expr $restore + 1) ;&
@@ -343,8 +343,8 @@ case $1 in
 89) echo -n 89 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Listez les éléments ${voc}cachés${reset} de ${code}$HOME${reset} avec ${learn}ls --all $HOME${reset}."; restore=$(expr $restore + 1) ;&
 90) echo -n 90 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls --all $HOME" justumen "Non"; restore=$(expr $restore + 1) ;&
 91) echo -n 91 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Mais comment pouvoir retenir autant d'options ?"; restore=$(expr $restore + 1) ;&
-92) echo -n 92 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "En fait vous n'avez pas besoin de les mémoriser car vous pouvez toujours accéder au ${code}manuel${reset} d'une commande avec la commande ${learn}man${reset}."; restore=$(expr $restore + 1) ;&
-93) echo -n 93 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Pour quitter le manuel, utiliser la touche q, comme quitter."; restore=$(expr $restore + 1) ;&
+92) echo -n 92 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "En fait vous n'avez pas besoin de les mémoriser, car vous pouvez toujours accéder au ${code}manuel${reset} d'une commande avec la commande ${learn}man${reset}."; restore=$(expr $restore + 1) ;&
+93) echo -n 93 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Pour quitter le manuel, appuyez sur la touche q, comme quitter."; restore=$(expr $restore + 1) ;&
 94) echo -n 94 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Ouvrez le manuel de la commande ls et regardez rapidement son contenu avec ${learn}man ls${reset}, et enfin quitter avec la touche q."; restore=$(expr $restore + 1) ;&
 95) echo -n 95 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "man ls" justumen "Non"; restore=$(expr $restore + 1) ;&
 96) echo -n 96 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Si vous avez oublié certaines options d'une commande, vous pouvez toujours ouvrir son manuel."; restore=$(expr $restore + 1) ;&

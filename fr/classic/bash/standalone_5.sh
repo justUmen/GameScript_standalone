@@ -236,7 +236,7 @@ function unlock(){
 	#Usage : unlock "bash" "1" "24d8" "f016"
 	PSEUDO=`cat "$HOME/.GameScript/username"`
 	PASS=`encode_b64 $PSEUDO "$3" "$4"`
-	talk_not_press_key justumen "Pour débloquer '$1 $2' sur le chat, allez sur \e[4;37mhttps://rocket.bjornulf.org/direct/boti\e[0m et copiez/collez : \e[97;42mpassword$PASS\e[0m"
+	talk_not_press_key justumen "Pour débloquer '$1 $2' sur le chat, allez sur \e[4;37mhttps://rocket.bjornulf.org/direct/boti\e[0m et copiez/collez :\n\t\e[97;42mpassword$PASS\e[0m"
 	touch "$HOME/.GameScript/good_$1$2" 2> /dev/null
 	mkdir $HOME/.GameScript/passwords/ 2> /dev/null
 	echo -n "$PASS" > "$HOME/.GameScript/passwords/$1$2"
@@ -253,7 +253,7 @@ function start_lecture(){
 restore=$1
 case $1 in
 1) echo -n 1 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; [ -d "$HOME/.GameScript_bash5" ] && echo "Erreur innatendu, ${HOME}/.GameScript_bash5 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash5 et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
-2) echo -n 2 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; ( mkdir $HOME/.GameScript_bash5 ; wget -q -nc $AUDIO_DL/6.mp3 -O $AUDIO_LOCAL/6.mp3 || rm $AUDIO_LOCAL/6.mp3 ) > /dev/null 2>&1; restore=$(expr $restore + 1) ;&
+2) echo -n 2 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; mkdir $HOME/.GameScript_bash5 2> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; cd $HOME/.GameScript_bash5; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; mkdir Dossier;touch Dossier/X;touch Dossier/Y;chmod 644 Dossier; restore=$(expr $restore + 1) ;&
 5) echo -n 5 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; echo "a">f1;chmod 000 f1;echo "ab">f2;chmod 444 f2;echo "abc">f3;chmod 400 f3;echo "abcd">f4;chmod 477 f4; restore=$(expr $restore + 1) ;&
