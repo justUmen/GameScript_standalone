@@ -1,6 +1,35 @@
 #!/bin/bash
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
 
+function download_all_sounds(){
+	#~ echo "Downloading..."
+	cd $AUDIO_LOCAL || exit
+	i=4
+	rm to_dl.wget 2> /dev/null
+	echo "Downloading Audio..."
+	while [ $i -le $LINES ]; do
+		#~ ( wget -q $AUDIO_DL/$i.mp3 -O $AUDIO_LOCAL/$i.mp3 || rm $AUDIO_LOCAL/$i.mp3 ) &> /dev/null &
+		echo "$AUDIO_DL/$i.mp3" >> to_dl.wget
+		i=`expr $i + 1`
+	done
+	cat to_dl.wget | xargs -n 1 -P 8 wget -q &
+}
+
+function prepare_audio(){
+	AUDIO_LOCAL="$HOME/.GameScript/Audio/$LANGUAGE/classic/$CHAPTER_NAME/$SPEAKER/c$CHAPTER_NUMBER"
+	mkdir -p $AUDIO_LOCAL 2> /dev/null
+	AUDIO_DL="https://raw.githubusercontent.com/justUmen/GameScript/master/$LANGUAGE/classic/$CHAPTER_NAME/Audio/$SPEAKER/c$CHAPTER_NUMBER"
+	AUDIOCMP=1
+	if [ ! -f "$AUDIO_LOCAL/4.mp3" ]; then
+		wget -q --spider http://google.com
+		if [ $? -eq 0 ];then
+			download_all_sounds
+		else
+			echo "Cannot download audio, no internet ?"
+		fi
+	fi
+}
+
 function encode_b64(){
 	echo -n "$2$1$3" | base64
 }
@@ -22,11 +51,18 @@ function press_key(){
 	#~ pkill mplayer > /dev/null 2>&1
 }
 
+#TODO ???
 function new_sound(){
 	pkill mplayer &> /dev/null
 	pkill mpg123 &> /dev/null
 	$SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" &> /dev/null &
-	( wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 1`.mp3 || wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $HOME/.GameScript/Audio/fr/$CHAPTER_NAME/c$CHAPTER_NUMBER/`expr $restore + 2`.mp3 ) &> /dev/null & #download next one, or the one after if it doesn't exist
+	#~ if [[ ! -f "$AUDIO_DL/`expr $restore + 1`.mp3" ]];then
+		#~ ( wget $AUDIO_DL/`expr $restore + 1`.mp3 -O $AUDIO_LOCAL/`expr $restore + 1`.mp3 || rm $AUDIO_LOCAL/`expr $restore + 1`.mp3 ) &> /dev/null &
+		#~ ( wget -nc $AUDIO_DL/`expr $restore + 1`.mp3 -O $AUDIO_LOCAL/`expr $restore + 1`.mp3 || ( rm $AUDIO_LOCAL/`expr $restore + 1`.mp3 ; wget -nc $AUDIO_DL/`expr $restore + 2`.mp3 -O $AUDIO_LOCAL/`expr $restore + 2`.mp3 || $AUDIO_LOCAL/`expr $restore + 2`.mp3 ) ) &> /dev/null & #download next one, or the one after if it doesn't exist
+	#~ fi
+	#~ if [[ ! -f "$AUDIO_DL/`expr $restore + 2`.mp3" ]];then
+		#~ ( wget $AUDIO_DL/`expr $restore + 2`.mp3 -O $AUDIO_LOCAL/`expr $restore + 2`.mp3 || rm $AUDIO_LOCAL/`expr $restore + 2`.mp3 ) &> /dev/null &
+	#~ fi
 }
 function talk(){
 	if [[ $MUTE == 0 ]]; then 
@@ -54,12 +90,14 @@ function answer_quiz(){
 	key="9"
 	while [ "$key" != "1" ] || [ "$key" != "2" ] || [ "$key" != "3" ]; do
 		# echo ""
+		#~ echo -e "\\e[0;100m 0) \\e[0m Télécharger audio en avance"
 		echo -e "\\e[0;100m 1) \\e[0m $1"
 		echo -e "\\e[0;100m 2) \\e[0m $2"
 		echo -e "\\e[0;100m 3) \\e[0m $3"
 		echo -en "\\e[97;45m # \\e[0m"
 		read key < /dev/tty
 		case $key in
+			0) download_all_sounds ;;
 			1) 	if [ -f "$HOME/.GameScript/restore_$7$8" ];then
 					echo "$HOME/.GameScript/restore_$7$8 existe, continuer ou recommencer le cours du début ?"
 					while [ "$choice" != "1" ] || [ "$choice" != "2" ] || [ "$choice" != "3" ]; do
@@ -142,7 +180,8 @@ codeFile=$black_on_green
 codeError=$black_on_red
 
 #UNDERLINE
-voc='\e[1m'
+#~ voc='\e[1m'
+voc='\e[4;37m'
 #BLUE
 learn='\e[40;38;5;10m'
 
@@ -197,7 +236,7 @@ function unlock(){
 	#Usage : unlock "bash" "1" "24d8" "f016"
 	PSEUDO=`cat "$HOME/.GameScript/username"`
 	PASS=`encode_b64 $PSEUDO "$3" "$4"`
-	talk_not_press_key justumen "Allez sur https://rocket.bjornulf.org/direct/boti et copiez/collez : password$PASS"
+	talk_not_press_key justumen "Pour débloquer '$1 $2' sur le chat, allez sur \e[4;37mhttps://rocket.bjornulf.org/direct/boti\e[0m et copiez/collez : \e[97;42mpassword$PASS\e[0m"
 	touch "$HOME/.GameScript/good_$1$2" 2> /dev/null
 	mkdir $HOME/.GameScript/passwords/ 2> /dev/null
 	echo -n "$PASS" > "$HOME/.GameScript/passwords/$1$2"
@@ -214,7 +253,7 @@ function start_lecture(){
 restore=$1
 case $1 in
 1) echo -n 1 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; [ -d "$HOME/House" ] && echo "Erreur innatendu, ${HOME}/House existe déjà sur votre système ! Supprimez ce dossier $HOME/House et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
-2) echo -n 2 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; mkdir $HOME/.GameScript_bash1 && mkdir -p $HOME/.GameScript/Audio/fr/bash/c1/ && wget -q -nc $AUDIO_DL/4.mp3 -O $HOME/.GameScript/Audio/fr/bash/c1/4.mp3 > /dev/null 2>&1; restore=$(expr $restore + 1) ;&
+2) echo -n 2 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; mkdir $HOME/.GameScript_bash1 &> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; cd $HOME/; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Hey salut tout le monde et bienvenu dans le premier chapitre sur bash."; restore=$(expr $restore + 1) ;&
 5) echo -n 5 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Avant de pouvoir apprendre notre première commande, il va falloir d'abord comprendre la logique derrière l'organisation des répertoires et des fichiers sur les systèmes d'exploitation de ${voc}type Unix${reset}, comme ${voc}Linux${reset}."; restore=$(expr $restore + 1) ;&
@@ -222,7 +261,7 @@ case $1 in
 7) echo -n 7 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; real_tree_1; restore=$(expr $restore + 1) ;&
 8) echo -n 8 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Vous pouvez imaginer le système d'organisation des dossiers comme un arbre."; restore=$(expr $restore + 1) ;&
 9) echo -n 9 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Dans cet arbre les lignes qui représentent les dossiers sont en bleu ciel."; restore=$(expr $restore + 1) ;&
-10) echo -n 10 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "A la base de l'arbre vous avez le symbole ${code}/${reset} qui représente le ${voc}répertoire racine${reset}."; restore=$(expr $restore + 1) ;&
+10) echo -n 10 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "A la base de cet arbre vous avez le symbole ${code}/${reset} qui représente le ${voc}répertoire racine${reset}."; restore=$(expr $restore + 1) ;&
 11) echo -n 11 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "C'est un répertoire spécial qui contiendra TOUS les autres dossiers du système."; restore=$(expr $restore + 1) ;&
 12) echo -n 12 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; real_tree_2; restore=$(expr $restore + 1) ;&
 13) echo -n 13 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Dans cet arbre, à chaque fois qu'une branche se sépare de l'arbre, c'est un nouveau dossier."; restore=$(expr $restore + 1) ;&
@@ -247,7 +286,7 @@ case $1 in
 32) echo -n 32 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Pour ${codeError}home${reset}, il suffit également de lui donner un autre nom qui ne pose pas de problème comme 'Home', avec un h majuscule."; restore=$(expr $restore + 1) ;&
 33) echo -n 33 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Oui ! Dans un système d'exploitation de type Unix, les majuscules sont importantes. 'Home', avec un grand H et 'home' sont deux noms différents."; restore=$(expr $restore + 1) ;&
 34) echo -n 34 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "En informatique, quand les majuscules ne sont pas équivalentes aux minuscules, on dit que les noms sont ${voc}sensibles à la casse${reset}."; restore=$(expr $restore + 1) ;&
-35) echo -n 35 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Effectivement, les systèmes de type Unix sont ${voc}sensibles à la casse${reset}. C'est à dire que 'home', 'Home', 'hOme', 'hoMe', 'homE', 'HoMe', 'hOmE', 'HOme', 'hoME', 'HomE', 'hOMe', 'HOME', etc... sont valides et différents !"; restore=$(expr $restore + 1) ;&
+35) echo -n 35 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Effectivement, les systèmes de type Unix sont ${voc}sensibles à la casse${reset}. C'est à dire que 'home', 'Home', 'hOme', 'hoMe', 'homE', 'HoMe', 'hOmE', 'HOme', 'hoME', 'HomE', 'hOMe', 'HOME', etc... sont valides et différentes !"; restore=$(expr $restore + 1) ;&
 36) echo -n 36 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; tree_1; restore=$(expr $restore + 1) ;&
 37) echo -n 37 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Il est aussi possible de représenter l'arborescence linux de cette manière."; restore=$(expr $restore + 1) ;&
 38) echo -n 38 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; tree_2; restore=$(expr $restore + 1) ;&
@@ -273,15 +312,15 @@ case $1 in
 58) echo -n 58 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "cd House" justumen "Non"; restore=$(expr $restore + 1) ;&
 59) echo -n 59 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Maintenant réaffichons les fichiers et dossiers avec un simple ${learn}ls${reset}."; restore=$(expr $restore + 1) ;&
 60) echo -n 60 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
-61) echo -n 61 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ici le répertoire House est vide, c'est normal puisque nous venons de le créer."; restore=$(expr $restore + 1) ;&
+61) echo -n 61 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ici le répertoire 'House' est vide, c'est normal puisque nous venons de le créer."; restore=$(expr $restore + 1) ;&
 62) echo -n 62 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Mais qu'en est-il ici du ${voc}chemin absolu${reset} dont je vous ai parlé avant ?"; restore=$(expr $restore + 1) ;&
 63) echo -n 63 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "En fait, un terminal tourne toujours dans un dossier, et peut se 'déplacer' dans l'arborescense du système."; restore=$(expr $restore + 1) ;&
-64) echo -n 64 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "C'est ce que vous avez fait avec la commande ${learn}cd House${reset}, vous avez déplacé votre terminal dans le dossier House."; restore=$(expr $restore + 1) ;&
+64) echo -n 64 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "C'est ce que vous avez fait avec la commande ${learn}cd House${reset}, vous avez déplacé votre terminal dans le dossier 'House'."; restore=$(expr $restore + 1) ;&
 65) echo -n 65 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Pour savoir dans quel répertoire votre terminal est en ce moment, il suffit de taper ${learn}pwd${reset} (pwd vient de l'anglais ${learn}P${reset}rint ${learn}W${reset}orking ${learn}D${reset}irectory)."; restore=$(expr $restore + 1) ;&
 66) echo -n 66 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "pwd" justumen "Non"; restore=$(expr $restore + 1) ;&
 67) echo -n 67 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Le résultat que vous voyiez ici est le ${voc}chemin absolu${reset} du répertoire ou vous êtes en ce moment."; restore=$(expr $restore + 1) ;&
 68) echo -n 68 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ce répertoire où vous êtes porte un nom spécial : c'est votre ${voc}${voc}répertoire courant${reset}."; restore=$(expr $restore + 1) ;&
-69) echo -n 69 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Comme je vous l'ai déjà dit, il n'est pas obligatoire de mettre un '/' pour le dernier dossier c'est pourquoi vous voyez ici ${learn}$(pwd)${reset} sans un '/' à la fin."; restore=$(expr $restore + 1) ;&
+69) echo -n 69 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Comme je vous l'ai déjà dit, il n'est pas obligatoire de mettre un '/' pour le dernier dossier, c'est pourquoi vous voyez ici ${learn}$(pwd)${reset} sans un '/' à la fin."; restore=$(expr $restore + 1) ;&
 70) echo -n 70 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Voilà donc 4 commandes Unix fondamentales : ${learn}pwd${reset}, ${learn}ls${reset}, ${learn}cd${reset} et ${learn}mkdir${reset}."; restore=$(expr $restore + 1) ;&
 71) echo -n 71 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "${learn}pwd${reset} et ${learn}ls${reset} sont des commandes particulièrement innoffensives, elle ne font que vous donnez des renseignements."; restore=$(expr $restore + 1) ;&
 72) echo -n 72 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "N'hésitez donc pas à les taper systématiquement, dès que vous êtes dans un terminal."; restore=$(expr $restore + 1) ;&
@@ -307,7 +346,7 @@ case $1 in
 92) echo -n 92 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
 93) echo -n 93 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Maintenant pour supprimer ces dossiers, vous pouvez taper : ${learn}rmdir bed closet desk${reset}. (rmdir vient de l'anglais ${learn}R${reset}e${learn}M${reset}ove ${learn}DIR${reset}ectory)"; restore=$(expr $restore + 1) ;&
 94) echo -n 94 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "rmdir bed closet desk" justumen "Non"; restore=$(expr $restore + 1) ;&
-95) echo -n 95 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "${learn}rmdir${reset} est une commande plutôt innofensive, parce qu'elle refusera de supprimer un dossier si celui ci n'est pas vide."; restore=$(expr $restore + 1) ;&
+95) echo -n 95 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "${learn}rmdir${reset} est une commande plutôt innofensive, parce qu'elle refusera de supprimer un dossier si celui-ci n'est pas vide."; restore=$(expr $restore + 1) ;&
 96) echo -n 96 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ce qui peut empêcher de graves accidents. Si par exemple, vous faites par erreur ${learn}rmdir /home${reset}."; restore=$(expr $restore + 1) ;&
 97) echo -n 97 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "La commande ${learn}rm${reset} est la commande pour supprimer des fichiers. (rm vient de l'anglais ${learn}R${reset}e${learn}M${reset}ove)"; restore=$(expr $restore + 1) ;&
 98) echo -n 98 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; touch virus0 virus1 virus2 virus3 virus4; restore=$(expr $restore + 1) ;&
@@ -342,7 +381,7 @@ case $1 in
 127) echo -n 127 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Lorsqu'une commande ne se passe pas comme prévue, elle vous renvoit très souvent une erreur."; restore=$(expr $restore + 1) ;&
 128) echo -n 128 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Essayez de supprimer le fichier 'virus1' à nouveau en utilisant son ${voc}chemin absolu${reset}."; restore=$(expr $restore + 1) ;&
 129) echo -n 129 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "rm $HOME/House/Room/virus1" justumen "Non"; restore=$(expr $restore + 1) ;&
-130) echo -n 130 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ici la commande ${learn}rm${reset} vous renvoi une erreur, le fichier n'existe donc déjà plus."; restore=$(expr $restore + 1) ;&
+130) echo -n 130 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ici la commande ${learn}rm${reset} vous renvoit une erreur, le fichier n'existe donc déjà plus."; restore=$(expr $restore + 1) ;&
 131) echo -n 131 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Maintenant, on peut aussi utiliser le ${voc}chemin absolu${reset} du dossier 'Room' pour afficher son contenu."; restore=$(expr $restore + 1) ;&
 132) echo -n 132 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Vous connaissez déjà la commande ${learn}ls${reset}, pour lister le contenu du ${voc}répertoire courant${reset}."; restore=$(expr $restore + 1) ;&
 133) echo -n 133 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Sans ${voc}argument${reset}, avec un simple ${learn}ls${reset}, le répertoire utilisé sera automatiquement le ${voc}répertoire courant${reset}."; restore=$(expr $restore + 1) ;&
@@ -382,24 +421,25 @@ case $1 in
 167) echo -n 167 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "${learn}..${reset} représente dans l'arborescence le parent du ${voc}répertoire courant${reset}."; restore=$(expr $restore + 1) ;&
 168) echo -n 168 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "C'est le vocabulaire que nous employons pour parler de cette arborescence, ce sont des relations parents / enfants."; restore=$(expr $restore + 1) ;&
 169) echo -n 169 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Par exemple pour ${learn}/home/user/test/${reset}, le dossier parent de test est user. Le dossier parent de user est home."; restore=$(expr $restore + 1) ;&
-170) echo -n 170 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Et bien evidemment test est un enfant de user, et user est un enfant de home."; restore=$(expr $restore + 1) ;&
+170) echo -n 170 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Et bien évidemment test est un enfant de user, et user est un enfant de home."; restore=$(expr $restore + 1) ;&
 171) echo -n 171 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Cibler les enfants en ${voc}argument${reset} avec un ${voc}chemin relatif${reset} est très simple, il suffit d'écrire le nom de leurs parents successifs."; restore=$(expr $restore + 1) ;&
 172) echo -n 172 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Comme par exemple avec la commande de tout a l'heure : ${learn}cd House/Room/${reet}"; restore=$(expr $restore + 1) ;&
 173) echo -n 173 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Pour cibler les parents, c'est un peu plus compliqué. Il faut utiliser ${learn}..${reset}."; restore=$(expr $restore + 1) ;&
-174) echo -n 174 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Affichez donc le chemin absolu de votre ${voc}répertoire courant${reset}."; restore=$(expr $restore + 1) ;&
-175) echo -n 175 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Vous connaissez aussi la commande pour changer de répertoire courant : ${learn}cd${reset}."; restore=$(expr $restore + 1) ;&
-176) echo -n 176 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ici nous allons nous déplacer dans le répertoire parent. Nous sommes dans ${learn}$HOME/House/Room/${reset} mais nous voulons aller dans ${learn}$HOME/House/${reset}"; restore=$(expr $restore + 1) ;&
-177) echo -n 177 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Il est possible de remonter d'un cran dans l'arborescence, ou comme je viens de le dire de se déplacer dans le répertoire parent avec un ${learn}cd ..${reset}"; restore=$(expr $restore + 1) ;&
-178) echo -n 178 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "cd .." justumen "Non"; restore=$(expr $restore + 1) ;&
-179) echo -n 179 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Affichez le chemin absolu du ${voc}répertoire courant${reset}."; restore=$(expr $restore + 1) ;&
-180) echo -n 180 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "pwd" justumen "Non"; restore=$(expr $restore + 1) ;&
-181) echo -n 181 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "J'espère que le résultat de ${learn}pwd${reset} est logique pour vous."; restore=$(expr $restore + 1) ;&
-182) echo -n 182 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Mais il nous reste deux virus à supprimer, commençons par supprimer le fichier virus3 avec son ${voc}chemin relatif${reset}."; restore=$(expr $restore + 1) ;&
-183) echo -n 183 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "rm Room/virus3" justumen "Non"; restore=$(expr $restore + 1) ;&
-184) echo -n 184 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Bien. Maintenant supprimons le fichier virus4 en utilisant son ${voc}chemin absolu${reset}."; restore=$(expr $restore + 1) ;&
-185) echo -n 185 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "rm $HOME/House/Room/virus4" justumen "Non"; restore=$(expr $restore + 1) ;&
-186) echo -n 186 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Parfait, vous avez tout compris ! Et je vous donne rendez-vous au questionnaire !"; restore=$(expr $restore + 1) ;&
-187) echo -n 187 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; clean; restore=$(expr $restore + 1) ;&
+174) echo -n 174 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Affichez donc le chemin absolu de votre ${voc}répertoire courant${reset}."; restore=$(expr $restore + 1) ;&
+175) echo -n 175 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "pwd" justumen "Non"; restore=$(expr $restore + 1) ;&
+176) echo -n 176 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Vous connaissez aussi la commande pour changer de répertoire courant : ${learn}cd${reset}."; restore=$(expr $restore + 1) ;&
+177) echo -n 177 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Ici nous allons nous déplacer dans le répertoire parent. Nous sommes dans ${learn}$HOME/House/Room/${reset} mais nous voulons aller dans ${learn}$HOME/House/${reset}"; restore=$(expr $restore + 1) ;&
+178) echo -n 178 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Il est possible de remonter d'un cran dans l'arborescence, ou comme je viens de le dire de se déplacer dans le répertoire parent avec un ${learn}cd ..${reset}"; restore=$(expr $restore + 1) ;&
+179) echo -n 179 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "cd .." justumen "Non"; restore=$(expr $restore + 1) ;&
+180) echo -n 180 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Affichez le chemin absolu du ${voc}répertoire courant${reset}."; restore=$(expr $restore + 1) ;&
+181) echo -n 181 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "pwd" justumen "Non"; restore=$(expr $restore + 1) ;&
+182) echo -n 182 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "J'espère que le résultat de ${learn}pwd${reset} est logique pour vous."; restore=$(expr $restore + 1) ;&
+183) echo -n 183 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Mais il nous reste deux virus à supprimer, commençons par supprimer le fichier virus3 avec son ${voc}chemin relatif${reset}."; restore=$(expr $restore + 1) ;&
+184) echo -n 184 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "rm Room/virus3" justumen "Non"; restore=$(expr $restore + 1) ;&
+185) echo -n 185 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Bien ! Maintenant supprimons le fichier virus4 en utilisant son ${voc}chemin absolu${reset}."; restore=$(expr $restore + 1) ;&
+186) echo -n 186 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "rm $HOME/House/Room/virus4" justumen "Non"; restore=$(expr $restore + 1) ;&
+187) echo -n 187 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Parfait, vous avez tout compris ! Et je vous donne rendez-vous au questionnaire !"; restore=$(expr $restore + 1) ;&
+188) echo -n 188 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; clean; restore=$(expr $restore + 1) ;&
 esac
 }
 CLREOL=$'\x1B[K'
@@ -540,7 +580,7 @@ $code / $reset$basic
 |   |-- $code /home/user/ $reset$basic
 |   |   |-- $code /home/user/Pictures/ $reset$basic
 |-- $code /bin/ $reset$basic
-|-- $code /var/ $reset$basic"
+|-- $code /var/ $reset"
 #~ restore=$(expr $restore + 1)
 }
 
@@ -557,7 +597,7 @@ $code / $reset$basic
 |-- $code /var/ $reset$basic
 |-- $codeFile /fichier1 $reset$basic
 |-- $codeFile /fichier2 $reset$basic
-|-- $codeFile /Home $reset$basic"
+|-- $codeFile /Home $reset"
 #~ restore=$(expr $restore + 1)
 }
 
@@ -574,7 +614,7 @@ $code /bin/ $reset$basic
 $code /var/ $reset$basic
 $codeFile /fichier1 $reset$basic
 $codeFile /fichier2 $reset$basic
-$codeFile /Home $reset$basic"
+$codeFile /Home $reset"
 #~ restore=$(expr $restore + 1)
 }
 function clean(){ #in enter_chapter
@@ -613,10 +653,10 @@ function start_quiz(){
 
 CHAPTER_NAME="bash"
 CHAPTER_NUMBER="1"
+LANGUAGE="fr"
+SPEAKER="m1"
 
-AUDIO_LOCAL="$HOME/.GameScript/Audio/fr/bash/c1"
-mkdir -p $HOME/.GameScript/Audio/fr/bash/c1 2> /dev/null
-AUDIO_DL="https://raw.githubusercontent.com/justUmen/GameScript/master/fr/classic/bash/Audio/m1/c1"
-AUDIOCMP=1
+LINES=187
+prepare_audio
 
 enter_chapter $CHAPTER_NAME $CHAPTER_NUMBER
