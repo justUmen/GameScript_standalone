@@ -22,7 +22,7 @@ function prepare_audio(){
 	AUDIOCMP=1
 	if [ ! -f "$AUDIO_LOCAL/4.mp3" ]; then
 		wget -q --spider http://google.com
-		if [ $? -eq 0 ];then
+		if [ $? -eq 0 ]; then
 			download_all_sounds
 		else
 			echo "Cannot download audio, no internet ?"
