@@ -256,7 +256,7 @@ case $1 in
 2) echo -n 2 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; mkdir $HOME/.GameScript_bash5 2> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; cd $HOME/.GameScript_bash5; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; mkdir Dossier;touch Dossier/X;touch Dossier/Y;chmod 644 Dossier; restore=$(expr $restore + 1) ;&
-5) echo -n 5 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; echo "a">f1;chmod 000 f1;echo "ab">f2;chmod 444 f2;echo "abc">f3;chmod 400 f3;echo "abcd">f4;chmod 477 f4; restore=$(expr $restore + 1) ;&
+5) echo -n 5 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; echo "a">f1;chmod 000 f1;echo "ab">f2;chmod 444 f2;echo "abc">f3;chmod 600 f3;echo "abcd">f4;chmod 777 f4; restore=$(expr $restore + 1) ;&
 6) echo -n 6 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Dans ce chapitre nous revenons sur la commande ${code}ls${reset}, l'une des commandes les plus importantes."; restore=$(expr $restore + 1) ;&
 7) echo -n 7 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk justumen "Et ici nous allons parler de son option la plus importante : ${code}-l${reset}"; restore=$(expr $restore + 1) ;&
 8) echo -n 8 > $HOME/.GameScript/restore_bash5; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; talk_not_press_key justumen "Vous pouvez taper : ${learn}ls -l${reset}"; restore=$(expr $restore + 1) ;&
