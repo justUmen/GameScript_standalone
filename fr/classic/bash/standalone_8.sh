@@ -132,7 +132,8 @@ function answer_text_fr(){
 	echo -en "\\e[97;45m # \\e[0m"
 	read -r USER_CODE < /dev/tty
 	if [ ! "$USER_CODE" == "$2" ]; then
-		talk_not_press_key justumen "\\e[4;37mDésolé, réponse fausse ou trop longue. Je vous conseille de suivre le cours.\\e[0m"
+		talk_not_press_key justumen "\\e[4;37mDésolé, réponse fausse ou trop longue. Je vous conseille de suivre / refaire le cours.\nSi vous pensez maitriser le contenu du cours, il y a surement un piège, relisez donc attentivement la question. :-)\\e[0m"
+		#enter_chapter $CHAPTER_NAME $CHAPTER_NUMBER
 		exit
 	else
 		talk_not_press_key justumen "Correct !"
@@ -255,7 +256,7 @@ case $1 in
 1) echo -n 1 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; [ -d "$HOME/.GameScript_bash8" ] && echo "Erreur innatendu, ${HOME}/.GameScript_bash8 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash8 et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
 2) echo -n 2 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; mkdir $HOME/.GameScript_bash8 2> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; cd $HOME/.GameScript_bash8; restore=$(expr $restore + 1) ;&
-4) echo -n 4 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; echo -e "Josephnemail:joseph@bjornulf.orgnCarlanemail:carla@bjornulf.orgnCharlienemail:charlie@bjornulf.orgnAkemailnemail:akemail@bjornulf.orgnBobnemail:bob@bjornulf.orgnAlbertnemail:albert@bjornulf.orgnJessicanemail:jessica@bjornulf.orgnCarlanemail:carla@bjornulf.org" > $HOME/.GameScript_bash8/LIST; restore=$(expr $restore + 1) ;&
+4) echo -n 4 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; echo -e "Joseph\\nemail:joseph@bjornulf.org\\nCarla\\nemail:carla@bjornulf.org\\nCharlie\\nemail:charlie@bjornulf.org\\nAkemail\\nemail:akemail@bjornulf.org\\nBob\\nemail:bob@bjornulf.org\\nAlbert\\nemail:albert@bjornulf.org\\nJessica\\nemail:jessica@bjornulf.org\\nCarla\\nemail:carla@bjornulf.org" > $HOME/.GameScript_bash8/LIST; restore=$(expr $restore + 1) ;&
 5) echo -n 5 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Commençons par créer notre environnement pour ce chapitre."; restore=$(expr $restore + 1) ;&
 6) echo -n 6 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Créez le fichier 'test' avec : ${learn}echo au revoir>test${reset}"; restore=$(expr $restore + 1) ;&
 7) echo -n 7 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "echo au revoir>test" justumen "Non"; restore=$(expr $restore + 1) ;&
@@ -272,28 +273,28 @@ case $1 in
 18) echo -n 18 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Le premier mot 'au' est composé de deux caractères, 'a' et 'u'."; restore=$(expr $restore + 1) ;&
 19) echo -n 19 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Le deuxième mot 'revoir' est lui composé de six caractères, ce qui en ajoutant les deux précédents, fait huit."; restore=$(expr $restore + 1) ;&
 20) echo -n 20 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "L'espace séparant les deux mots est aussi un caractère, ce qui nous amène à neuf."; restore=$(expr $restore + 1) ;&
-21) echo -n 21 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Le dixième caractère est en fait la mise à la ligne que nous avons vu dans le chapitre 3 : que l'on peut représenter avec 'n'."; restore=$(expr $restore + 1) ;&
-22) echo -n 22 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Je vous rappelle que la commande ${code}echo${reset} ajoute automatiquement un 'n' à la fin, à moins que l'option -n soit présente."; restore=$(expr $restore + 1) ;&
+21) echo -n 21 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Le dixième caractère est en fait la mise à la ligne que nous avons vu dans le chapitre 3 : que l'on peut représenter avec '\\n'."; restore=$(expr $restore + 1) ;&
+22) echo -n 22 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Je vous rappelle que la commande ${code}echo${reset} ajoute automatiquement un '\\n' à la fin, à moins que l'option -n soit présente."; restore=$(expr $restore + 1) ;&
 23) echo -n 23 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Voyons ce que nous avons fait jusqu'à présent : ${code}echo au revoir>test${reset} pour créer le fichier 'test' et ${code}wc test${reset} pour analyser ce fichier."; restore=$(expr $restore + 1) ;&
-24) echo -n 24 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "La commande ${voc}wc${reset} prend ici en argument le fichier qui contient le contenu de ce que vous voulez analyser."; restore=$(expr $restore + 1) ;&
-25) echo -n 25 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Dans le chapitre précédent, nous avons vu que l'on pouvait rediriger la ${voc}sortie standard${reset} vers un fichier avec ${code}>${reset} ou ${code}1>${reset}."; restore=$(expr $restore + 1) ;&
-26) echo -n 26 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais vous n'êtes pas obligé de créer le fichier 'test' si vous n'en avez pas besoin."; restore=$(expr $restore + 1) ;&
-27) echo -n 27 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Il est en fait aussi possible de rediriger la sortie standard non pas vers un fichier mais vers ${voc}une autre commande${reset} avec le symbole ${code}|${reset}, aussi appelé 'pipe' ou tuyau."; restore=$(expr $restore + 1) ;&
+24) echo -n 24 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "La commande ${voc}wc${reset} prend ici en argument le fichier qui contient le contenu de ce que vous souhaitez analyser."; restore=$(expr $restore + 1) ;&
+25) echo -n 25 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais vous n'êtes pas obligé de créer ce fichier 'test' si vous n'en avez pas besoin."; restore=$(expr $restore + 1) ;&
+26) echo -n 26 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Dans le chapitre précédent, nous avons vu que l'on pouvait rediriger la ${voc}sortie standard${reset} vers un fichier avec ${code}>${reset} ou ${code}1>${reset}."; restore=$(expr $restore + 1) ;&
+27) echo -n 27 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais il est en fait aussi possible de rediriger la sortie standard non pas vers un fichier mais vers ${voc}une autre commande${reset} avec le symbole ${code}|${reset}, aussi appelé 'pipe' ou tuyau."; restore=$(expr $restore + 1) ;&
 28) echo -n 28 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${voc}wc${reset} est, comme de très nombreuses commandes, aussi capable de lire la ${voc}sortie standard${reset}."; restore=$(expr $restore + 1) ;&
 29) echo -n 29 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Faites donc : ${learn}echo au revoir|wc${reset}"; restore=$(expr $restore + 1) ;&
 30) echo -n 30 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "echo au revoir|wc" justumen "Non"; restore=$(expr $restore + 1) ;&
 31) echo -n 31 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici avec la barre verticale, le résultat est identique, sauf que le nom du fichier ne s'affiche pas car il n'y a pas de fichier."; restore=$(expr $restore + 1) ;&
 32) echo -n 32 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Le 'pipe' est un des concepts les plus puissant de la ligne de commande."; restore=$(expr $restore + 1) ;&
-33) echo -n 33 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Une commande peut envoyer sa sortie standard à une deuxième commande, celle-ci peut ensuite envoyer sa propre sortie standard à une troisième commande, et ainsi de suite."; restore=$(expr $restore + 1) ;&
-34) echo -n 34 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Affichez donc le contenu du fichier 'LIST'."; restore=$(expr $restore + 1) ;&
+33) echo -n 33 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Avec ${code}|${reset}, une commande peut envoyer sa sortie standard à une deuxième commande, celle-ci peut ensuite envoyer sa propre sortie standard à une troisième commande, et ainsi de suite."; restore=$(expr $restore + 1) ;&
+34) echo -n 34 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Maintenant, affichez donc le contenu du fichier 'LIST'."; restore=$(expr $restore + 1) ;&
 35) echo -n 35 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat LIST" justumen "Non"; restore=$(expr $restore + 1) ;&
 36) echo -n 36 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici vous avez une liste de noms et d'emails. Imaginons que seul les emails vous intéresse."; restore=$(expr $restore + 1) ;&
 37) echo -n 37 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Pour détecter la présence d'un mot clef dans une ligne, il vous faudra utiliser la commande ${code}grep${reset}."; restore=$(expr $restore + 1) ;&
-38) echo -n 38 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Bien évidemment, ${code}grep${reset} est capable de lire la ${voc}sortie standard${reset}, vous pouvez donc l'utiliser en combinaison avec  la ${voc}|${reset}."; restore=$(expr $restore + 1) ;&
+38) echo -n 38 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Bien évidemment, ${code}grep${reset} est capable de lire la ${voc}sortie standard${reset}, vous pouvez donc l'utiliser en combinaison avec ${code}|${reset}."; restore=$(expr $restore + 1) ;&
 39) echo -n 39 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Affichez uniquement les lignes du fichier qui contiennent le mot 'email' avec : ${learn}cat LIST|grep email${reset}"; restore=$(expr $restore + 1) ;&
 40) echo -n 40 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat LIST|grep email" justumen "Non"; restore=$(expr $restore + 1) ;&
-41) echo -n 41 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici le choix du mot clef "email" est personnel, et vous devez faire attention à ce que ce choix soit judicieux."; restore=$(expr $restore + 1) ;&
-42) echo -n 42 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${code}grep email${reset} posera problème si un des noms est 'email', ou contient le mot 'email', comme 'Akemail'."; restore=$(expr $restore + 1) ;&
+41) echo -n 41 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici le choix du mot clef 'email' est personnel, et vous devez faire attention à ce que ce choix soit judicieux."; restore=$(expr $restore + 1) ;&
+42) echo -n 42 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${code}grep email${reset} posera problème si un des noms est 'email', ou contient le mot 'email', comme 'Ak${voc}email${reset}'."; restore=$(expr $restore + 1) ;&
 43) echo -n 43 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Pour détecter les emails d'une manière plus fiable, vous pouvez utiliser la présence de '@', faites donc : ${learn}cat LIST|grep @${reset}"; restore=$(expr $restore + 1) ;&
 44) echo -n 44 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat LIST|grep @" justumen "Non"; restore=$(expr $restore + 1) ;&
 45) echo -n 45 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Vous avez donc ici dans votre sortie standard uniquement les adresses emails."; restore=$(expr $restore + 1) ;&
@@ -301,106 +302,157 @@ case $1 in
 47) echo -n 47 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat LIST|grep @>EMAILS" justumen "Non"; restore=$(expr $restore + 1) ;&
 48) echo -n 48 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${code}grep @${reset} affichera donc toutes les lignes qui contiennent au moins une '@'."; restore=$(expr $restore + 1) ;&
 49) echo -n 49 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Pour faire l'inverse, vous devez ajouter à ${code}grep @${reset} l'option -v."; restore=$(expr $restore + 1) ;&
-50) echo -n 50 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Affichez donc toutes les lignes qui ne contiennent pas '@' avec : ${learn}cat LIST|grep -v @${reset}"; restore=$(expr $restore + 1) ;&
+50) echo -n 50 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Affichez donc toutes les lignes qui ne contiennent ${voc}pas${reset} '@' avec : ${learn}cat LIST|grep -v @${reset}"; restore=$(expr $restore + 1) ;&
 51) echo -n 51 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat LIST|grep -v @" justumen "Non"; restore=$(expr $restore + 1) ;&
 52) echo -n 52 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Avant d'enregistrer cette liste dans un fichier, nous voulons classer alphabétiquement ces noms avec la commande ${learn}sort${reset}."; restore=$(expr $restore + 1) ;&
-53) echo -n 53 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Pour cela il suffit de continuer à utiliser la sortie standard, faites donc : ${learn}cat LIST|grep -v @|sort${reset}"; restore=$(expr $restore + 1) ;&
+53) echo -n 53 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Pour cela il suffit de continuer à utiliser la sortie standard et ${code}|${reset}, faites donc : ${learn}cat LIST|grep -v @|sort${reset}"; restore=$(expr $restore + 1) ;&
 54) echo -n 54 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat LIST|grep -v @|sort" justumen "Non"; restore=$(expr $restore + 1) ;&
-55) echo -n 55 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici nous avons un problème. Le nom de Carla apparait clairement deux fois."; restore=$(expr $restore + 1) ;&
+55) echo -n 55 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici le nom de 'Carla' apparait clairement deux fois."; restore=$(expr $restore + 1) ;&
 56) echo -n 56 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Pour éliminer les noms identiques qui se suivent, vous devez utiliser la commande ${learn}uniq${reset}."; restore=$(expr $restore + 1) ;&
 57) echo -n 57 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Continuons à enchainer les pipes, faites donc : ${learn}cat LIST|grep -v @|sort|uniq${reset}"; restore=$(expr $restore + 1) ;&
 58) echo -n 58 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat LIST|grep -v @|sort|uniq" justumen "Non"; restore=$(expr $restore + 1) ;&
 59) echo -n 59 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici notre résultat est parfait, vous pourriez donc rediriger la dernière sortie standard pour créer un fichier 'NAMES'."; restore=$(expr $restore + 1) ;&
-60) echo -n 60 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "En programmation comme dans un terminal, il a toujours plus d'une seule fac???on pour faire la même chose."; restore=$(expr $restore + 1) ;&
+60) echo -n 60 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "En programmation comme dans un terminal, il a toujours plus d'une seule façon pour faire la même chose."; restore=$(expr $restore + 1) ;&
 61) echo -n 61 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Nous avons utilisé le code suivant : ${code}cat LIST|grep -v @|sort|uniq${reset}"; restore=$(expr $restore + 1) ;&
-62) echo -n 62 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici ${code}grep${reset} utilisera la sortie standard, mais comme ${code}wc${reset}, ${code}grep${reset} accepte aussi en argument un fichier."; restore=$(expr $restore + 1) ;&
+62) echo -n 62 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici ${code}grep${reset} utilisera la sortie standard de la commande précédente, mais comme ${code}wc${reset}, ${code}grep${reset} accepte aussi en argument un fichier."; restore=$(expr $restore + 1) ;&
 63) echo -n 63 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Vous auriez pu donc tout aussi bien ne pas utiliser la commande ${code}cat${reset}, en faisant directement : ${code}grep -v @ LIST|sort|uniq${reset}"; restore=$(expr $restore + 1) ;&
 64) echo -n 64 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${code}uniq${reset} peut également être supprimé, car ${code}sort${reset} possède aussi une option qui est capable de supprimer les doublons : -u."; restore=$(expr $restore + 1) ;&
 65) echo -n 65 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Essayez donc cette nouvelle commande : ${learn}grep -v @ LIST|sort -u${reset}"; restore=$(expr $restore + 1) ;&
 66) echo -n 66 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "grep -v @ LIST|sort -u" justumen "Non"; restore=$(expr $restore + 1) ;&
 67) echo -n 67 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${learn}grep -v @ LIST|sort -u${reset} donne donc un résultat identique à ${learn}cat LIST|grep -v @|sort|uniq${reset}."; restore=$(expr $restore + 1) ;&
-68) echo -n 68 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais l'important n'est pas tant votre style d'écriture, mais une excellente compréhension de toutes les fonctionnalités qui vous sont offertes."; restore=$(expr $restore + 1) ;&
+68) echo -n 68 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais l'important n'est pas tant votre style d'écriture, mais une bonne compréhension de toutes les fonctionnalités qui vous sont offertes."; restore=$(expr $restore + 1) ;&
 69) echo -n 69 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Pour l'instant je vous impose un style d'écriture minimal, mais avec le temps vous développerez probablement un style différent, qui ne sera pas moins valide que celui que je partage ici avec vous."; restore=$(expr $restore + 1) ;&
 70) echo -n 70 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Que cela soit l'utilisation des espaces pour la présentation, ou la logique derrière votre code."; restore=$(expr $restore + 1) ;&
 71) echo -n 71 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Maintenant je vais vous donner quelques clarifications sur les commandes précédentes."; restore=$(expr $restore + 1) ;&
 72) echo -n 72 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Pour afficher uniquement le nombre de lignes, vous auriez pu utiliser ${code}wc${reset} avec l'option -l."; restore=$(expr $restore + 1) ;&
 73) echo -n 73 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Essayez donc : ${learn}echo au revoir|wc -l${reset}"; restore=$(expr $restore + 1) ;&
 74) echo -n 74 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "echo au revoir|wc -l" justumen "Non"; restore=$(expr $restore + 1) ;&
-75) echo -n 75 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Pour être précis, ${code}wc${reset} ne compte pas réellement le nombre de lignes, mais pluto???t le nombre de retour à la ligne."; restore=$(expr $restore + 1) ;&
+75) echo -n 75 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Pour être précis, ${code}wc${reset} ne compte pas réellement le nombre de lignes, mais plutôt le nombre de retour à la ligne."; restore=$(expr $restore + 1) ;&
 76) echo -n 76 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Essayez donc de faire : ${learn}echo -n au revoir|wc -l${reset}"; restore=$(expr $restore + 1) ;&
 77) echo -n 77 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "echo -n au revoir|wc -l" justumen "Non"; restore=$(expr $restore + 1) ;&
-78) echo -n 78 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici le résultat n'est bien évidemment pas 0 ligne, mais 0 'n', puisque nous n'avons pas le dernier caractère 'n' avec l'option -n."; restore=$(expr $restore + 1) ;&
-79) echo -n 79 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "C'est une convention d'avoir une mise a la ligne a la fin d'un fichier texte."; restore=$(expr $restore + 1) ;&
-80) echo -n 80 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais cela n'est pas strictement obligatoire, attention donc à certains fichiers qui ne se terminent pas par un 'n'."; restore=$(expr $restore + 1) ;&
+78) echo -n 78 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici le résultat n'est bien évidemment pas 0 ligne, mais 0 '\\n', puisque nous n'avons pas le dernier caractère '\\n' avec l'option -n."; restore=$(expr $restore + 1) ;&
+79) echo -n 79 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "C'est une ${voc}convention${reset} d'avoir une mise a la ligne a la fin d'un fichier texte."; restore=$(expr $restore + 1) ;&
+80) echo -n 80 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais cela n'est pas strictement obligatoire, attention donc à certains fichiers qui ne se terminent pas par un '\\n'."; restore=$(expr $restore + 1) ;&
 81) echo -n 81 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Nous avons vu que ${code}|${reset} était utilisé pour rediriger la sortie standard vers une autre commande."; restore=$(expr $restore + 1) ;&
 82) echo -n 82 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais il est aussi possible de rediriger la sortie erreur standard de la même manière, en utilisant cette fois ${code}|&${reset}."; restore=$(expr $restore + 1) ;&
-83) echo -n 83 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Faites donc par exemple : ${learn}cat x|&grep cat${reset}"; restore=$(expr $restore + 1) ;&
+83) echo -n 83 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Faites donc par exemple : ${learn}cat X|&grep cat${reset}"; restore=$(expr $restore + 1) ;&
 84) echo -n 84 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat X|&grep cat" justumen "Non"; restore=$(expr $restore + 1) ;&
-85) echo -n 85 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Et l'inverse : ${learn}cat x|&grep -v cat${reset}"; restore=$(expr $restore + 1) ;&
-86) echo -n 86 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat X|&grep cat" justumen "Non"; restore=$(expr $restore + 1) ;&
-87) echo -n 87 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "La logique est identique à celle de la sortie standard, libre à vous de faire ce que vous désirez."; restore=$(expr $restore + 1) ;&
-88) echo -n 88 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Bien évidemment, attention à ne pas mélanger ${code}|${reset} ou ${code}|&${reset} avec ${code}||${reset} !"; restore=$(expr $restore + 1) ;&
-89) echo -n 89 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-90) echo -n 90 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-91) echo -n 91 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-92) echo -n 92 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "??? Convention d'avoir une mise a la ligne a la fin d'un fichier texte"; restore=$(expr $restore + 1) ;&
-93) echo -n 93 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-94) echo -n 94 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-95) echo -n 95 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-96) echo -n 96 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "wc"; restore=$(expr $restore + 1) ;&
-97) echo -n 97 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "sort"; restore=$(expr $restore + 1) ;&
-98) echo -n 98 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "grep"; restore=$(expr $restore + 1) ;&
-99) echo -n 99 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "uniq"; restore=$(expr $restore + 1) ;&
-100) echo -n 100 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "stdin - ?"; restore=$(expr $restore + 1) ;&
-101) echo -n 101 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""|", like ">" but for other commands"; restore=$(expr $restore + 1) ;&
-102) echo -n 102 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""<" + filename"; restore=$(expr $restore + 1) ;&
-103) echo -n 103 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""<<" (EOF ?)"; restore=$(expr $restore + 1) ;&
-104) echo -n 104 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""|&" pipe error"; restore=$(expr $restore + 1) ;&
-105) echo -n 105 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "command < input-file > output-file"; restore=$(expr $restore + 1) ;&
-106) echo -n 106 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "ls -y >> c.log 2>&1 VS ls -y 2>&1 >> c.log"; restore=$(expr $restore + 1) ;&
-107) echo -n 107 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-108) echo -n 108 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; clean; restore=$(expr $restore + 1) ;&
-109) echo -n 109 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-110) echo -n 110 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-111) echo -n 111 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "être"; restore=$(expr $restore + 1) ;&
-112) echo -n 112 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "déjà"; restore=$(expr $restore + 1) ;&
-113) echo -n 113 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "è"; restore=$(expr $restore + 1) ;&
-114) echo -n 114 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-115) echo -n 115 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-116) echo -n 116 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-117) echo -n 117 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "wc -l : donne le nombre de nouvelle ligne du fichier (ex : echo -n test|wc -l) = 0"; restore=$(expr $restore + 1) ;&
-118) echo -n 118 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-119) echo -n 119 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-120) echo -n 120 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Affichez la taille en octets du fichier 'test'."; restore=$(expr $restore + 1) ;&
-121) echo -n 121 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "ls -l test" justumen "Non"; restore=$(expr $restore + 1) ;&
-122) echo -n 122 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-123) echo -n 123 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen ""; restore=$(expr $restore + 1) ;&
-124) echo -n 124 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "echo FORCE ASCII ?"; restore=$(expr $restore + 1) ;&
+85) echo -n 85 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Et l'inverse : ${learn}cat X|&grep -v cat${reset}"; restore=$(expr $restore + 1) ;&
+86) echo -n 86 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat X|&grep -v cat" justumen "Non"; restore=$(expr $restore + 1) ;&
+87) echo -n 87 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "La logique de ${code}|&${reset} est identique à celle de ${code}|${reset}, sauf qu'elle s'applique à la sortie erreur standard."; restore=$(expr $restore + 1) ;&
+88) echo -n 88 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Bien évidemment, attention à ne pas confondre ${code}|${reset} ou ${code}|&${reset} avec ${code}||${reset} !"; restore=$(expr $restore + 1) ;&
+89) echo -n 89 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Dans le chapitre 7 nous avons vu comment utiliser la sortie standard (stdout) et la sortie erreur standard (stderr)."; restore=$(expr $restore + 1) ;&
+90) echo -n 90 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; std_1; restore=$(expr $restore + 1) ;&
+91) echo -n 91 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais certaines commandes peuvent aussi recevoir des informations sur leur ${voc}entrée standard${reset} (stdin : standard input)."; restore=$(expr $restore + 1) ;&
+92) echo -n 92 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Très souvent, les commandes qui le peuvent utiliserons leur ${voc}entrée standard${reset} si aucun autre moyen n'est précisé."; restore=$(expr $restore + 1) ;&
+93) echo -n 93 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Si vous visitez le manuel de ${code}grep${reset} ou de ${code}cat${reset} vous verrez que c'est leur cas."; restore=$(expr $restore + 1) ;&
+94) echo -n 94 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Cettee ${voc}entrée standard${reset} sera par défaut votre clavier !"; restore=$(expr $restore + 1) ;&
+95) echo -n 95 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Pour mettre fin à cette transmission, il faudra envoyer le signal EOT en faisant simultanément sur votre clavier ${voc}ctrl + d${reset}."; restore=$(expr $restore + 1) ;&
+96) echo -n 96 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Vous pouvez donc par exemple utiliser ${code}cat${reset} comme un editeur de texte."; restore=$(expr $restore + 1) ;&
+97) echo -n 97 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Faites donc ${learn}cat>new${reset}, tapez quelques lignes, puis lorsque vous êtes sur une nouvelle ligne vide, faites ${voc}ctrl + d${reset}."; restore=$(expr $restore + 1) ;&
+98) echo -n 98 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat>new" justumen "Non"; restore=$(expr $restore + 1) ;&
+99) echo -n 99 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Affichez maintenant le fichier new."; restore=$(expr $restore + 1) ;&
+100) echo -n 100 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat new" justumen "Non"; restore=$(expr $restore + 1) ;&
+101) echo -n 101 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Je le répète cette ${voc}entrée standard${reset} sera par défaut votre clavier."; restore=$(expr $restore + 1) ;&
+102) echo -n 102 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; std_2; restore=$(expr $restore + 1) ;&
+103) echo -n 103 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais vous pouvez également la modifier facilement avec le symbole ${code}<${reset}."; restore=$(expr $restore + 1) ;&
+104) echo -n 104 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Faites donc : ${learn}wc<new${reset}"; restore=$(expr $restore + 1) ;&
+105) echo -n 105 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "wc<new" justumen "Non"; restore=$(expr $restore + 1) ;&
+106) echo -n 106 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Faites également : ${learn}wc new${reset}"; restore=$(expr $restore + 1) ;&
+107) echo -n 107 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "wc new" justumen "Non"; restore=$(expr $restore + 1) ;&
+108) echo -n 108 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${code}wc${reset} est à la fois capable de lire l'entrée standard ou un fichier donné en argument."; restore=$(expr $restore + 1) ;&
+109) echo -n 109 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "La seule différence entre ces deux commandes est l'absence du nom de fichier avec l'utilisation du ${code}<${reset}, normal puisqu'il n'y a pas de 'fichier' en lecture."; restore=$(expr $restore + 1) ;&
+110) echo -n 110 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Le contenu est lu directement à partir de l'entrée standard de ${code}wc${reset}."; restore=$(expr $restore + 1) ;&
+111) echo -n 111 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Certaines commandes ont besoin que vous précisiez que vous voulez utiliser l'entrée standard."; restore=$(expr $restore + 1) ;&
+112) echo -n 112 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Pour cela il faudra utiliser un ${code}-${reset} en argument."; restore=$(expr $restore + 1) ;&
+113) echo -n 113 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Faites donc : ${learn}wc -<new${reset}"; restore=$(expr $restore + 1) ;&
+114) echo -n 114 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "wc -<new" justumen "Non"; restore=$(expr $restore + 1) ;&
+115) echo -n 115 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici le nom de fichier devient -, mais le résultat de ${code}wc${reset} reste identique."; restore=$(expr $restore + 1) ;&
+116) echo -n 116 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "L'affichage ici est simplement la sortie standard de cette commande, vous pouvez donc bien évidemment la rediriger normalement."; restore=$(expr $restore + 1) ;&
+117) echo -n 117 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Faites donc : ${learn}wc -<new>wcnew${reset}"; restore=$(expr $restore + 1) ;&
+118) echo -n 118 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "wc -<new>wcnew" justumen "Non"; restore=$(expr $restore + 1) ;&
+119) echo -n 119 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk_not_press_key justumen "Affichez le contenu de 'wcnew'."; restore=$(expr $restore + 1) ;&
+120) echo -n 120 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; answer_run "cat wcnew" justumen "Non"; restore=$(expr $restore + 1) ;&
+121) echo -n 121 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "La commande ${code}grep${reset} prend deux arguments avec cette syntaxe : grep <MOTCLEF> <FICHIER>."; restore=$(expr $restore + 1) ;&
+122) echo -n 122 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${code}grep${reset}, utilisé sans deuxième argument, va utiliser, comme ${code}wc${reset}, l'entrée standard."; restore=$(expr $restore + 1) ;&
+123) echo -n 123 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Mais nous avons en fait déjà utilisé ${code}grep${reset} sans deuxième argument avec ${code}grep @${reset} dans notre commande précédente : ${learn}cat LIST|grep @${reset}."; restore=$(expr $restore + 1) ;&
+124) echo -n 124 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "L'entrée standard est en fait exactement ce qu'utilise ${code}|${reset}."; restore=$(expr $restore + 1) ;&
+125) echo -n 125 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; std_3; restore=$(expr $restore + 1) ;&
+126) echo -n 126 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Ici vous avez une représentation visuelle de la commande : ${learn}cat LIST|grep @${reset}"; restore=$(expr $restore + 1) ;&
+127) echo -n 127 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${code}|${reset} permet en fait de rediriger la sortie standard d'une commande, ou groupe de commande vers l'entrée standard d'une autre commande."; restore=$(expr $restore + 1) ;&
+128) echo -n 128 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; std_4; restore=$(expr $restore + 1) ;&
+129) echo -n 129 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${code}|&${reset} permet d'utiliser la sortie erreur standard à la place, comme ici dans ${learn}cat X|&grep cat${reset}."; restore=$(expr $restore + 1) ;&
+130) echo -n 130 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Encore une fois, pour certaines commandes il faudra explicitement demander l'utilisation de l'entrée standard avec le symbole ${code}-${reset}."; restore=$(expr $restore + 1) ;&
+131) echo -n 131 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "${learn}cat LIST|grep @${reset} est en fait équivalent à ${learn}cat LIST|grep @ -${reset}."; restore=$(expr $restore + 1) ;&
+132) echo -n 132 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Vous savez donc maintenant manipuler l'entrée standard (stdin) et les deux sorties de vos commandes (stdout et stderr)."; restore=$(expr $restore + 1) ;&
+133) echo -n 133 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; talk justumen "Vous devriez être prêt pour le questionnaire !"; restore=$(expr $restore + 1) ;&
+134) echo -n 134 > $HOME/.GameScript/restore_bash8; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash8; clean; restore=$(expr $restore + 1) ;&
 esac
 }
 CLREOL=$'\x1B[K'
 
-function stds(){
+function std_1(){
+echo -e "$basic${CLREOL}
+            %%%%%%%%%%%%%%%%%${CLREOL}
+            %               %${CLREOL}
+==========> %    COMMAND    %========>${CLREOL}
+      stdin %               % stdout ( 1> / > )${CLREOL}
+            %%%%%%%%%%%%%%%%%${CLREOL}
+                  |${CLREOL}
+                  |================>${CLREOL}
+                   stderr ( 2> )${CLREOL}$reset"
+}
+
+
+function std_2(){
 echo -e "$basic
-%%%%%%%%%%%%%%%%%          %%%%%%%%%%%%%%%%%
-%               %    stdin %               % 
-%   cat LIST    %========> %    |grep @    %========>
-%               % stdout   %               % stdout
-%%%%%%%%%%%%%%%%%          %%%%%%%%%%%%%%%%%
-        |                          |
-        |================>         |================>
-         stderr                     stderr
+            %%%%%%%%%%%%%%%%%${CLREOL}
+            %               %${CLREOL}
+==========> %    COMMAND    %========>${CLREOL}
+stdin ( ${code}<${reset}${basic} ) %               % stdout ( 1> / > )${CLREOL}
+            %%%%%%%%%%%%%%%%%${CLREOL}
+                  |${CLREOL}
+                  |================>${CLREOL}
+                   stderr ( 2> )${CLREOL}$reset"
+}
 
 
-        ${CLREOL}
-${CLREOL}$reset"
+
+function std_3(){
+echo -e "$basic
+%%%%%%%%%%%%%%%%%           %%%%%%%%%%%%%%%%%${CLREOL}
+%               %     stdin %               %${CLREOL}
+%   cat LIST    %===(${code}|${reset}${basic})===> %     grep @    %========>${CLREOL}
+%               % stdout    %               % stdout${CLREOL}
+%%%%%%%%%%%%%%%%%           %%%%%%%%%%%%%%%%%${CLREOL}
+        |                           |${CLREOL}
+        |=================>         |================>${CLREOL}
+         stderr                      stderr${CLREOL}$reset"
+}
+
+
+function std_4(){
+echo -e "$basic
+%%%%%%%%%%%%%%%%%${CLREOL}
+%               %${CLREOL}
+%     cat X     %=========>${CLREOL}
+%               % stdout${CLREOL}
+%%%%%%%%%%%%%%%%%           %%%%%%%%%%%%%%%%%${CLREOL}
+        |             stdin %               %${CLREOL}
+        |=======(${code}|&${reset}${basic})======> %    grep cat   %========>${CLREOL}
+         stderr             %               % stdout${CLREOL}
+                            %%%%%%%%%%%%%%%%%${CLREOL}
+                                    |${CLREOL}
+                                    |================>${CLREOL}
+	                                 stderr${CLREOL}$reset"
 }
 
 function clean(){ #in enter_chapter
 rm $HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
-	rm $HOME/.GameScript_bash8/file 2> /dev/null
-	rm $HOME/.GameScript_bash8/error 2> /dev/null
+	rm $HOME/.GameScript_bash8/LIST 2> /dev/null
+	rm $HOME/.GameScript_bash8/test 2> /dev/null
+	rm $HOME/.GameScript_bash8/EMAILS 2> /dev/null
 	rmdir $HOME/.GameScript_bash8 2> /dev/null
 }
 
@@ -409,7 +461,13 @@ function start_quiz(){
   echo -e "\e[15;5;44m Bash 'Bourne Again SHell' : Questionnaire du chapitre 8 \e[0m"
   echo -e "- La réponse doit être la plus courte possible, une commande valide mais ajoutant des caractères inutiles ne fonctionnera pas."
   echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
-  answer_text_fr "" ""
+  answer_text_fr "Comment afficher les lignes du fichier 'message' qui contiennent au moins une lettre 'a' ?" "grep a message"
+  answer_text_fr "Comment envoyer le mot 'test' sur la sortie standard et recupérer cette valeur avec la commande 'grep test' ?" "echo test|grep test"
+  answer_text_fr "En utilisant 'cat', comment envoyer à la sortie standard le contenu classé par ordre aphabétique du fichier 'noms' ?" "cat noms|sort"
+  answer_text_fr "Sans utiliser 'cat' et des options de commande, comment supprimer les doublons du fichier 'list' ?" "sort list|uniq"
+  answer_text_fr "Sans utiliser d'argument de commande, comment envoyer le contenu du fichier 'wc1' à la commande 'wc', puis écrire son résultat dans 'wc2' ?" "wc<wc1>wc2"
+  answer_text_fr "Comment rediriger l'erreur standard de la commande 'cat x' vers la commande 'grep cat' ?" "cat x|&grep cat"
+  answer_text_fr "Quel est le symbole qui peut préciser l'utilisation de l'entrée standard dans une commande ?" "-"
   unlock "bash" "8" "88ab" "44d5"
 }
 

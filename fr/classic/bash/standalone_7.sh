@@ -132,7 +132,8 @@ function answer_text_fr(){
 	echo -en "\\e[97;45m # \\e[0m"
 	read -r USER_CODE < /dev/tty
 	if [ ! "$USER_CODE" == "$2" ]; then
-		talk_not_press_key justumen "\\e[4;37mDésolé, réponse fausse ou trop longue. Je vous conseille de suivre le cours.\\e[0m"
+		talk_not_press_key justumen "\\e[4;37mDésolé, réponse fausse ou trop longue. Je vous conseille de suivre / refaire le cours.\nSi vous pensez maitriser le contenu du cours, il y a surement un piège, relisez donc attentivement la question. :-)\\e[0m"
+		#enter_chapter $CHAPTER_NAME $CHAPTER_NUMBER
 		exit
 	else
 		talk_not_press_key justumen "Correct !"
@@ -256,7 +257,7 @@ case $1 in
 2) echo -n 2 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; mkdir $HOME/.GameScript_bash7 2> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; cd $HOME/.GameScript_bash7; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Nous avons déjà vu dans les chapitres précédents comment utiliser le symbole ${code}>${reset}."; restore=$(expr $restore + 1) ;&
-5) echo -n 5 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ce symbole nous permet de rediriger le résultat d'une commande ver un fichier, comme par exemple ${learn}ls>file${reset}."; restore=$(expr $restore + 1) ;&
+5) echo -n 5 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ce symbole nous permet de rediriger le résultat d'une commande vers un fichier, comme par exemple ${learn}ls>file${reset}."; restore=$(expr $restore + 1) ;&
 6) echo -n 6 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Le fichier 'file' sera créé s'il n'existe pas et contiendra le résultat de la commande ${learn}ls${reset}."; restore=$(expr $restore + 1) ;&
 7) echo -n 7 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Avec le symbole ${code}>${reset} le résultat de la commande à sa gauche ne s'affiche plus dans le terminal."; restore=$(expr $restore + 1) ;&
 8) echo -n 8 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Commencez par cette commande avec une faute de frappe : ${learn}lss>file${reset}"; restore=$(expr $restore + 1) ;&
@@ -267,9 +268,9 @@ case $1 in
 13) echo -n 13 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "On aurait pu penser qu'avec la commande ${learn}lss>file${reset}, que le message d'erreur serait dans le fichier 'file'."; restore=$(expr $restore + 1) ;&
 14) echo -n 14 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; stdout; restore=$(expr $restore + 1) ;&
 15) echo -n 15 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Et bien non ! Lorsqu'une commande s'exécute, il y en en fait ${voc}deux${reset} flux de sortie indépendant."; restore=$(expr $restore + 1) ;&
-16) echo -n 16 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Le premier flux est celui que nous avons déjà redirigé avec le ${code}>${reset}, il s'agit de la ${voc}sortie standard${reset}. (en anglais stdout : standard output)"; restore=$(expr $restore + 1) ;&
+16) echo -n 16 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Le premier flux est celui que nous avons déjà redirigé avec le ${code}>${reset}, il s'agit de la ${voc}sortie standard${reset}. (en anglais stdout ou standard output)"; restore=$(expr $restore + 1) ;&
 17) echo -n 17 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; stderr; restore=$(expr $restore + 1) ;&
-18) echo -n 18 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Les erreurs utilisent un autre flux de sortie, qui s'appelle la ${voc}sortie erreur standard${reset}. (en anglais stderr : standard error)"; restore=$(expr $restore + 1) ;&
+18) echo -n 18 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Les erreurs utilisent un autre flux de sortie, qui s'appelle la ${voc}sortie erreur standard${reset}. (en anglais stderr ou standard error)"; restore=$(expr $restore + 1) ;&
 19) echo -n 19 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ayant deux flux différents, il est par exemple possible de rediriger les résultats d'un coté, et les erreurs de l'autre."; restore=$(expr $restore + 1) ;&
 20) echo -n 20 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Par défaut, sans l'utilisation des redirections, un terminal affiche les deux flux au même endroit."; restore=$(expr $restore + 1) ;&
 21) echo -n 21 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Pour rediriger la ${voc}sortie standard${reset}, il faudra utiliser ${code}1>${reset}."; restore=$(expr $restore + 1) ;&
@@ -288,7 +289,7 @@ case $1 in
 34) echo -n 34 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ici ${learn}ls-a${reset} provoque tout simplement le lancement d'une commande inconnue sans option."; restore=$(expr $restore + 1) ;&
 35) echo -n 35 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Parfois cet espace n'est pas nécessaire, comme avec les symboles spéciaux : ${code}>${reset}, ${code}&${reset}, ${code}|${reset}, etc..."; restore=$(expr $restore + 1) ;&
 36) echo -n 36 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Un symbole spécial ne sera pas considéré comme appartenant au nom de la commande ou du fichier, sauf s'il est précédé du caractère d'échappement."; restore=$(expr $restore + 1) ;&
-37) echo -n 37 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Mais la commande ${learn}pwd>file${reset} peut tout aussi bien s'écrire ${learn}pwd > file${reset} ou ${learn}pwd  >  file${reset} ou ${learn}pwd>   file${reset}, etc.."; restore=$(expr $restore + 1) ;&
+37) echo -n 37 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Mais la commande ${learn}pwd>file${reset} peut tout aussi bien s'écrire ${learn}pwd > file${reset} ou encore ${learn}pwd  >  file${reset} ou encore ${learn}pwd>   file${reset}, etc.."; restore=$(expr $restore + 1) ;&
 38) echo -n 38 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ceci étant dit, revenons sur notre problème avec ${learn}pwd1>file${reset}."; restore=$(expr $restore + 1) ;&
 39) echo -n 39 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Le chiffre '1' n'étant pas un caractère spécial, votre terminal considère que la commande complète est ${learn}pwd1${reset}."; restore=$(expr $restore + 1) ;&
 40) echo -n 40 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Il faudra donc ici séparer ${code}1>${reset} de ${code}pwd${reset} par un espace."; restore=$(expr $restore + 1) ;&
@@ -313,16 +314,16 @@ case $1 in
 59) echo -n 59 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Normal encore une fois, puisque rien n'a été envoyé sur la ${voc}sortie standard${reset}."; restore=$(expr $restore + 1) ;&
 60) echo -n 60 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Affichez par contre le contenu du fichier 'error'."; restore=$(expr $restore + 1) ;&
 61) echo -n 61 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "cat error" justumen "Non"; restore=$(expr $restore + 1) ;&
-62) echo -n 62 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ici l'erreur a bien été enregistrée dans le fichier 'error'."; restore=$(expr $restore + 1) ;&
-63) echo -n 63 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Essayez de rediriger séparement les résultats et les erreurs d'une commande dans deux fichiers avec : ${learn}pwd 1>stdout 2>stderr${reset}"; restore=$(expr $restore + 1) ;&
+62) echo -n 62 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ici l'erreur a bien été enregistrée dans le fichier."; restore=$(expr $restore + 1) ;&
+63) echo -n 63 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Essayez de rediriger séparement les résultats et les erreurs d'une commande dans deux fichiers différents avec : ${learn}pwd 1>stdout 2>stderr${reset}"; restore=$(expr $restore + 1) ;&
 64) echo -n 64 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "pwd 1>stdout 2>stderr" justumen "Non"; restore=$(expr $restore + 1) ;&
 65) echo -n 65 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Affichez le contenu du fichier 'stderr'."; restore=$(expr $restore + 1) ;&
 66) echo -n 66 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "cat stderr" justumen "Non"; restore=$(expr $restore + 1) ;&
-67) echo -n 67 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ne provoquant pas d'erreur, 'stderr' est vide."; restore=$(expr $restore + 1) ;&
+67) echo -n 67 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "La commande ne provoquant pas d'erreur, 'stderr' est vide."; restore=$(expr $restore + 1) ;&
 68) echo -n 68 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Pour vérifier si ${code}1>${reset} et ${code}2>${reset} peuvent fonctionner en même temps, il va falloir utiliser un code qui utilise les deux flux."; restore=$(expr $restore + 1) ;&
 69) echo -n 69 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Prenons par exemple : ${learn}pwdd||pwd${reset}."; restore=$(expr $restore + 1) ;&
 70) echo -n 70 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "${code}pwdd${reset} renverra un message d'erreur. Il utilisera donc la sortie erreur standard."; restore=$(expr $restore + 1) ;&
-71) echo -n 71 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "${code}pwdd${reset} renvoyant une erreur, la commande ${code}pwd${reset} s'executera et enverra son résultat vers la sortie standard."; restore=$(expr $restore + 1) ;&
+71) echo -n 71 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "${code}pwdd${reset} renvoyant une erreur, la commande ${code}pwd${reset} se lancera et enverra son résultat vers la sortie standard."; restore=$(expr $restore + 1) ;&
 72) echo -n 72 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "${code}1>${reset} est équivalent à ${code}>${reset}, et l'équivalent de ${code}>>${reset} est tout simplement ${code}1>>${reset}."; restore=$(expr $restore + 1) ;&
 73) echo -n 73 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Essayez donc de faire : ${learn}pwdd||pwd 1>>f 2>>e${reset}"; restore=$(expr $restore + 1) ;&
 74) echo -n 74 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "pwdd||pwd 1>>f 2>>e" justumen "Non"; restore=$(expr $restore + 1) ;&
@@ -338,7 +339,7 @@ case $1 in
 84) echo -n 84 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "pwdd 1>>f 2>>e||pwd 1>>f 2>>e" justumen "Non"; restore=$(expr $restore + 1) ;&
 85) echo -n 85 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Vous pouvez aussi plus simplement regrouper les deux commandes pour qu'elles ne fassent ${voc}qu'une${reset}, en utilisant les ${code}()${reset}."; restore=$(expr $restore + 1) ;&
 86) echo -n 86 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; stdout_stderr_2; restore=$(expr $restore + 1) ;&
-87) echo -n 87 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Par exemple, pour ${code}(ls&&lss)2>e${reset}, la redirection ${code}2>e${reset} sera faite sur ${code}ls&&lss${reset}, et non pas uniquement ${code}lss${reset}."; restore=$(expr $restore + 1) ;&
+87) echo -n 87 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Par exemple, pour ${code}(ls&&lss)2>e${reset}, la redirection ${code}2>e${reset} sera faite sur ${code}ls&&lss${reset}, et non pas uniquement sur ${code}lss${reset}."; restore=$(expr $restore + 1) ;&
 88) echo -n 88 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "L'espace ici entre ${code})${reset} et ${code}2>e${reset} n'est pas nécessaire car ${code})${reset} est un caractère spécial, elle sépare donc sans ambiguïté la redirection."; restore=$(expr $restore + 1) ;&
 89) echo -n 89 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Faites donc : ${learn}(pwdd||pwd)1>>f 2>>e${reset}, l'équivalent de la commande précédente : ${learn}pwdd 1>>f 2>>e||pwd 1>>f 2>>e${reset}."; restore=$(expr $restore + 1) ;&
 90) echo -n 90 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "(pwdd||pwd)1>>f 2>>e" justumen "Non"; restore=$(expr $restore + 1) ;&
@@ -359,12 +360,12 @@ case $1 in
 105) echo -n 105 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Par exemple, prenons le code suivant : ${learn}cd DOSSIER&&(cat FICHIER||echo \"FICHIER n'existe pas dans DOSSIER\")||echo \"DOSSIER n'existe pas\"${reset}"; restore=$(expr $restore + 1) ;&
 106) echo -n 106 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Les ${code}()${reset} permettent de lier la commande ${code}echo \"FICHIER n'existe pas dans DOSSIER\"${reset} avec la commande ${code}cat FICHIER${reset}."; restore=$(expr $restore + 1) ;&
 107) echo -n 107 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Sans les ${code}()${reset}, ${code}echo \"FICHIER n'existe pas dans DOSSIER\"${reset} se lancera si la commande ${code}cd DOSSIER${reset} renvoit une erreur, ce qui n'est pas ce que l'on veut."; restore=$(expr $restore + 1) ;&
-108) echo -n 108 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Vous pouvez donc utiliser ces ${code}()${reset} pour regrouper du code."; restore=$(expr $restore + 1) ;&
-109) echo -n 109 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Que votre but soit de changer la logique d'exécution de vos commandes, ou comme avant pour regrouper les flux de sortie et d'erreur."; restore=$(expr $restore + 1) ;&
+108) echo -n 108 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Vous pouvez donc utiliser ces ${code}()${reset} pour regrouper votre code."; restore=$(expr $restore + 1) ;&
+109) echo -n 109 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Que votre but soit de changer la logique d'exécution de vos commandes, ou comme avant pour regrouper les flux de sortie."; restore=$(expr $restore + 1) ;&
 110) echo -n 110 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Pour rediriger la sortie standard, vous devez utiliser ${code}>${reset} ou ${code}1>${reset}."; restore=$(expr $restore + 1) ;&
-111) echo -n 111 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Pour regiriger la sortie d'erreur, vous devez utiliser ${code}2>${reset}."; restore=$(expr $restore + 1) ;&
+111) echo -n 111 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Pour rediriger la sortie d'erreur, vous devez utiliser ${code}2>${reset}."; restore=$(expr $restore + 1) ;&
 112) echo -n 112 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Si vous voulez rediriger les deux à la fois, vous pouvez utiliser : ${code}&>${reset}."; restore=$(expr $restore + 1) ;&
-113) echo -n 113 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ou évidemment ${code}&>>${reset} si vous voulez ajouter le contenu à la suite d'un fichier."; restore=$(expr $restore + 1) ;&
+113) echo -n 113 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ou évidemment ${code}&>>${reset} si vous voulez ajouter le contenu à la fin d'un fichier."; restore=$(expr $restore + 1) ;&
 114) echo -n 114 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Faites donc : ${learn}pwd&>>f${reset}"; restore=$(expr $restore + 1) ;&
 115) echo -n 115 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "pwd&>>f" justumen "Non"; restore=$(expr $restore + 1) ;&
 116) echo -n 116 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "${code}&>>${reset} commence par un caractère spécial, l'espace à sa gauche n'est donc pas nécessaire, contrairement à ${code}1>${reset} ou ${code}2>${reset} que l'on vu précédemment."; restore=$(expr $restore + 1) ;&
@@ -372,7 +373,7 @@ case $1 in
 118) echo -n 118 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "pwdd&>>f" justumen "Non"; restore=$(expr $restore + 1) ;&
 119) echo -n 119 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Avec cette commande, rien ne s'affiche dans le terminal, les deux redirections se passent donc correctement."; restore=$(expr $restore + 1) ;&
 120) echo -n 120 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "${code}&>>${reset} est donc bien équivalent à la combinaison de ${code}1>>${reset} et de ${code}2>>${reset}."; restore=$(expr $restore + 1) ;&
-121) echo -n 121 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Parfois il est possible qu'un flux ne vous intéresse pas du tout."; restore=$(expr $restore + 1) ;&
+121) echo -n 121 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Mais parfois il est possible qu'un flux ne vous intéresse pas du tout."; restore=$(expr $restore + 1) ;&
 122) echo -n 122 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Pour ce genre de cas il existe un fichier spécial, ${code}/dev/null${reset}, que vous pouvez utiliser avec vos redirections."; restore=$(expr $restore + 1) ;&
 123) echo -n 123 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "${code}/dev/null${reset} est un fichier vide qui restera toujours vide."; restore=$(expr $restore + 1) ;&
 124) echo -n 124 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Affichez donc le contenu du fichier inexistant 'X', en vous débarassant des messages d'erreur."; restore=$(expr $restore + 1) ;&
@@ -391,7 +392,7 @@ case $1 in
 137) echo -n 137 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "pwdd>>/tmp/pwd.log 2>&1" justumen "Non"; restore=$(expr $restore + 1) ;&
 138) echo -n 138 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Puis réaffichez le contenu de '/tmp/pwd.log'."; restore=$(expr $restore + 1) ;&
 139) echo -n 139 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "cat /tmp/pwd.log" justumen "Non"; restore=$(expr $restore + 1) ;&
-140) echo -n 140 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "L'erreur a été ajoutée à la suite, ${code}2>&1${reset} est donc ici clairement dépendant du ${code}>>${reset} de la sortie standard."; restore=$(expr $restore + 1) ;&
+140) echo -n 140 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "L'erreur a été ici ajoutée à la suite, ${code}2>&1${reset} est donc clairement dépendant du ${code}>>${reset} de la sortie standard."; restore=$(expr $restore + 1) ;&
 141) echo -n 141 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Attention donc à cette syntaxe, ${code}2>&1${reset} veut dire : \"Le flux de sortie d'erreur standard est le même que le flux de sortie standard\"."; restore=$(expr $restore + 1) ;&
 142) echo -n 142 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "${code}2>&1${reset} s'adaptera donc si la redirection de la sortie standard est ${code}>${reset} ou ${code}>>${reset}."; restore=$(expr $restore + 1) ;&
 143) echo -n 143 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Pour ajouter à la fin d'un fichier, ${codeError}2>>&1${reset} pourrait venir à l'esprit mais ce n'est pas une syntaxe valide."; restore=$(expr $restore + 1) ;&
@@ -401,7 +402,7 @@ case $1 in
 147) echo -n 147 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Ici les deux sorties standards se regroupent en une seule sortie standard."; restore=$(expr $restore + 1) ;&
 148) echo -n 148 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; stdout_stderr_3; restore=$(expr $restore + 1) ;&
 149) echo -n 149 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Les deux sorties erreurs standards se regroupent également en une seule sortie d'erreur standard."; restore=$(expr $restore + 1) ;&
-150) echo -n 150 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Mais il reste encore deux flux distincts : la sortie standard et l'erreur standard."; restore=$(expr $restore + 1) ;&
+150) echo -n 150 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Mais il reste encore deux flux distincts : la sortie standard et la sortie erreur standard."; restore=$(expr $restore + 1) ;&
 151) echo -n 151 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Pour se débarasser de ces deux flux il faudra y ajouter ${code}&>/dev/null${reset}."; restore=$(expr $restore + 1) ;&
 152) echo -n 152 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; stdout_stderr_4; restore=$(expr $restore + 1) ;&
 153) echo -n 153 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Faites donc : ${learn}(pwdd;pwd)&>/dev/null${reset}"; restore=$(expr $restore + 1) ;&
@@ -527,8 +528,8 @@ rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 	rm $HOME/.GameScript_bash7/f 2> /dev/null
 	rm $HOME/.GameScript_bash7/stderr 2> /dev/null
 	rm $HOME/.GameScript_bash7/stdout 2> /dev/null
-	rmdir $HOME/.GameScript_bash7 2> /dev/null
 	rm /tmp/pwd.log 2> /dev/null
+	rmdir $HOME/.GameScript_bash7 2> /dev/null
 }
 
 function start_quiz(){
@@ -538,6 +539,8 @@ function start_quiz(){
   echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
   answer_text_fr "Comment afficher le contenu du fichier 'cat' en se débarassant de tous les messages d'erreur potentiels ?" "cat cat 2>/dev/null"
   answer_text_fr "Comment executer deux commandes : 'mkdir A' et 'touch B' et regrouper leurs flux de même type ? (erreur et sortie standard)" "(mkdir A;touch B)"
+  answer_text_fr "Le fichier ERROR étant créé par la commande 'cat x 2>ERROR', comment afficher son contenu sur la sortie standard ?" "cat ERROR"
+  answer_text_fr "Comment afficher le contenu du fichier 'LOG' sur la sortie erreur standard ?" "cat LOG 1>&2"
   answer_text_fr "Comment rediriger la sortie standard et la sortie erreur standard de la commande 'mkdir TEST' dans le fichier /var/mkdir" "mkdir TEST&>/var/mkdir"
   answer_text_fr "Sans utiliser '&>>', comment ajouter à la fin du fichier '/tmp/pwd.log' la sortie standard de la commande 'pwd' et rediriger sa sortie erreur standard au même endroit ?" "pwd>>/tmp/pwd.log 2>&1"
   unlock "bash" "7" "1109" "ff12"
