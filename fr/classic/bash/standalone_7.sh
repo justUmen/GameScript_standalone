@@ -318,7 +318,7 @@ case $1 in
 63) echo -n 63 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Essayez de rediriger séparement les résultats et les erreurs d'une commande dans deux fichiers différents avec : ${learn}pwd 1>out 2>err${reset}"; restore=$(expr $restore + 1) ;&
 64) echo -n 64 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "pwd 1>out 2>err" justumen "Non"; restore=$(expr $restore + 1) ;&
 65) echo -n 65 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk_not_press_key justumen "Affichez le contenu du fichier 'err'."; restore=$(expr $restore + 1) ;&
-66) echo -n 66 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "cat err out" justumen "Non"; restore=$(expr $restore + 1) ;&
+66) echo -n 66 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; answer_run "cat err" justumen "Non"; restore=$(expr $restore + 1) ;&
 67) echo -n 67 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "La commande ne provoquant pas d'erreur, 'err' est vide."; restore=$(expr $restore + 1) ;&
 68) echo -n 68 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Pour vérifier si ${code}1>${reset} et ${code}2>${reset} peuvent fonctionner en même temps, il va falloir utiliser un code qui utilise les deux flux."; restore=$(expr $restore + 1) ;&
 69) echo -n 69 > $HOME/.GameScript/restore_bash7; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash7; talk justumen "Prenons par exemple : ${learn}pwdd||pwd${reset}."; restore=$(expr $restore + 1) ;&
