@@ -132,7 +132,7 @@ function answer_text_fr(){
 	echo -en "\\e[97;45m # \\e[0m"
 	read -r USER_CODE < /dev/tty
 	if [ ! "$USER_CODE" == "$2" ]; then
-		talk_not_press_key justumen "\\e[4;37mDésolé, réponse fausse ou trop longue. Je vous conseille de suivre / refaire le cours.\nSi vous pensez maitriser le contenu du cours, il y a surement un piège, relisez donc attentivement la question. :-)\\e[0m"
+		talk_not_press_key justumen "\\e[4;37mDésolé, réponse fausse ou trop longue. Je vous conseille de suivre / refaire le cours.\nSi vous pensez maitriser le contenu du cours, il y a surement un piège, relisez donc attentivement la question. :-)\nSi vous vous sentez vraiment bloqué, demandez de l'aide sur notre chat.\\e[0m"
 		#enter_chapter $CHAPTER_NAME $CHAPTER_NUMBER
 		exit
 	else
@@ -256,18 +256,23 @@ case $1 in
 1) echo -n 1 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; [ -d "$HOME/.GameScript_bash10" ] && echo "Erreur innatendu, ${HOME}/.GameScript_bash10 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash10 et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
 2) echo -n 2 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; mkdir $HOME/.GameScript_bash10 2> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; cd $HOME/.GameScript_bash10; restore=$(expr $restore + 1) ;&
-4) echo -n 4 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ""; restore=$(expr $restore + 1) ;&
+4) echo -n 4 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Dans le dernier chapitre nous avons vu comment créer et manipuler les variables."; restore=$(expr $restore + 1) ;&
 5) echo -n 5 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ""; restore=$(expr $restore + 1) ;&
 6) echo -n 6 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ""; restore=$(expr $restore + 1) ;&
 7) echo -n 7 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ""; restore=$(expr $restore + 1) ;&
 8) echo -n 8 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ""; restore=$(expr $restore + 1) ;&
 9) echo -n 9 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ""; restore=$(expr $restore + 1) ;&
-10) echo -n 10 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ""; restore=$(expr $restore + 1) ;&
-11) echo -n 11 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ""; restore=$(expr $restore + 1) ;&
-12) echo -n 12 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "ê"; restore=$(expr $restore + 1) ;&
-13) echo -n 13 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "é"; restore=$(expr $restore + 1) ;&
-14) echo -n 14 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "à"; restore=$(expr $restore + 1) ;&
-15) echo -n 15 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "è"; restore=$(expr $restore + 1) ;&
+10) echo -n 10 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ".bashrc"; restore=$(expr $restore + 1) ;&
+11) echo -n 11 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "variables : $OLDPWD"; restore=$(expr $restore + 1) ;&
+12) echo -n 12 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "variable as argument !"; restore=$(expr $restore + 1) ;&
+13) echo -n 13 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "ls `pwd`/*.log > ~/TMP/LOG"; restore=$(expr $restore + 1) ;&
+14) echo -n 14 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "ls -l $(cat LOG)"; restore=$(expr $restore + 1) ;&
+15) echo -n 15 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ""; restore=$(expr $restore + 1) ;&
+16) echo -n 16 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen ""; restore=$(expr $restore + 1) ;&
+17) echo -n 17 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "ê"; restore=$(expr $restore + 1) ;&
+18) echo -n 18 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "é"; restore=$(expr $restore + 1) ;&
+19) echo -n 19 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "à"; restore=$(expr $restore + 1) ;&
+20) echo -n 20 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "è"; restore=$(expr $restore + 1) ;&
 esac
 }
 
