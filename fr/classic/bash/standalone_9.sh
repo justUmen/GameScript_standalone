@@ -388,7 +388,7 @@ case $1 in
 129) echo -n 129 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; talk justumen "Ici vous pouvez voir que '~/.GameScript_bash9' a bien été rajouté à la suite de l'ancienne version de 'PATH'."; restore=$(expr $restore + 1) ;&
 130) echo -n 130 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; talk justumen "Mais les modifications que vous faites sur les variables sont valables ${voc}uniquement${reset} pour la session de bash que vous utilisez actuellement."; restore=$(expr $restore + 1) ;&
 131) echo -n 131 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; talk justumen "Ouvrir un autre terminal ${voc}réinitialisera${reset} les variables importantes, comme par exemple 'PATH', et ${voc}supprimera${reset} les autres, comme ici les variables 'name' et 'chemin'."; restore=$(expr $restore + 1) ;&
-132) echo -n 132 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; talk justumen "Mais pour l'instant, puisque le dossier '~/.GameScript_bash9' est dans votre d'environnement 'PATH', vous pouvez simplement lancer le script 'code_bash' en tapant 'code_bash'."; restore=$(expr $restore + 1) ;&
+132) echo -n 132 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; talk justumen "Mais pour l'instant, puisque le dossier '~/.GameScript_bash9' est dans votre variable d'environnement 'PATH', vous pouvez simplement lancer le script 'code_bash' en tapant 'code_bash'."; restore=$(expr $restore + 1) ;&
 133) echo -n 133 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; talk_not_press_key justumen "Lancez donc 'code_bash'."; restore=$(expr $restore + 1) ;&
 134) echo -n 134 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; answer_run "code_bash" justumen "Non"; restore=$(expr $restore + 1) ;&
 135) echo -n 135 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; talk_not_press_key justumen "Déplacez vous dans le dossier 'FOLDER'."; restore=$(expr $restore + 1) ;&
@@ -417,9 +417,9 @@ function start_quiz(){
   echo -e "\e[15;5;44m Bash 'Bourne Again SHell' : Questionnaire du chapitre 9 \e[0m"
   echo -e "- La réponse doit être la plus courte possible, une commande valide mais ajoutant des caractères inutiles ne fonctionnera pas."
   echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
-  answer_text_fr "Comment afficher le contenu de la variable 'PATH' ?" "echo $PATH"
-  answer_text_fr "Comment ajouter ':/bin' à la fin de la variable 'PATH' ?" "PATH=$PATH:/bin"
-  answer_text_fr "Sans utiliser les '\"', comment ajouter un espace à la fin de la variable 'phrase' ?" "phrase=$phrase' '"
+  answer_text_fr "Comment afficher le contenu de la variable 'PATH' ?" 'echo $PATH'
+  answer_text_fr "Comment ajouter ':/bin' à la fin de la variable 'PATH' ?" 'PATH=$PATH:/bin'
+  answer_text_fr "Sans utiliser les apostrophes, comment ajouter un espace à la fin de la variable 'phrase' ?" 'phrase=$phrase" "'
   answer_text_fr "Comment afficher vos variables d'environnement avec 'less' ?" "printenv|less"
   answer_text_fr "Comment afficher le chemin absolu du fichier utilisé par la commande 'date' ?" "type date"
   answer_text_fr "Si vous executez le script bash '/scripts/sc' dans le dossier '/var/' et que ce script contient le code 'rm f', quel est le chemin absolu du fichier que 'bash' voudra supprimer ?" "/var/f"
