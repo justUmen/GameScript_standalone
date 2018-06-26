@@ -427,6 +427,7 @@ case $1 in
 150) echo -n 150 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "C'est une syntaxe bien moins lisible que la première, mais vous devez la connaitre car vous risquez de la rencontrer un jour."; restore=$(expr $restore + 1) ;&
 151) echo -n 151 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "En avant pour le questionnaire !"; restore=$(expr $restore + 1) ;&
 152) echo -n 152 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; clean; restore=$(expr $restore + 1) ;&
+153) echo -n 153 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "p"; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter
@@ -462,7 +463,7 @@ CHAPTER_NUMBER="10"
 LANGUAGE="fr"
 SPEAKER="m1"
 
-LINES=147
+LINES=151
 if [ ! "$1" == "MUTE" ]; then prepare_audio; fi
 
 enter_chapter $CHAPTER_NAME $CHAPTER_NUMBER
