@@ -1,5 +1,7 @@
 #!/bin/bash
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
+shopt -s expand_aliases
+source ~/.bashrc
 
 function download_all_sounds(){
 	#~ echo "Downloading..."
@@ -69,6 +71,16 @@ function talk(){
 		new_sound
 	fi
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
+
+	#??? test delay avoid past read input
+	read -s -t 1 -n 10000 discard
+
+	#~ sleep 1
+	#~ while read -r -t 0; do read -r; done
+	
+	#~ sleep 0.5
+	#~ read -s -e -t 0.1 #flush stdin ?
+
 	press_key
 }
 function talk_not_press_key(){
@@ -151,11 +163,17 @@ function answer_run(){
 			talk_not_press_key_ANSWER "$2" "$1"
 		fi
 		echo -en "\\e[97;45m # \\e[0m"
-		read -r USER_CODE < /dev/tty
+		read -e -r -p $'\e[97;45m # \e[0m' USER_CODE < /dev/tty
 	done
 	if [ ! "$1" == "" ];then
 		echo -e "\e[1m"
 		printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+		#Quick solve for bash10 pb "alias a1='ls -a /var'" ???
+		#~ case $1 in
+			#~ a1) eval ls -a /var ;;
+			#~ alias) alias ;;
+			#~ *) eval "$1" ;;
+		#~ esac
 		eval "$1"
 		printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 		echo -e "\\e[0m"
@@ -259,7 +277,7 @@ restore=$1
 case $1 in
 1) echo -n 1 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; [ -d "$HOME/.GameScript_bash10" ] && echo "Erreur innatendu, ${HOME}/.GameScript_bash10 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash10 et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
 2) echo -n 2 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; mkdir $HOME/.GameScript_bash10 2> /dev/null; restore=$(expr $restore + 1) ;&
-3) echo -n 3 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; cd $HOME/.GameScript_bash10;ls /var/log/*.log|head -n 5 > ~/.GameScript_bash10/LOG; restore=$(expr $restore + 1) ;&
+3) echo -n 3 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; cd $HOME/.GameScript_bash10;ls /var/log/*.log|head -n 5 > ~/.GameScript_bash10/LOG;cat ~/.bashrc|grep '^[^#]*alias '>~/.GameScript_bash10/.MYALIAS;source ~/.GameScript_bash10/.MYALIAS 2> /dev/null; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Dans le dernier chapitre nous avons vu comment créer et manipuler les variables."; restore=$(expr $restore + 1) ;&
 5) echo -n 5 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Mais les variables sont aussi capables de stocker des commandes bash."; restore=$(expr $restore + 1) ;&
 6) echo -n 6 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Créez donc une variable 'cmd' qui contiendra ${code}ls -a /var${reset} en utilisant les ${code}'${reset}."; restore=$(expr $restore + 1) ;&
@@ -271,7 +289,7 @@ case $1 in
 12) echo -n 12 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Mais pour cela, il faudra utiliser le \$, faites donc : ${learn}\$cmd${reset}."; restore=$(expr $restore + 1) ;&
 13) echo -n 13 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "\$cmd" justumen "Non"; restore=$(expr $restore + 1) ;&
 14) echo -n 14 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Mais pour lancer GameScript il vous suffit de taper 'gamescript' dans votre terminal."; restore=$(expr $restore + 1) ;&
-15) echo -n 15 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Si le code de GameScript était dans une variable, il vous faudrait taper '$gamescript'."; restore=$(expr $restore + 1) ;&
+15) echo -n 15 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Si le code de GameScript était dans une variable, il vous faudrait taper '\$gamescript'."; restore=$(expr $restore + 1) ;&
 16) echo -n 16 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "On peut donc imaginer que 'gamescript' est peut être un script qui est dans un des dossiers de la variable d'environnement 'PATH'."; restore=$(expr $restore + 1) ;&
 17) echo -n 17 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Et bien pas du tout... mais cela aurait pu être le cas."; restore=$(expr $restore + 1) ;&
 18) echo -n 18 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "GameScript utilise en fait un ${voc}alias${reset}, un type de variable spécialisé pour les commandes."; restore=$(expr $restore + 1) ;&
@@ -292,9 +310,9 @@ case $1 in
 33) echo -n 33 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "La commande 'bash' est exactement comme la commande 'date' du chapitre précédent, il s'agit en fait d'un fichier."; restore=$(expr $restore + 1) ;&
 34) echo -n 34 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Pour connaitre le chemin absolu de ce fichier 'bash', faites donc : ${learn}type bash${reset}."; restore=$(expr $restore + 1) ;&
 35) echo -n 35 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "type bash" justumen "Non"; restore=$(expr $restore + 1) ;&
-36) echo -n 36 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Vous l'avez peut être compris, mais 'gamescript' ne fonctionnera que si le dossier '/bin' est dans votre variable 'PATH'."; restore=$(expr $restore + 1) ;&
+36) echo -n 36 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Vous l'avez peut être compris, mais 'gamescript', utilisant simplement 'bash' et non pas '/bin/bash', ne fonctionnera que si le dossier '/bin' est dans votre variable 'PATH'."; restore=$(expr $restore + 1) ;&
 37) echo -n 37 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Le répertoire '/bin' possède certains des fichiers ${voc}bin${reset}aires les plus important de votre système."; restore=$(expr $restore + 1) ;&
-38) echo -n 38 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Utiliser 'bash' au lieu de '/bin/bash' semble raisonnable dans cet alias, parce que '/bin' devrait être présent dans la variable d'environnement 'PATH' de tous les systèmes correctement configurés."; restore=$(expr $restore + 1) ;&
+38) echo -n 38 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Utiliser 'bash' au lieu de '/bin/bash' semble raisonnable dans cet alias, car '/bin' devrait être présent dans la variable d'environnement 'PATH' de tous les systèmes correctement configurés."; restore=$(expr $restore + 1) ;&
 39) echo -n 39 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Affichez donc plus de details sur ce fichier '/bin/bash' avec : ${learn}wc /bin/bash${reset}."; restore=$(expr $restore + 1) ;&
 40) echo -n 40 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "wc /bin/bash" justumen "Non"; restore=$(expr $restore + 1) ;&
 41) echo -n 41 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Ce fichier est particulièrement volumineux, je vous déconseille donc de l'afficher avec la commande ${code}cat${reset}."; restore=$(expr $restore + 1) ;&
@@ -311,7 +329,7 @@ case $1 in
 52) echo -n 52 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "less /bin/bash" justumen "Non"; restore=$(expr $restore + 1) ;&
 53) echo -n 53 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Ici le fichier est illisible car il s'agit en fait d'un fichier ${voc}binaire${reset}."; restore=$(expr $restore + 1) ;&
 54) echo -n 54 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "${code}less${reset} considère tout fichier ouvert comme un fichier texte, ce qu'il affiche n'a donc ici simplement aucun sens."; restore=$(expr $restore + 1) ;&
-55) echo -n 55 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Si 'less' est la valeur de votre variable d'environnement 'PAGER', vous auriez bien sur également pu faire ${learn}$PAGER /bin/bash${reset}."; restore=$(expr $restore + 1) ;&
+55) echo -n 55 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Si 'less' est la valeur de votre variable d'environnement 'PAGER', vous auriez bien sur également pu faire ${learn}\$PAGER /bin/bash${reset}."; restore=$(expr $restore + 1) ;&
 56) echo -n 56 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Créons maintenant l'alias 'pager' avec : ${learn}alias pager=\$PAGER${reset}."; restore=$(expr $restore + 1) ;&
 57) echo -n 57 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "alias pager=\$PAGER" justumen "Non"; restore=$(expr $restore + 1) ;&
 58) echo -n 58 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Utilisez maintenant ce nouvel alias avec '/bin/bash', puis quittez avec la touche 'q'."; restore=$(expr $restore + 1) ;&
@@ -325,7 +343,7 @@ case $1 in
 66) echo -n 66 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Maintenant faites : ${learn}pwdd;echo \$?${reset}"; restore=$(expr $restore + 1) ;&
 67) echo -n 67 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "pwdd;echo \$?" justumen "Non"; restore=$(expr $restore + 1) ;&
 68) echo -n 68 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Ici la valeur retour est 127. Cela veut dire que la commande ${codeError}pwdd${reset} n'existe pas."; restore=$(expr $restore + 1) ;&
-69) echo -n 69 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Puis : ${learn}lss;echo \$?${reset}"; restore=$(expr $restore + 1) ;&
+69) echo -n 69 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Faites donc : ${learn}lss;echo \$?${reset}"; restore=$(expr $restore + 1) ;&
 70) echo -n 70 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "lss;echo \$?" justumen "Non"; restore=$(expr $restore + 1) ;&
 71) echo -n 71 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Ici la valeur retour est encore 127. Cela veut dire que la commande ${codeError}lss${reset} n'existe pas."; restore=$(expr $restore + 1) ;&
 72) echo -n 72 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Maintenant faites donc : ${learn}cat x;echo \$?${reset}"; restore=$(expr $restore + 1) ;&
@@ -359,55 +377,64 @@ case $1 in
 100) echo -n 100 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Maintenant pour vérifier, faites : ${learn}echo \$var;pwd${reset}."; restore=$(expr $restore + 1) ;&
 101) echo -n 101 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "echo \$var;pwd" justumen "Non"; restore=$(expr $restore + 1) ;&
 102) echo -n 102 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Vous pouvez également faire la même chose en utilisant les ${code}\`\`${reset}."; restore=$(expr $restore + 1) ;&
-103) echo -n 103 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Essayez par exemple : ${learn}var=\`ls /var/log/*\`${reset}"; restore=$(expr $restore + 1) ;&
-104) echo -n 104 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "var=\`ls /var/log/*\`" justumen "Non"; restore=$(expr $restore + 1) ;&
+103) echo -n 103 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Essayez par exemple : ${learn}var=\`ls /var/log/*.log\`${reset}"; restore=$(expr $restore + 1) ;&
+104) echo -n 104 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "var=\`ls /var/log/*.log\`" justumen "Non"; restore=$(expr $restore + 1) ;&
 105) echo -n 105 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Puis affichez le contenu de la variable 'var'."; restore=$(expr $restore + 1) ;&
 106) echo -n 106 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "echo \$var" justumen "Non"; restore=$(expr $restore + 1) ;&
-107) echo -n 107 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Nous avons déjà vu ${learn}cat${reset} pour afficher le contenu d'un fichier, mais il existe deux autres commandes bien utiles pour l'affichage du contenu des fichiers."; restore=$(expr $restore + 1) ;&
-108) echo -n 108 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Il s'agit de ${code}head${reset} et de ${tail}tail${reset}, qui affichent respectivement les 10 premières et les 10 dernières lignes d'un fichier."; restore=$(expr $restore + 1) ;&
-109) echo -n 109 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "La variable 'var' contient une liste de fichier, vous pouvez donc utiliser cette variable en argument de commande."; restore=$(expr $restore + 1) ;&
-110) echo -n 110 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Affichez donc par exemple les 10 dernières lignes de tous les fichiers dans la variable 'var'."; restore=$(expr $restore + 1) ;&
-111) echo -n 111 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "head \$var" justumen "Non"; restore=$(expr $restore + 1) ;&
-112) echo -n 112 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Il est aussi possible de récuperer le résultat d'une commande et d'en faire une variable temporaire qui ne sera pas sauvegardée."; restore=$(expr $restore + 1) ;&
-113) echo -n 113 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Vous pouvez par exemple faire la même chose sans la variable 'var', avec : ${learn}head \`ls /var/log/*.log\`${reset}"; restore=$(expr $restore + 1) ;&
-114) echo -n 114 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "head \`ls /var/log/*.log\`" justumen "Non"; restore=$(expr $restore + 1) ;&
-115) echo -n 115 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Mais bien évidemment, ces deux commandes sont équivalentes à : ${learn}head /var/log/*.log${reset}"; restore=$(expr $restore + 1) ;&
-116) echo -n 116 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Mais imaginons par exemple que vous ayiez un fichier 'LOG' qui contient une liste des fichiers qui vous intéresse."; restore=$(expr $restore + 1) ;&
-117) echo -n 117 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Affichez le contenu du fichier 'LOG'."; restore=$(expr $restore + 1) ;&
-118) echo -n 118 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "cat LOG" justumen "Non"; restore=$(expr $restore + 1) ;&
-119) echo -n 119 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Vous pouvez donc directement utiliser ${code}tail${reset} avec le contenu de ce fichier en argument avec : ${code}tail $(cat LOG)${reset}."; restore=$(expr $restore + 1) ;&
-120) echo -n 120 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Essayez donc avec la commande équivalente : ${learn}tail \`cat LOG\`${reset}"; restore=$(expr $restore + 1) ;&
-121) echo -n 121 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "tail \`cat LOG\`" justumen "Non"; restore=$(expr $restore + 1) ;&
-122) echo -n 122 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Mais si 'gamescript' est un alias, comment se fait-il que vous puissiez l'utiliser dans toutes vos instances de bash ?"; restore=$(expr $restore + 1) ;&
-123) echo -n 123 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "L'alias 'gamescript' est en fait créé dans le fichier de configuration principal de bash : ${code}~/.bashrc${reset}"; restore=$(expr $restore + 1) ;&
-124) echo -n 124 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Bash analyse le contenu de votre fichier caché ${code}~/.bashrc${reset} à chaque lancement."; restore=$(expr $restore + 1) ;&
-125) echo -n 125 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Vous pouvez retrouver la ligne correspondant à 'gamescript' avec : ${learn}cat ~/.bashrc|grep gamescript${reset}"; restore=$(expr $restore + 1) ;&
-126) echo -n 126 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "cat ~/.bashrc|grep gamescript" justumen "Non"; restore=$(expr $restore + 1) ;&
-127) echo -n 127 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Donc si vous voulez avoir des alias ou des variables permanentes, vous pouvez tout simplement les ajouter dans ce fichier."; restore=$(expr $restore + 1) ;&
-128) echo -n 128 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "En revanche, n'oubliez pas que 'bash' n'utilise ce fichier qu'à l'ouverture d'une nouvelle session."; restore=$(expr $restore + 1) ;&
-129) echo -n 129 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "C'est à dire que si votre session bash était déjà ouverte avant la modification de ce fichier, les changements n'auront pas lieu."; restore=$(expr $restore + 1) ;&
-130) echo -n 130 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Pour valider vos modifications, il vous faudra donc ouvrir une nouvelle session bash ou forcer la relecture de ce fichier de configuration avec : ${code}source ~/.bashrc${reset}"; restore=$(expr $restore + 1) ;&
-131) echo -n 131 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "La commande ${code}source${reset} peut également être utilisée pour lire les variables dans un fichier et les ajouter dans la session bash actuelle."; restore=$(expr $restore + 1) ;&
-132) echo -n 132 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; echo -e 'var=testnvar2=test2' > $HOME/.GameScript_bash10/variables; restore=$(expr $restore + 1) ;&
-133) echo -n 133 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Affichez le contenu du fichier 'variables' de votre répertoire courant."; restore=$(expr $restore + 1) ;&
-134) echo -n 134 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "cat variables" justumen "Non"; restore=$(expr $restore + 1) ;&
-135) echo -n 135 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Affichez les valeur de 'var' et 'var2', séparé par un espace."; restore=$(expr $restore + 1) ;&
-136) echo -n 136 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "echo \$var \$var2" justumen "Non"; restore=$(expr $restore + 1) ;&
-137) echo -n 137 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Maintenant faites : ${learn}source variables${reset}"; restore=$(expr $restore + 1) ;&
-138) echo -n 138 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "source variables" justumen "Non"; restore=$(expr $restore + 1) ;&
-139) echo -n 139 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Et réaffichez les valeurs de 'var' et 'var2', séparé par un espace."; restore=$(expr $restore + 1) ;&
-140) echo -n 140 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "echo \$var \$var2" justumen "Non"; restore=$(expr $restore + 1) ;&
-141) echo -n 141 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Avec cet exemple, vous devriez mieux comprendre l'effet qu'aura la commande ${learn}source ~/.bashrc${reset}."; restore=$(expr $restore + 1) ;&
-142) echo -n 142 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "${code}source ~/.bashrc${reset} peut aussi s'écrire ${code}. ~/.bashrc${reset}."; restore=$(expr $restore + 1) ;&
-143) echo -n 143 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "C'est une syntaxe bien moins lisible que la première, mais vous devez la connaitre car vous risquez de la rencontrer un jour."; restore=$(expr $restore + 1) ;&
-144) echo -n 144 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "En avant pour le questionnaire !"; restore=$(expr $restore + 1) ;&
-145) echo -n 145 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; clean; restore=$(expr $restore + 1) ;&
+107) echo -n 107 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Vous pouvez noter ici que l'utilisation de ${code}\$()${reset} et ${code}``${reset} remplacent les mises a la ligne par des espaces."; restore=$(expr $restore + 1) ;&
+108) echo -n 108 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Nous avons déjà vu ${learn}cat${reset} pour afficher le contenu d'un fichier, mais il existe deux autres commandes bien utiles pour l'affichage du contenu des fichiers."; restore=$(expr $restore + 1) ;&
+109) echo -n 109 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Il s'agit de ${code}head${reset} et de ${code}tail${reset}, qui affichent respectivement les 10 premières et les 10 dernières lignes d'un fichier."; restore=$(expr $restore + 1) ;&
+110) echo -n 110 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "La variable 'var' contient une liste de fichier, vous pouvez donc utiliser cette variable en argument de commande."; restore=$(expr $restore + 1) ;&
+111) echo -n 111 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Affichez donc par exemple les 10 dernières lignes de tous les fichiers dans la variable 'var'."; restore=$(expr $restore + 1) ;&
+112) echo -n 112 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "head \$var" justumen "Non"; restore=$(expr $restore + 1) ;&
+113) echo -n 113 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Il est aussi possible de récuperer le résultat d'une commande et d'en faire une variable temporaire qui ne sera pas sauvegardée."; restore=$(expr $restore + 1) ;&
+114) echo -n 114 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Vous pouvez par exemple faire la même chose sans la variable 'var', avec : ${learn}head \`ls /var/log/*.log\`${reset}"; restore=$(expr $restore + 1) ;&
+115) echo -n 115 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "head \`ls /var/log/*.log\`" justumen "Non"; restore=$(expr $restore + 1) ;&
+116) echo -n 116 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Mais bien évidemment, ces deux commandes sont équivalentes à : ${learn}head /var/log/*.log${reset}"; restore=$(expr $restore + 1) ;&
+117) echo -n 117 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Mais imaginons par exemple que vous ayiez un fichier 'LOG' qui contient une liste des fichiers qui vous intéresse."; restore=$(expr $restore + 1) ;&
+118) echo -n 118 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Affichez le contenu du fichier 'LOG'."; restore=$(expr $restore + 1) ;&
+119) echo -n 119 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "cat LOG" justumen "Non"; restore=$(expr $restore + 1) ;&
+120) echo -n 120 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Vous pouvez donc directement utiliser ${code}tail${reset} avec le contenu de ce fichier en argument avec : ${code}tail \$(cat LOG)${reset}."; restore=$(expr $restore + 1) ;&
+121) echo -n 121 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Essayez donc avec la commande équivalente : ${learn}tail \`cat LOG\`${reset}"; restore=$(expr $restore + 1) ;&
+122) echo -n 122 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "tail \`cat LOG\`" justumen "Non"; restore=$(expr $restore + 1) ;&
+123) echo -n 123 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Dans cette situation, je vous le rappelle que les mises à la ligne sont remplacés par des espaces."; restore=$(expr $restore + 1) ;&
+124) echo -n 124 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "En utilisant cette méthode, le contenu de ce fichier devient une simple chaine de caractères donnée en argument à la commande ${code}tail${reset}."; restore=$(expr $restore + 1) ;&
+125) echo -n 125 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "${voc}Méfiez vous${reset} donc des noms de fichiers qui contiennent des espaces ou des caractères spéciaux."; restore=$(expr $restore + 1) ;&
+126) echo -n 126 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Si un fichier se nomme par exemple '/var/log/ce fichier.log', il sera donc considéré par ${code}tail${reset} comme deux fichiers différents : '/var/log/ce' et 'fichier.log'."; restore=$(expr $restore + 1) ;&
+127) echo -n 127 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "D'une manière générale, je vous conseille de ne ${voc}jamais${reset} mettre d'espaces dans vos noms de fichiers, surtout si ces fichiers seront manipulés plus tard par un autre programme."; restore=$(expr $restore + 1) ;&
+128) echo -n 128 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "'ce fichier.log' peut devenir par exemple 'ce_fichier.log'."; restore=$(expr $restore + 1) ;&
+129) echo -n 129 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Mais si 'gamescript' est un alias, comment se fait-il que vous puissiez l'utiliser dans toutes vos instances de bash ?"; restore=$(expr $restore + 1) ;&
+130) echo -n 130 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "L'alias 'gamescript' est en fait créé dans le fichier de configuration principal de bash : ${code}~/.bashrc${reset}"; restore=$(expr $restore + 1) ;&
+131) echo -n 131 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Bash analyse le contenu de votre fichier caché ${code}~/.bashrc${reset} à chaque lancement."; restore=$(expr $restore + 1) ;&
+132) echo -n 132 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Vous pouvez retrouver la ligne correspondant à 'gamescript' avec : ${learn}cat ~/.bashrc|grep gamescript${reset}"; restore=$(expr $restore + 1) ;&
+133) echo -n 133 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "cat ~/.bashrc|grep gamescript" justumen "Non"; restore=$(expr $restore + 1) ;&
+134) echo -n 134 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Donc si vous voulez avoir des alias ou des variables permanentes, vous pouvez tout simplement les ajouter dans ce fichier."; restore=$(expr $restore + 1) ;&
+135) echo -n 135 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "En revanche, n'oubliez pas que 'bash' n'utilise ce fichier qu'à l'ouverture d'une nouvelle session."; restore=$(expr $restore + 1) ;&
+136) echo -n 136 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "C'est à dire que si votre session bash était déjà ouverte avant la modification de ce fichier, les changements n'auront pas lieu."; restore=$(expr $restore + 1) ;&
+137) echo -n 137 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Pour valider vos modifications, il vous faudra donc ouvrir une nouvelle session bash ou forcer la relecture de ce fichier de configuration avec : ${code}source ~/.bashrc${reset}"; restore=$(expr $restore + 1) ;&
+138) echo -n 138 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "La commande ${code}source${reset} peut également être utilisée pour lire les variables dans un fichier et les ajouter dans la session bash actuelle."; restore=$(expr $restore + 1) ;&
+139) echo -n 139 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; echo -e 'var=test\nvar2=test2' > $HOME/.GameScript_bash10/variables; restore=$(expr $restore + 1) ;&
+140) echo -n 140 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Affichez le contenu du fichier 'variables' de votre répertoire courant."; restore=$(expr $restore + 1) ;&
+141) echo -n 141 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "cat variables" justumen "Non"; restore=$(expr $restore + 1) ;&
+142) echo -n 142 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Affichez les valeur de 'var' et 'var2', séparé par un espace."; restore=$(expr $restore + 1) ;&
+143) echo -n 143 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "echo \$var \$var2" justumen "Non"; restore=$(expr $restore + 1) ;&
+144) echo -n 144 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Maintenant faites : ${learn}source variables${reset}"; restore=$(expr $restore + 1) ;&
+145) echo -n 145 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "source variables" justumen "Non"; restore=$(expr $restore + 1) ;&
+146) echo -n 146 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Et réaffichez les valeurs de 'var' et 'var2', séparé par un espace."; restore=$(expr $restore + 1) ;&
+147) echo -n 147 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "echo \$var \$var2" justumen "Non"; restore=$(expr $restore + 1) ;&
+148) echo -n 148 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Avec cet exemple, vous devriez mieux comprendre l'effet qu'aura la commande ${learn}source ~/.bashrc${reset}."; restore=$(expr $restore + 1) ;&
+149) echo -n 149 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "${code}source ~/.bashrc${reset} peut aussi s'écrire ${code}. ~/.bashrc${reset}."; restore=$(expr $restore + 1) ;&
+150) echo -n 150 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "C'est une syntaxe bien moins lisible que la première, mais vous devez la connaitre car vous risquez de la rencontrer un jour."; restore=$(expr $restore + 1) ;&
+151) echo -n 151 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "En avant pour le questionnaire !"; restore=$(expr $restore + 1) ;&
+152) echo -n 152 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; clean; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter
 rm $HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 	rm $HOME/.GameScript_bash10/variables 2> /dev/null
+	rm $HOME/.GameScript_bash10/.MYALIAS 2> /dev/null
+	rm $HOME/.GameScript_bash10/LOG 2> /dev/null
 	
 	
 	

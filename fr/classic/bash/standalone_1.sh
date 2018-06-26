@@ -1,5 +1,7 @@
 #!/bin/bash
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
+shopt -s expand_aliases
+source ~/.bashrc
 
 function download_all_sounds(){
 	#~ echo "Downloading..."
@@ -69,6 +71,16 @@ function talk(){
 		new_sound
 	fi
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
+
+	#??? test delay avoid past read input
+	read -s -t 1 -n 10000 discard
+
+	#~ sleep 1
+	#~ while read -r -t 0; do read -r; done
+	
+	#~ sleep 0.5
+	#~ read -s -e -t 0.1 #flush stdin ?
+
 	press_key
 }
 function talk_not_press_key(){
@@ -151,11 +163,17 @@ function answer_run(){
 			talk_not_press_key_ANSWER "$2" "$1"
 		fi
 		echo -en "\\e[97;45m # \\e[0m"
-		read -r USER_CODE < /dev/tty
+		read -e -r -p $'\e[97;45m # \e[0m' USER_CODE < /dev/tty
 	done
 	if [ ! "$1" == "" ];then
 		echo -e "\e[1m"
 		printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+		#Quick solve for bash10 pb "alias a1='ls -a /var'" ???
+		#~ case $1 in
+			#~ a1) eval ls -a /var ;;
+			#~ alias) alias ;;
+			#~ *) eval "$1" ;;
+		#~ esac
 		eval "$1"
 		printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 		echo -e "\\e[0m"
@@ -358,7 +376,7 @@ case $1 in
 99) echo -n 99 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Tout comme ${learn}mkdir${reset}, il faudra lui donner en ${voc}argument${reset} le nom du fichier en question, par exemple : ${learn}rm test${reset}."; restore=$(expr $restore + 1) ;&
 100) echo -n 100 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Il vient de se passer quelque chose de bizarre... Affichez le contenu du ${voc}répertoire courant${reset}."; restore=$(expr $restore + 1) ;&
 101) echo -n 101 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
-102) echo -n 102 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "rmdir${reset} a bien supprimé les dossiers. Mais ces fichiers n'ont rien à faire ici, supprimez le fichier 'virus0' avec ${learn}rm virus0${reset}"; restore=$(expr $restore + 1) ;&
+102) echo -n 102 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "${code}rmdir${reset} a bien supprimé les dossiers. Mais ces fichiers n'ont rien à faire ici, supprimez le fichier 'virus0' avec ${learn}rm virus0${reset}"; restore=$(expr $restore + 1) ;&
 103) echo -n 103 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "rm virus0" justumen "Non"; restore=$(expr $restore + 1) ;&
 104) echo -n 104 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk_not_press_key justumen "Affichez à nouveau les éléments du ${voc}répertoire courant${reset}, pour voir s'il est toujours là."; restore=$(expr $restore + 1) ;&
 105) echo -n 105 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&

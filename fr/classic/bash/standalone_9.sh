@@ -1,5 +1,7 @@
 #!/bin/bash
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
+shopt -s expand_aliases
+source ~/.bashrc
 
 function download_all_sounds(){
 	#~ echo "Downloading..."
@@ -69,6 +71,16 @@ function talk(){
 		new_sound
 	fi
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
+
+	#??? test delay avoid past read input
+	read -s -t 1 -n 10000 discard
+
+	#~ sleep 1
+	#~ while read -r -t 0; do read -r; done
+	
+	#~ sleep 0.5
+	#~ read -s -e -t 0.1 #flush stdin ?
+
 	press_key
 }
 function talk_not_press_key(){
@@ -151,11 +163,17 @@ function answer_run(){
 			talk_not_press_key_ANSWER "$2" "$1"
 		fi
 		echo -en "\\e[97;45m # \\e[0m"
-		read -r USER_CODE < /dev/tty
+		read -e -r -p $'\e[97;45m # \e[0m' USER_CODE < /dev/tty
 	done
 	if [ ! "$1" == "" ];then
 		echo -e "\e[1m"
 		printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+		#Quick solve for bash10 pb "alias a1='ls -a /var'" ???
+		#~ case $1 in
+			#~ a1) eval ls -a /var ;;
+			#~ alias) alias ;;
+			#~ *) eval "$1" ;;
+		#~ esac
 		eval "$1"
 		printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 		echo -e "\\e[0m"
@@ -419,7 +437,7 @@ function start_quiz(){
   echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
   answer_text_fr "Comment afficher le contenu de la variable 'PATH' ?" 'echo $PATH'
   answer_text_fr "Comment ajouter ':/bin' à la fin de la variable 'PATH' ?" 'PATH=$PATH:/bin'
-  answer_text_fr "Sans utiliser les apostrophes, comment ajouter un espace à la fin de la variable 'phrase' ?" 'phrase=$phrase" "'
+  answer_text_fr "En utilisant les guillemets, comment ajouter la lettre 'x' à la fin de la variable 'phrase' ?" 'phrase=$phrase"x"'
   answer_text_fr "Comment afficher vos variables d'environnement avec 'less' ?" "printenv|less"
   answer_text_fr "Comment afficher le chemin absolu du fichier utilisé par la commande 'date' ?" "type date"
   answer_text_fr "Si vous executez le script bash '/scripts/sc' dans le dossier '/var/' et que ce script contient le code 'rm f', quel est le chemin absolu du fichier que 'bash' voudra supprimer ?" "/var/f"
