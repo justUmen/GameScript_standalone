@@ -162,7 +162,7 @@ function answer_run(){
 		if [ ! "$USER_CODE" == "" ]; then
 			talk_not_press_key_ANSWER "$2" "$1"
 		fi
-		echo -en "\\e[97;45m # \\e[0m"
+		#~ echo -en "\\e[97;45m # \\e[0m"
 		read -e -r -p $'\e[97;45m # \e[0m' USER_CODE < /dev/tty
 	done
 	if [ ! "$1" == "" ];then
@@ -330,16 +330,16 @@ case $1 in
 53) echo -n 53 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Ici le fichier est illisible car il s'agit en fait d'un fichier ${voc}binaire${reset}."; restore=$(expr $restore + 1) ;&
 54) echo -n 54 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "${code}less${reset} considère tout fichier ouvert comme un fichier texte, ce qu'il affiche n'a donc ici simplement aucun sens."; restore=$(expr $restore + 1) ;&
 55) echo -n 55 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Si 'less' est la valeur de votre variable d'environnement 'PAGER', vous auriez bien sur également pu faire ${learn}\$PAGER /bin/bash${reset}."; restore=$(expr $restore + 1) ;&
-56) echo -n 56 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Créons maintenant l'alias 'pager' avec : ${learn}alias pager=\$PAGER${reset}."; restore=$(expr $restore + 1) ;&
-57) echo -n 57 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "alias pager=\$PAGER" justumen "Non"; restore=$(expr $restore + 1) ;&
+56) echo -n 56 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Créons maintenant l'alias 'monpager' avec : ${learn}alias monpager=less${reset}."; restore=$(expr $restore + 1) ;&
+57) echo -n 57 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "alias monpager=less" justumen "Non"; restore=$(expr $restore + 1) ;&
 58) echo -n 58 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Utilisez maintenant ce nouvel alias avec '/bin/bash', puis quittez avec la touche 'q'."; restore=$(expr $restore + 1) ;&
-59) echo -n 59 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "pager /bin/bash" justumen "Non"; restore=$(expr $restore + 1) ;&
+59) echo -n 59 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "monpager /bin/bash" justumen "Non"; restore=$(expr $restore + 1) ;&
 60) echo -n 60 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Nous avonc donc vu comment créer et manipuler les variables et les alias, mais n'oubliez pas que ces variables et ces alias ne seront disponibles que dans la session de bash que vous utilisez actuellement."; restore=$(expr $restore + 1) ;&
 61) echo -n 61 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Maintenant parlons d'une variable très particulière : ${code}\$?${reset}"; restore=$(expr $restore + 1) ;&
-62) echo -n 62 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "${code}\$?${reset} contient un nombre entre 0 et 255, qui est la valeur de retour de votre dernière commande. (anglais ${voc}exit status${reset})"; restore=$(expr $restore + 1) ;&
+62) echo -n 62 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "${code}\$?${reset} contient un nombre entre 0 et 255, qui est la ${voc}valeur de retour${reset} de votre dernière commande. (anglais ${voc}exit status${reset})"; restore=$(expr $restore + 1) ;&
 63) echo -n 63 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Faites donc : ${learn}pwd;echo \$?${reset}"; restore=$(expr $restore + 1) ;&
 64) echo -n 64 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "pwd;echo \$?" justumen "Non"; restore=$(expr $restore + 1) ;&
-65) echo -n 65 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Ici la valeur retour est 0. Cela veut dire que la commande n'a pas rencontré de problème."; restore=$(expr $restore + 1) ;&
+65) echo -n 65 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Ici la valeur retour est 0. Cela veut dire que la commande ${code}pwd${reset} n'a pas rencontré de problème."; restore=$(expr $restore + 1) ;&
 66) echo -n 66 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk_not_press_key justumen "Maintenant faites : ${learn}pwdd;echo \$?${reset}"; restore=$(expr $restore + 1) ;&
 67) echo -n 67 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; answer_run "pwdd;echo \$?" justumen "Non"; restore=$(expr $restore + 1) ;&
 68) echo -n 68 > $HOME/.GameScript/restore_bash10; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash10; talk justumen "Ici la valeur retour est 127. Cela veut dire que la commande ${codeError}pwdd${reset} n'existe pas."; restore=$(expr $restore + 1) ;&
@@ -451,7 +451,7 @@ function start_quiz(){
   answer_text_fr "Comment afficher la liste complète de vos alias ?" "alias"
   answer_text_fr "Quel est le nom (sans le $) de la variable d'environnment utilisée par la commande man ?" "PAGER"
   answer_text_fr "Comment afficher les dix dernières lignes du fichier 'test' ?" "tail test"
-  answer_text_fr "Comment affecter à la variable RET le code retour (exit status) de la dernière commande ?" "RET=$?"  
+  answer_text_fr "Comment affecter à la variable RET le code retour (exit status) de la dernière commande ?" 'RET=$?'
   answer_text_fr "Sans utiliser de '.', quelle commande vous permet d'ajouter les variables bash contenu dans le fichier 'VAR' dans votre session bash ?" "source VAR"
   answer_text_fr "Comment afficher les dix premières lignes du fichier 'test' ?" "head test"
   unlock "bash" "10" "aba2" "d414"
