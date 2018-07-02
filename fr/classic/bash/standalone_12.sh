@@ -346,6 +346,8 @@ case $1 in
 69) echo -n 69 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "à"; restore=$(expr $restore + 1) ;&
 70) echo -n 70 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "è"; restore=$(expr $restore + 1) ;&
 71) echo -n 71 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+72) echo -n 72 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+73) echo -n 73 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter

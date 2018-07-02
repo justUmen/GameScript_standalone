@@ -337,7 +337,7 @@ case $1 in
 60) echo -n 60 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk_not_press_key justumen "Essayez donc de faire : ${learn}if true;then echo vrai;fi${reset}"; restore=$(expr $restore + 1) ;&
 61) echo -n 61 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; answer_run "if true;then echo vrai;fi" justumen "Non"; restore=$(expr $restore + 1) ;&
 62) echo -n 62 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "Dans cet exemple, tous les espaces et les ${code};${reset} sont indispensables, faites donc bien attention à ne pas en oublier."; restore=$(expr $restore + 1) ;&
-63) echo -n 63 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "${learn}if${codeFile} ${learn}true;then echo vrai;fi${reset} : L'espace entre ${code}if${reset} et son argument est ${voc}important${reset}, c'est pourquoi ${code}if [ \$X -gt 5 ]${reset} est correct mais ${codeError}if[ \$X -gt 5 ]${reset} ne l'est pas."; restore=$(expr $restore + 1) ;&
+63) echo -n 63 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "${learn}if${codeFile} ${learn}true;then echo vrai;fi${reset} : Cet espace en vert entre ${code}if${reset} et son argument est ${voc}important${reset}, c'est pourquoi ${code}if [ \$X -gt 5 ]${reset} est correct mais ${codeError}if[ \$X -gt 5 ]${reset} ne l'est pas."; restore=$(expr $restore + 1) ;&
 64) echo -n 64 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "${learn}if true${codeFile};${learn}then echo vrai;fi${reset} : La commande ${code}if${reset} et son argument doivent aussi être séparés du reste, c'est pourquoi il faudra utiliser un ${code};${reset} ou une mise à la ligne."; restore=$(expr $restore + 1) ;&
 65) echo -n 65 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "${learn}if true;${codeFile}then echo vrai;${learn}fi${reset} : Pour être valide, un ${code}if${reset} doit contenir le mot clef 'then', suivi d'un espace, suivi d'au moins une commande et d'un ${code};${reset}."; restore=$(expr $restore + 1) ;&
 66) echo -n 66 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "${learn}if true;then echo vrai;${codeFile}fi${reset} : Il doit aussi se terminer par un ${code}fi${reset}."; restore=$(expr $restore + 1) ;&
@@ -347,7 +347,7 @@ case $1 in
 70) echo -n 70 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "Ici, quel que soit la situation, il est important de comprendre que seul l'${voc}une${reset} de ces commandes ${code}echo${reset} se lancera, ${voc}jamais${reset} les deux."; restore=$(expr $restore + 1) ;&
 71) echo -n 71 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk_not_press_key justumen "Revenons maintenant sur notre premier exemple, réaffichez le contenu du fichier 'if1'."; restore=$(expr $restore + 1) ;&
 72) echo -n 72 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; answer_run "cat if1" justumen "Non"; restore=$(expr $restore + 1) ;&
-73) echo -n 73 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk_not_press_key justumen "Puis lancez ce script avec : ${learn}bash if1${reset}, et donnez à X la valeur 1."; restore=$(expr $restore + 1) ;&
+73) echo -n 73 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk_not_press_key justumen "Puis lancez ce script avec : ${learn}bash if1${reset}, puis donnez à X la valeur 1 en tapant simplement 1 et validez avec la touche entrée."; restore=$(expr $restore + 1) ;&
 74) echo -n 74 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; answer_run "bash if1" justumen "Non"; restore=$(expr $restore + 1) ;&
 75) echo -n 75 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk_not_press_key justumen "Lancez à nouveau ce script avec : ${learn}bash if1${reset}, et donnez à X une valeur numérique différente de 1."; restore=$(expr $restore + 1) ;&
 76) echo -n 76 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; answer_run "bash if1" justumen "Non"; restore=$(expr $restore + 1) ;&
@@ -453,8 +453,13 @@ function start_quiz(){
   echo -e "\e[15;5;44m Bash 'Bourne Again SHell' : Questionnaire du chapitre 11 \e[0m"
   echo -e "- La réponse doit être la plus courte possible, une commande valide mais ajoutant des caractères inutiles ne fonctionnera pas."
   echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
-  exit
-  unlock "bash" "10" "2211" "ddfb"
+  answer_text_fr "Par quel mot clef doit se terminer une condition 'if' ?" "fi"
+  answer_text_fr "Quel argument pouvez-vous donner à 'if' qui garantira l'execution de son 'else' ?" "false"
+  answer_text_fr "Comment demander la valeur de la variable 'nom' à l'utilisateur ?" "read nom"
+  answer_text_fr "En utilisant 'if', un seul '[' et un seul ']', comment afficher le mot 'oui' si la valeur de X est plus grande que 2 ?" "if [ $X -gt 2 ];then echo oui;fi"
+  answer_text_fr "Sans utiliser de 'if' et en utilisant qu'un seul '[' et qu'un seul ']', comment afficher le mot 'oui' si la valeur de X est plus petite que 2 ?" "[ $X -lt 2 ]&&echo oui"
+  answer_text_fr "Sans utiliser de 'if' ou de '[', comment afficher le mot 'oui' si la valeur de X est égal à 2 ?" "test $X -eq 2&&echo oui"
+  unlock "bash" "11" "2211" "ddfb"
 }
 
 
