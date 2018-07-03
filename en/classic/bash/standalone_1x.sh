@@ -121,8 +121,12 @@ function talk(){
 	press_key
 }
 function talk_not_press_key(){
-	if [[ $MUTE == 0 ]]; then 
-		new_sound
+	if [[ $VIDEO == 0 ]]; then 
+		if [[ $MUTE == 0 ]]; then 
+			new_sound
+		fi
+	else
+		new_video
 	fi
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
 }
@@ -146,7 +150,7 @@ function answer_quiz(){
 		echo -en "\\e[97;45m # \\e[0m"
 		read key < /dev/tty
 		case $key in
-			0) download_all_sounds ;;
+			0) if [[ $VIDEO == 0 ]]; then download_all_sounds; else download_all_videos; fi ;;
 			1) 	if [ -f "$HOME/.GameScript/restore_$7$8" ];then
 					echo "$HOME/.GameScript/restore_$7$8 existe, continuer ou recommencer le cours du début ?"
 					while [ "$choice" != "1" ] || [ "$choice" != "2" ] || [ "$choice" != "3" ]; do
