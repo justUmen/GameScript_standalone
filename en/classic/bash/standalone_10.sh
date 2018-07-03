@@ -46,7 +46,7 @@ function prepare_audio(){
 }
 function prepare_video(){
 	VIDEO_LOCAL="$HOME/.GameScript/Video/$LANGUAGE/classic/$CHAPTER_NAME/$SPEAKER/c$CHAPTER_NUMBER"
-	mkdir -p $AUDIO_LOCAL 2> /dev/null
+	mkdir -p $VIDEO_LOCAL 2> /dev/null
 	VIDEO_DL="https://raw.githubusercontent.com/justUmen/GameScript/master/$LANGUAGE/classic/$CHAPTER_NAME/Video/$SPEAKER/c$CHAPTER_NUMBER"
 	VIDEOCMP=1
 	if [ ! -f "$VIDEO_LOCAL/4.mp3.mp4" ]; then
@@ -96,8 +96,25 @@ function new_sound(){
 
 function new_video(){
 	#~ $SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" &> /dev/null &
-	mpv "$VIDEO_LOCAL/$restore.mp3.mp4" &> /dev/null &
+	#~ mpv "$VIDEO_LOCAL/$restore.mp3.mp4" &> /dev/null &
+	ADD_PLAYLIST "$VIDEO_LOCAL/$restore.mp3.mp4"
+	sleep 1
+	PLAYLIST_NEXT #play next video
+	sleep 1
+	LOOP_OFF
+	sleep 1
+	UNTIL_IDLE_IS_BACK
+	#~ sleep 1
+	#~ PLAYLIST_NEXT #play idle video
+	#~ sleep 1
+	LOOP_ON #After normal video is over, quickly put back LOOP
 }
+
+#~ PLAYLIST_NEXT #play next video
+#~ LOOP_OFF
+#~ UNTIL_IDLE_IS_BACK
+#~ LOOP_ON
+
 
 function talk(){
 	if [[ $VIDEO == 0 ]]; then 
@@ -105,7 +122,7 @@ function talk(){
 			new_sound
 		fi
 	else
-		new_video
+		new_video &
 	fi
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
 
@@ -317,6 +334,71 @@ function enter_chapter(){
 	echo -e "\e[97;44m - $1, Chapitre $2 \e[0m"
 	answer_quiz "Cours" "Questionnaire" "Retour" "4" "5" "6" "$1" "$2"
 }
+
+
+
+
+
+
+
+
+
+
+#VIDEO SOUTH PARK
+function UNTIL_IDLE_IS_BACK(){
+	OUT=$(echo '{ "command": ["get_property", "filename"] }' | socat - /tmp/southpark)
+	#~ echo $OUT
+	while [ "$OUT" != '{"data":"10FPS_idle.mp4","error":"success"}' ]; do
+		OUT=$(echo '{ "command": ["get_property", "filename"] }' | socat - /tmp/southpark)
+		sleep 1
+	done
+}
+function PAUSE(){
+	echo '{ "command": ["set_property", "pause", true] }' | socat - /tmp/southpark &> /dev/null
+}
+function UNPAUSE(){
+	echo '{ "command": ["set_property", "pause", false] }' | socat - /tmp/southpark &> /dev/null
+}
+function LOOP_ON(){
+	echo '{ "command": ["set_property", "loop", true] }' | socat - /tmp/southpark &> /dev/null
+}
+function LOOP_OFF(){
+	echo '{ "command": ["set_property", "loop", false] }' | socat - /tmp/southpark &> /dev/null
+}
+function PLAYLIST_NEXT(){
+	echo '{ "command": ["playlist-next"] }' | socat - /tmp/southpark &> /dev/null
+}
+function PLAYLIST_CLEAR(){
+	echo '{ "command": ["playlist-clear"] }' | socat - /tmp/southpark &> /dev/null
+}
+function ADD_PLAYLIST(){
+	echo "{ \"command\": [\"loadfile\", \"$1\", \"append\"] }" | socat - /tmp/southpark &> /dev/null
+	sleep 0.5
+	echo "{ \"command\": [\"loadfile\", \"/home/umen/SyNc/Projects/SouthPark/vids/10FPS_idle.mp4\", \"append\"] }" | socat - /tmp/southpark &> /dev/null
+}
+function WAIT_FOR_USER(){
+	echo -n "LINE = "
+	read line
+}
+
+#WORKING TEST CODE
+#~ mpv --really-quiet --input-ipc-server=/tmp/southpark --playlist mpv_playlist.txt &
+#~ sleep 2
+#~ LOOP_ON #play idle
+#~ while true; do
+	#~ WAIT_FOR_USER
+	
+	#~ PLAYLIST_NEXT #play next video
+	#~ echo "PLAY VIDEO"
+	#~ LOOP_OFF
+	
+	#~ UNTIL_IDLE_IS_BACK
+	#~ echo "BACK"
+	
+	#~ echo "PLAY IDLE"
+	#~ LOOP_ON
+#~ done
+
 function start_lecture(){
 restore=$1
 case $1 in
@@ -508,6 +590,12 @@ LANGUAGE="fr"
 SPEAKER="m1"
 
 LINES=147
-if [ ! "$1" == "MUTE" ]; then prepare_audio; fi
+if [ "$1" == "MUTE" ]; then
+	prepare_audio
+else
+	if [ "$1" == "VIDEO" ]; then
+		prepare_video
+	fi
+fi
 
 enter_chapter $CHAPTER_NAME $CHAPTER_NUMBER
