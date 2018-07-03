@@ -16,6 +16,19 @@ function download_all_sounds(){
 	done
 	cat to_dl.wget | xargs -n 1 -P 4 wget -q &
 }
+function download_all_videos(){
+	#~ echo "Downloading..."
+	cd $VIDEO_LOCAL || exit
+	i=4
+	rm to_dl.wget 2> /dev/null
+	echo "Downloading Videos..."
+	while [ $i -le $LINES ]; do
+		#~ ( wget -q $AUDIO_DL/$i.mp3 -O $AUDIO_LOCAL/$i.mp3 || rm $AUDIO_LOCAL/$i.mp3 ) &> /dev/null &
+		echo "$VIDEO_DL/$i.mp3.mp4" >> to_dl.wget
+		i=`expr $i + 1`
+	done
+	cat to_dl.wget | xargs -n 1 -P 4 wget -q &
+}
 
 function prepare_audio(){
 	AUDIO_LOCAL="$HOME/.GameScript/Audio/$LANGUAGE/classic/$CHAPTER_NAME/$SPEAKER/c$CHAPTER_NUMBER"
@@ -28,6 +41,20 @@ function prepare_audio(){
 			download_all_sounds
 		else
 			echo "Cannot download audio, no internet ?"
+		fi
+	fi
+}
+function prepare_video(){
+	VIDEO_LOCAL="$HOME/.GameScript/Video/$LANGUAGE/classic/$CHAPTER_NAME/$SPEAKER/c$CHAPTER_NUMBER"
+	mkdir -p $AUDIO_LOCAL 2> /dev/null
+	VIDEO_DL="https://raw.githubusercontent.com/justUmen/GameScript/master/$LANGUAGE/classic/$CHAPTER_NAME/Video/$SPEAKER/c$CHAPTER_NUMBER"
+	VIDEOCMP=1
+	if [ ! -f "$VIDEO_LOCAL/4.mp3.mp4" ]; then
+		wget -q --spider http://google.com
+		if [ $? -eq 0 ]; then
+			download_all_videos
+		else
+			echo "Cannot download videos, no internet ?"
 		fi
 	fi
 }
@@ -66,9 +93,19 @@ function new_sound(){
 		#~ ( wget $AUDIO_DL/`expr $restore + 2`.mp3 -O $AUDIO_LOCAL/`expr $restore + 2`.mp3 || rm $AUDIO_LOCAL/`expr $restore + 2`.mp3 ) &> /dev/null &
 	#~ fi
 }
+
+function new_video(){
+	#~ $SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" &> /dev/null &
+	mpv "$VIDEO_LOCAL/$restore.mp3.mp4" &> /dev/null &
+}
+
 function talk(){
-	if [[ $MUTE == 0 ]]; then 
-		new_sound
+	if [[ $VIDEO == 0 ]]; then 
+		if [[ $MUTE == 0 ]]; then 
+			new_sound
+		fi
+	else
+		new_video
 	fi
 	echo -e "($restore)\e[0;32m $1\e[0m - $2"
 
@@ -387,7 +424,7 @@ case $1 in
 110) echo -n 110 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "A mispell or an unwanted ${voc}current directory${reset} can have severe consequences."; restore=$(expr $restore + 1) ;&
 111) echo -n 111 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Before confirming a command, be sure of what you are doing."; restore=$(expr $restore + 1) ;&
 112) echo -n 112 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "Never hesitate to launch and relaunch ${learn}pwd${reset} and ${learn}ls${reset} to know what is your ${voc}current directory${reset} and check its content."; restore=$(expr $restore + 1) ;&
-113) echo -n 113 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "But for now we have more 'virus' to delete. And we can remove them differently."; restore=$(expr $restore + 1) ;&
+113) echo -n 113 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "But for now we have more 'viruses' to delete. And we can remove them differently."; restore=$(expr $restore + 1) ;&
 114) echo -n 114 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "We can use their ${voc}absolute path${reset}."; restore=$(expr $restore + 1) ;&
 115) echo -n 115 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; cd ~/; restore=$(expr $restore + 1) ;&
 116) echo -n 116 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "When you did ${learn}rm virus0${reset}, you've asked for the deletion of the file 'virus0' in your ${voc}current directory${reset}."; restore=$(expr $restore + 1) ;&
