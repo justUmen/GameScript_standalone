@@ -253,6 +253,10 @@ MUTE=0
 if [ "$1" == "MUTE" ]; then
 	MUTE=1
 fi
+VIDEO=0
+if [ "$1" == "VIDEO" ]; then
+	VIDEO=1
+fi
 command -v mplayer &> /dev/null && SOUNDPLAYER="mplayer -af volume=10" || SOUNDPLAYER="mpg123 --scale 100000";
 
 #OBSOLETE ?
