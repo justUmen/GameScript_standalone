@@ -402,7 +402,7 @@ function WAIT_FOR_USER(){
 function start_lecture(){
 restore=$1
 case $1 in
-1) echo -n 1 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; [ -d "$HOME/.GameScript_bash2"] && echo "Unexpected error, ${HOME}/.GameScript_bash2 already exists on your system! Delete this $HOME/.GameScript_bash2 folder and restart this script." && exit; restore=$(expr $restore + 1) ;&
+1) echo -n 1 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; [ -d "$HOME/.GameScript_bash2" ] && echo "Unexpected error, ${HOME}/.GameScript_bash2 already exists on your system! Delete this $HOME/.GameScript_bash2 folder and restart this script." && exit; restore=$(expr $restore + 1) ;&
 2) echo -n 2 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; mkdir $HOME/.GameScript_bash2 2> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; cd $HOME/.GameScript_bash2; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; touch $HOME/.GameScript_bash2/bOb; restore=$(expr $restore + 1) ;&
