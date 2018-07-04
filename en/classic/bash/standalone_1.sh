@@ -411,10 +411,10 @@ case $1 in
 7) echo -n 7 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; real_tree_1; restore=$(expr $restore + 1) ;&
 8) echo -n 8 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "On linux, you can picture the organization of files and folders as a tree."; restore=$(expr $restore + 1) ;&
 9) echo -n 9 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "In this tree, the folders are shown in sky blue."; restore=$(expr $restore + 1) ;&
-10) echo -n 10 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "At the bottom of the tree you have the symbol ${code}/${reset} which represent the ${voc}root directory${reset}."; restore=$(expr $restore + 1) ;&
+10) echo -n 10 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "At the bottom of the tree you have the symbol ${code}/${reset} which represents the ${voc}root directory${reset}."; restore=$(expr $restore + 1) ;&
 11) echo -n 11 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "It is a special folder that will contain ALL the other folders of the system."; restore=$(expr $restore + 1) ;&
 12) echo -n 12 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; real_tree_2; restore=$(expr $restore + 1) ;&
-13) echo -n 13 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "In this tree, everytime you see a new branch, it represent a new folder."; restore=$(expr $restore + 1) ;&
+13) echo -n 13 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "In this tree, everytime you see a new branch, it represents a new folder."; restore=$(expr $restore + 1) ;&
 14) echo -n 14 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "This passage to another branch can also be seen in their names with the appearance of an additional symbol '/'."; restore=$(expr $restore + 1) ;&
 15) echo -n 15 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "For example, ${code}/home/${reset} represent the folder 'home' in the ${voc}root directory${reset}."; restore=$(expr $restore + 1) ;&
 16) echo -n 16 > $HOME/.GameScript/restore_bash1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash1; talk justumen "${code}/home/user/${reset} represent the directory 'user', which is the directory 'home', which is himself in the ${voc}root directory${reset}."; restore=$(expr $restore + 1) ;&
@@ -790,11 +790,11 @@ function start_quiz(){
   echo -e "Exemple : If the answer is 'ls'. The answers 'ls .', 'ls ./' and 'ls ././' won't work."
   answer_text_en "Which symbol is used to represent the root directory on Linux ?" "/"
   answer_text_fr "Which command should you use to display the current directory ?" "pwd"
-  answer_text_fr "Which command display the content of the root directory ?" "ls /"
-  answer_text_fr "Which command change the current directory of the terminal with its parent ?" "cd .."
-  answer_text_fr "Which command display the content of the current directory ?" "ls"
-  answer_text_fr "Which command delete the empty folder 'test' from the current directory ?" "rmdir test"
-  answer_text_fr "By which symbol doest an absolute path start with ?" "/"
+  answer_text_fr "Which command displays the content of the root directory ?" "ls /"
+  answer_text_fr "Which command changes the current directory of the terminal with its parent ?" "cd .."
+  answer_text_fr "Which command displays the content of the current directory ?" "ls"
+  answer_text_fr "Which command deletes the empty folder 'test' from the current directory ?" "rmdir test"
+  answer_text_fr "By which symbol does an absolute path start with ?" "/"
   answer_text_fr "The relative path of a file is often shorter than its equivalent absolute path. (true/false)" "true"
   answer_text_fr "Which command can delete the file /home/test whatever your current directory is ?" "rm /home/test"
   unlock "bash" "1" "24d8" "f016"
