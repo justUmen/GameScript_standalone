@@ -428,10 +428,10 @@ case $1 in
 24) echo -n 24 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "But there is another special name, which represents the current directory: this is the ${code}.${reset}."; restore=$(expr $restore + 1) ;&
 25) echo -n 25 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Since this is a folder, ${code}./${reset} is also a correct syntax."; restore=$(expr $restore + 1) ;&
 26) echo -n 26 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "We have already seen that ${code}ls${reset} could have an argument, like ${learn}ls /${reset}."; restore=$(expr $restore + 1) ;&
-27) echo -n 27 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Give the current directory as an argument to ${code}ls${reset} with: ${learn}ls.${reset}"; restore=$(expr $restore + 1) ;&
-28) echo -n 28 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls." justumen "No"; restore=$(expr $restore + 1) ;&
+27) echo -n 27 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Give the current directory as an argument to ${code}ls${reset} with: ${learn}ls .${reset}"; restore=$(expr $restore + 1) ;&
+28) echo -n 28 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls ." justumen "No"; restore=$(expr $restore + 1) ;&
 29) echo -n 29 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "And now make ${learn}ls ./${reset}"; restore=$(expr $restore + 1) ;&
-30) echo -n 30 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls ./No" justumen ""; restore=$(expr $restore + 1) ;&
+30) echo -n 30 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls ./" justumen "No"; restore=$(expr $restore + 1) ;&
 31) echo -n 31 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "These two commands give the same result as a simple ${learn}ls${reset}."; restore=$(expr $restore + 1) ;&
 32) echo -n 32 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Without argument, the ${learn}ls${reset} command defaults to ${code}.${reset}."; restore=$(expr $restore + 1) ;&
 33) echo -n 33 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "To delete this file 'bOb', you can for example type ${learn}rm ./bOb${reset}, go ahead."; restore=$(expr $restore + 1) ;&
@@ -440,7 +440,7 @@ case $1 in
 36) echo -n 36 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Let's check the contents of the current directory."; restore=$(expr $restore + 1) ;&
 37) echo -n 37 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls" justumen "No"; restore=$(expr $restore + 1) ;&
 38) echo -n 38 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Perfect, it does not exist anymore. Now display the current directory path."; restore=$(expr $restore + 1) ;&
-39) echo -n 39 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "Pwd" justumen "No"; restore=$(expr $restore + 1) ;&
+39) echo -n 39 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "pwd" justumen "No"; restore=$(expr $restore + 1) ;&
 40) echo -n 40 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Be careful with this symbol ${code}.${reset}, here it has another meaning."; restore=$(expr $restore + 1) ;&
 41) echo -n 41 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "This '.' in '.GameScript_bash2' does not refer to the current directory at all, that '.' is simply part of the file name."; restore=$(expr $restore + 1) ;&
 42) echo -n 42 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "The full name of the folder is '.GameScript_bash2'."; restore=$(expr $restore + 1) ;&
@@ -449,11 +449,11 @@ case $1 in
 45) echo -n 45 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Move to this 'child' folder you just created."; restore=$(expr $restore + 1) ;&
 46) echo -n 46 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "cd child" justumen "No"; restore=$(expr $restore + 1) ;&
 47) echo -n 47 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Display the current directory path."; restore=$(expr $restore + 1) ;&
-48) echo -n 48 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "Pwd" justumen "No"; restore=$(expr $restore + 1) ;&
+48) echo -n 48 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "pwd" justumen "No"; restore=$(expr $restore + 1) ;&
 49) echo -n 49 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Now move to your grandparent directory using its relative path."; restore=$(expr $restore + 1) ;&
 50) echo -n 50 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "cd ../.." justumen "No"; restore=$(expr $restore + 1) ;&
 51) echo -n 51 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Redisplay the path of the current directory."; restore=$(expr $restore + 1) ;&
-52) echo -n 52 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "Pwd" justumen "No"; restore=$(expr $restore + 1) ;&
+52) echo -n 52 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "pwd" justumen "No"; restore=$(expr $restore + 1) ;&
 53) echo -n 53 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "You are now in the directory where the '.GameScript_bash2' folder is located."; restore=$(expr $restore + 1) ;&
 54) echo -n 54 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "But if you try to display the items in your current directory, you will not see it."; restore=$(expr $restore + 1) ;&
 55) echo -n 55 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Try to display it with: ${learn}ls${reset}."; restore=$(expr $restore + 1) ;&
@@ -487,7 +487,7 @@ case $1 in
 83) echo -n 83 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Go to this directory with ${learn}cd ~${reset}"; restore=$(expr $restore + 1) ;&
 84) echo -n 84 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "cd ~" justumen "No"; restore=$(expr $restore + 1) ;&
 85) echo -n 85 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Now check your new current directory."; restore=$(expr $restore + 1) ;&
-86) echo -n 86 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "Pwd" justumen "No"; restore=$(expr $restore + 1) ;&
+86) echo -n 86 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "pwd" justumen "No"; restore=$(expr $restore + 1) ;&
 87) echo -n 87 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "${code}~${reset} replaces in your case this absolute path: ${code}$HOME${reset}"; restore=$(expr $restore + 1) ;&
 88) echo -n 88 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "To target '.GameScript_bash2', you can use as a relative path ${code}.GameScript_bash2${reset} or ${code}./.GameScript_bash2${reset}"; restore=$(expr $restore + 1) ;&
 89) echo -n 89 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "But, using ${code}~${reset}, you can also use a new absolute path: ${code}~/.GameScript_bash2${reset}"; restore=$(expr $restore + 1) ;&
