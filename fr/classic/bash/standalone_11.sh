@@ -451,7 +451,7 @@ case $1 in
 47) echo -n 47 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "Si donné en argument à if, 0 devient ${learn}true${reset} et tout autre nombre devient ${learn}false${reset}. Ici ce 1 deviendra donc ${learn}false${reset}."; restore=$(expr $restore + 1) ;&
 48) echo -n 48 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "Ce ${code}-eq${reset} permet de comparer si deux nombres sont équivalents. (de l'anglais EQual : égal)"; restore=$(expr $restore + 1) ;&
 49) echo -n 49 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "Vous pouvez en utilisez d'autres, comme ${code}-lt${reset} (Less Than / moins que), ${code}-gt${reset} (Greater Than / plus grand que), ${code}-ge${reset} (Greater or Equal / plus grand ou égal), ${code}-le${reset} (Less or Equal / moins ou égal) et ${code}-ne${reset} (Not Equal / pas égal)."; restore=$(expr $restore + 1) ;&
-50) echo -n 50 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "Par exemple, si X=1, le code ${code}[ \$X -eq 1 ]${reset} renverra ${learn}true${reset}, ${code}[ 1 -lt 2 ]${reset} renverra ${learn}true${reset} et ${code}[ 22 -gt 2 ]${reset} renverra ${learn}false${reset}."; restore=$(expr $restore + 1) ;&
+50) echo -n 50 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "Par exemple, si X=1, le code ${code}[ \$X -eq 1 ]${reset} renverra ${learn}true${reset}, ${code}[ 1 -lt 2 ]${reset} renverra ${learn}true${reset} et ${code}[ 2 -gt 22 ]${reset} renverra ${learn}false${reset}."; restore=$(expr $restore + 1) ;&
 51) echo -n 51 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "${code}[ 1 -eq 1 ]${reset} renverra ${learn}true${reset} (\$? = 0) si 1 est égal à 1, ce qui sera bien évidemment toujours le cas."; restore=$(expr $restore + 1) ;&
 52) echo -n 52 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "C'est pourquoi vous pouvez aussi utiliser cette syntaxe que vous connaissez déjà : ${learn}[ 1 -eq 1 ] && echo GOOD${reset}"; restore=$(expr $restore + 1) ;&
 53) echo -n 53 > $HOME/.GameScript/restore_bash11; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash11; talk justumen "N'importe quelle commande en argument de ${code}if${reset} peut également fonctionner."; restore=$(expr $restore + 1) ;&
@@ -596,11 +596,11 @@ LANGUAGE="fr"
 SPEAKER="m1"
 
 LINES=155
-if [ "$1" == "MUTE" ]; then
-	prepare_audio
+if [ "$1" == "VIDEO" ]; then
+	prepare_video
 else
-	if [ "$1" == "VIDEO" ]; then
-		prepare_video
+	if [ ! "$1" == "MUTE" ]; then
+		prepare_audio
 	fi
 fi
 
