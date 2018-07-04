@@ -423,7 +423,7 @@ case $1 in
 19) echo -n 19 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls ../" justumen "No"; restore=$(expr $restore + 1) ;&
 20) echo -n 20 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "The result of ${learn}ls ../${reset} is equivalent to the result of the previous command: ${learn}ls ..${reset}"; restore=$(expr $restore + 1) ;&
 21) echo -n 21 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "${code}..${reset} being a directory, it can also have a parent, which can be targeted by ${code}../..${reset} or ${code}../ .. /${reset}."; restore=$(expr $restore + 1) ;&
-22) echo -n 22 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "${code}../..${reset} therefore targets the large parent of the current directory."; restore=$(expr $restore + 1) ;&
+22) echo -n 22 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "${code}../..${reset} therefore targets the grandparent of the current directory."; restore=$(expr $restore + 1) ;&
 23) echo -n 23 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "${code}../../..${reset} targets its great grandparent, and so on."; restore=$(expr $restore + 1) ;&
 24) echo -n 24 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "But there is another special name, which represents the current directory: this is the ${code}.${reset}."; restore=$(expr $restore + 1) ;&
 25) echo -n 25 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Since this is a folder, ${code}./${reset} is also a correct syntax."; restore=$(expr $restore + 1) ;&
@@ -475,7 +475,7 @@ case $1 in
 71) echo -n 71 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "I hope the difference between these two ${code}.${reset} in this command is understandable to you."; restore=$(expr $restore + 1) ;&
 72) echo -n 72 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "${code}.${reset} /. GameScript_bash2: This '.' represents the current directory."; restore=$(expr $restore + 1) ;&
 73) echo -n 73 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "./${code}.${reset}GameScript_bash2: This '.' makes this file a hidden file."; restore=$(expr $restore + 1) ;&
-74) echo -n 74 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Redisplay hidden {{void}${reset} items and items in your new current directory."; restore=$(expr $restore + 1) ;&
+74) echo -n 74 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Redisplay items and ${voc}hidden${reset} items in your new current directory."; restore=$(expr $restore + 1) ;&
 75) echo -n 75 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls -a" justumen "No"; restore=$(expr $restore + 1) ;&
 76) echo -n 76 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "You can see here the two special references we just saw: ${code}.${reset} and ${code}..${reset}"; restore=$(expr $restore + 1) ;&
 77) echo -n 77 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "These two hidden folders, ${code}.${reset} and ${code}..${reset}, are present in all folders."; restore=$(expr $restore + 1) ;&
@@ -502,7 +502,7 @@ case $1 in
 98) echo -n 98 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "List all items in the current directory with ${learn}ls -a${reset}."; restore=$(expr $restore + 1) ;&
 99) echo -n 99 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls -a" justumen "No"; restore=$(expr $restore + 1) ;&
 100) echo -n 100 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Some ${voc}options${reset} also have a long version, sometimes easier to remember, which starts with ${code}-${reset}."; restore=$(expr $restore + 1) ;&
-101) echo -n 101 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "For example you can replace ${code}-a${reset} with ${code}- all${reset}."; restore=$(expr $restore + 1) ;&
+101) echo -n 101 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "For example you can replace ${code}-a${reset} with ${code}--all${reset}."; restore=$(expr $restore + 1) ;&
 102) echo -n 102 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "List all items of ${code}$HOME${reset} with ${learn}ls --all $HOME${reset}."; restore=$(expr $restore + 1) ;&
 103) echo -n 103 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls --all $HOME" justumen "No"; restore=$(expr $restore + 1) ;&
 104) echo -n 104 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "The ${code}ls -a${reset} and ${code}ls --all${reset} commands are identical!"; restore=$(expr $restore + 1) ;&
@@ -513,7 +513,7 @@ case $1 in
 109) echo -n 109 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Open the manual of the ls command with ${learn}man ls${reset}, quickly fly over its contents, and finally leave with the 'q' key."; restore=$(expr $restore + 1) ;&
 110) echo -n 110 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "man ls" justumen "No"; restore=$(expr $restore + 1) ;&
 111) echo -n 111 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "If you forget some command options, you can still open its manual."; restore=$(expr $restore + 1) ;&
-112) echo -n 112 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "If you ask a command-related question on a forum, you will probably get the answer: "RTFM" if the answer is in the manual."; restore=$(expr $restore + 1) ;&
+112) echo -n 112 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "If you ask a command-related question on a forum, you will probably get the answer: RTFM if the answer is in the manual."; restore=$(expr $restore + 1) ;&
 113) echo -n 113 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "It is an acronym for 'Read The Fucking Manual'."; restore=$(expr $restore + 1) ;&
 114) echo -n 114 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Learning to read manuals is essential to be able to solve simple problems."; restore=$(expr $restore + 1) ;&
 115) echo -n 115 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "With repetition you should remember the most important options, but you should always have the reflex to visit the manual before asking for help. The manual will always be there for you."; restore=$(expr $restore + 1) ;&
@@ -558,16 +558,16 @@ rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 function start_quiz(){
   echo ""
   echo -e "\e[15;5;44m Bash 'Bourne Again SHell' : Questionnaire du chapitre 2 \e[0m"
-  echo -e "- La réponse doit être la plus courte possible, une commande valide mais ajoutant des caractères inutiles ne fonctionnera pas."
-  echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
-  answer_text_fr "Quel est le symbole qui représente le répertoire personnel de l'utilisateur ?" "~"
-  answer_text_fr "Par quel symbole commence un fichier caché ?" "."
-  answer_text_fr "Par quel symbole commence un dossier caché ?" "."
-  answer_text_fr "Comment se déplacer dans le répertoire grand parent ?" "cd ../.."
-  answer_text_fr "Quel est le symbole qui représente le répertoire courant ?" "."
-  answer_text_fr "Comment afficher le manuel de la commande rm" "man rm"
-  answer_text_fr "Par quel symbole commence les options courtes de commande données en argument ?" "-"
-  answer_text_fr "Par quel symboles commencent les options longues de commande donnée en argument ?" "--"
+  echo -e "- The answer should be as short as possible, a good answer adding uneeded characters will be considered as wrong."
+  echo -e "Example : If the answer is 'ls'. The answers 'ls .', 'ls ./' and 'ls ././' won't work."
+  answer_text_fr "What's the symbole that represents the user's home directory ?" "~"
+  answer_text_fr "Which symbol is at the beginning of a hidden file's name ?" "."
+  answer_text_fr "Which symbol is at the beginning of a hidden folder's name ?" "."
+  answer_text_fr "How do you move to the grandparent directory ?" "cd ../.."
+  answer_text_fr "Which symbol represents the current directory ?" "."
+  answer_text_fr "How do you display the manual of the rm command ?" "man rm"
+  answer_text_fr "By which symbol do short commands options start ?" "-"
+  answer_text_fr "By which symbol do long commands options start ?" "--"
   unlock "bash" "2" "246e" "1f13"
 }
 
