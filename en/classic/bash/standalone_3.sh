@@ -420,7 +420,7 @@ case $1 in
 16) echo -n 16 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Be careful not to forget that there are two ${code}-${reset} before long options."; restore=$(expr $restore + 1) ;&
 17) echo -n 17 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "The ${learn}ls --all${reset} and ${learn}ls -al${reset} commands are not identical at all."; restore=$(expr $restore + 1) ;&
 18) echo -n 18 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "${learn}ls --all${reset} is identical to ${learn}ls -a${reset}."; restore=$(expr $restore + 1) ;&
-19) echo -n 19 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "But ${learn}ls -al${reset} is identical to ${learn}ls -a -l -l${reset}"; restore=$(expr $restore + 1) ;&
+19) echo -n 19 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "But ${learn}ls -all${reset} is identical to ${learn}ls -a -l -l${reset}"; restore=$(expr $restore + 1) ;&
 20) echo -n 20 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Now open the ${code}ls${reset} manual and look for the option to display its version number."; restore=$(expr $restore + 1) ;&
 21) echo -n 21 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "man ls" justumen "No"; restore=$(expr $restore + 1) ;&
 22) echo -n 22 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Display the version number of ${code}ls${reset}."; restore=$(expr $restore + 1) ;&
@@ -433,9 +433,9 @@ case $1 in
 29) echo -n 29 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Display the word 'hello' in your terminal with the command: ${learn}echo hello${reset}"; restore=$(expr $restore + 1) ;&
 30) echo -n 30 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "echo hello" justumen "No"; restore=$(expr $restore + 1) ;&
 31) echo -n 31 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "The command ${code}echo${reset} accepts several arguments, you can test: ${learn}echo hello everyone${reset}"; restore=$(expr $restore + 1) ;&
-32) echo -n 32 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "echo hello everyone£No"; restore=$(expr $restore + 1) ;&
+32) echo -n 32 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "echo hello everyone" justumen "No"; restore=$(expr $restore + 1) ;&
 33) echo -n 33 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Easy as pie !"; restore=$(expr $restore + 1) ;&
-34) echo -n 34 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "We've already seen that ${code}mkdir${reset} was used to create new folders."; restore=$(expr $restore + 1) ;&
+34) echo -n 34 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "We've already seen that ${code}mkdir${reset} is used to create new folders."; restore=$(expr $restore + 1) ;&
 35) echo -n 35 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "But how do we create new files?"; restore=$(expr $restore + 1) ;&
 36) echo -n 36 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Just imagine that you can use the command ${code}echo${reset}!"; restore=$(expr $restore + 1) ;&
 37) echo -n 37 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "When you use the ${code}echo${reset} command, the result will be displayed on your device."; restore=$(expr $restore + 1) ;&
@@ -477,8 +477,8 @@ case $1 in
 73) echo -n 73 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "You can continue to use ${code}>>${reset} to add your new content one after the other."; restore=$(expr $restore + 1) ;&
 74) echo -n 74 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "But the redirects (${code}>${reset} and ${code}>>${reset}) are not limited to the command ${code}echo${reset}."; restore=$(expr $restore + 1) ;&
 75) echo -n 75 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "It can work with any command !."; restore=$(expr $restore + 1) ;&
-76) echo -n 76 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "For example, put the result of the ${learn}ls${reset} command after the 'test' file!"; restore=$(expr $restore + 1) ;&
-77) echo -n 77 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "ls >>" justumen "No test"; restore=$(expr $restore + 1) ;&
+76) echo -n 76 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "For example, put the result of the ${learn}ls${reset} command at the end the 'test' file!"; restore=$(expr $restore + 1) ;&
+77) echo -n 77 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "ls>>test" justumen "No test"; restore=$(expr $restore + 1) ;&
 78) echo -n 78 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "And display the file 'test'."; restore=$(expr $restore + 1) ;&
 79) echo -n 79 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "cat test" justumen "No"; restore=$(expr $restore + 1) ;&
 80) echo -n 80 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "This is the ${voc}result${reset} of the command that will be redirected. Here ${learn}ls${reset} gives as result: 'test', because 'test' is the only element of the current directory."; restore=$(expr $restore + 1) ;&
@@ -488,7 +488,7 @@ case $1 in
 84) echo -n 84 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "echo pwd >> test" justumen "No"; restore=$(expr $restore + 1) ;&
 85) echo -n 85 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "So be careful not to confuse ${learn}pwd >> test${reset} with ${learn}echo pwd >> test${reset}."; restore=$(expr $restore + 1) ;&
 86) echo -n 86 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Now let's add the ${voc}result${reset} of ${code}pwd${reset} at the end of the 'test' file."; restore=$(expr $restore + 1) ;&
-87) echo -n 87 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "Pwd >>" justumen "No test"; restore=$(expr $restore + 1) ;&
+87) echo -n 87 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "pwd >>" justumen "No test"; restore=$(expr $restore + 1) ;&
 88) echo -n 88 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "And display the file 'test'."; restore=$(expr $restore + 1) ;&
 89) echo -n 89 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "cat test" justumen "No"; restore=$(expr $restore + 1) ;&
 90) echo -n 90 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Very good ! I hope the result does not surprise you."; restore=$(expr $restore + 1) ;&

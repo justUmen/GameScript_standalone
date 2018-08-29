@@ -402,7 +402,7 @@ function WAIT_FOR_USER(){
 function start_lecture(){
 restore=$1
 case $1 in
-1) echo -n 1 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; [ -d "$HOME/.GameScript_bash4" ] && echo "Erreur innatendu, ${HOME}/.GameScript_bash4 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash4 et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
+1) echo -n 1 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; [ -d "$HOME/.GameScript_bash4" ] && echo "Erreur inattendue, ${HOME}/.GameScript_bash4 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash4 et relancez ce script." && exit; restore=$(expr $restore + 1) ;&
 2) echo -n 2 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; mkdir $HOME/.GameScript_bash4 2> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; cd $HOME/.GameScript_bash4; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash4; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash4; talk justumen "Dans le chapitre précédent, nous avons vu comment créer et modifier les fichiers textes."; restore=$(expr $restore + 1) ;&
