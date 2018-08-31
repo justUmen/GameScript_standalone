@@ -446,7 +446,7 @@ case $1 in
 40) echo -n 40 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "On va commencer par créer une nouvelle fenêtre dans cet espace de travail 2."; restore=$(expr $restore + 1) ;&
 41) echo -n 41 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Déplacez vous dans l'espace de travail 2 avec 'Super + 2', ouvrez un nouveau terminal dans cet espace de travail avec 'Super + Entrée', puis revenez sur GameScript avec 'Super + 1'."; restore=$(expr $restore + 1) ;&
 42) echo -n 42 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 2 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
-43) echo -n 43 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; name="";while [ "$name" != "Lxterminal" ];do id=$(xprop -root | awk '/_NET_ACTIVE_WINDOW/{print $NF}'|grep 0x); sleep .5; name=$(xprop -id $id | awk '/WM_CLASS/{$1=$2="";print}' | cut -d'"' -f4);  sleep .5; done; sleep 1; restore=$(expr $restore + 1) ;&
+43) echo -n 43 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; name="";while [ "$name" != "Lxterminal" ];do id=$(xprop -root | awk '/_NET_ACTIVE_WINDOW/{print $NF}'|grep 0x) 2>/dev/null; sleep .5; name=$(xprop -id $id | awk '/WM_CLASS/{$1=$2="";print}' | cut -d'"' -f4) 2>/dev/null;  sleep .5; done; sleep 1; restore=$(expr $restore + 1) ;&
 44) echo -n 44 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ ! `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done; restore=$(expr $restore + 1) ;&
 45) echo -n 45 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "De retour dans l'espace de travail 1, vous pouvez remarquer que l'espace de travail 2 est cette fois dans la liste, car maintenant il n'est plus vide."; restore=$(expr $restore + 1) ;&
 46) echo -n 46 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Vous pouvez également utiliser votre souris et cliquer sur le nom de l'espace de travail où vous voulez vous rendre."; restore=$(expr $restore + 1) ;&
@@ -460,7 +460,7 @@ case $1 in
 54) echo -n 54 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Chaque onglet correspond a une fenêtre, celui de gauche en bleu est le titre de la fenêtre de gamescript."; restore=$(expr $restore + 1) ;&
 55) echo -n 55 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Les titres de fenêtres s'affichent de gauche à droite, des plus anciennes aux plus récentes."; restore=$(expr $restore + 1) ;&
 56) echo -n 56 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Chaque nouvelle fenêtre s'ajoutera donc a droite des onglets deja présents."; restore=$(expr $restore + 1) ;&
-57) echo -n 57 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Le terminal qui contient GameScript ayant été ouvert en premier, il restera le plus a gauche."; restore=$(expr $restore + 1) ;&
+57) echo -n 57 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Le terminal qui contient GameScript ayant été ouvert en premier, il restera le plus à gauche."; restore=$(expr $restore + 1) ;&
 58) echo -n 58 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Cliquez sur l'onglet de la deuxième fenêtre pour l'afficher, et revenez sur gamescript en cliquant sur le premier onglet."; restore=$(expr $restore + 1) ;&
 59) echo -n 59 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done;sleep 1;while [ ! `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done; restore=$(expr $restore + 1) ;&
 60) echo -n 60 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Bien évidemment, je vous conseille d'utiliser votre clavier pour faire cela bien plus rapidement, vous pouvez tout simplement utiliser 'Super + flèche de gauche/droite'."; restore=$(expr $restore + 1) ;&
@@ -468,7 +468,7 @@ case $1 in
 62) echo -n 62 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done;sleep 1;while [ ! `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done; restore=$(expr $restore + 1) ;&
 63) echo -n 63 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Quand vous ciblez une autre fenêtre, on dit que cette fenêtre a le ${voc}focus${reset}."; restore=$(expr $restore + 1) ;&
 64) echo -n 64 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "C'est à dire que tout autre raccourci clavier sera envoyé à la fenêtre qui a le focus en ce moment."; restore=$(expr $restore + 1) ;&
-65) echo -n 65 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Par exemple, pour fermer une fenêtre, la combinaison de touch est 'Super + Shift + q', mais attention à ne pas fermer Gamescript par erreur !"; restore=$(expr $restore + 1) ;&
+65) echo -n 65 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Par exemple, pour fermer une fenêtre, la combinaison de touche est 'Super + Shift + q', mais attention à ne pas fermer Gamescript par erreur !"; restore=$(expr $restore + 1) ;&
 66) echo -n 66 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Changez le focus avec 'Super + flèche de droite', et fermez le deuxième terminal que j'ai ouvert tout à l'heure avec 'Super + Shift + q'."; restore=$(expr $restore + 1) ;&
 67) echo -n 67 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; gamescript_window=$(xdotool getwindowfocus); restore=$(expr $restore + 1) ;&
 68) echo -n 68 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done; restore=$(expr $restore + 1) ;&
@@ -505,7 +505,7 @@ case $1 in
 99) echo -n 99 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; i3-msg 'move window to workspace 5' &>/dev/null; restore=$(expr $restore + 1) ;&
 100) echo -n 100 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 5 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 101) echo -n 101 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Félicitations, vous avez retrouvé GameScript dans l'espace de travail 5 !"; restore=$(expr $restore + 1) ;&
-102) echo -n 102 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Vous savez déjà comment passer d'un espace de travail a l'autre, mais il est aussi possible de déplacer vos fenêtres dans un autre espace de travail."; restore=$(expr $restore + 1) ;&
+102) echo -n 102 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Vous savez déjà comment passer d'un espace de travail à l'autre, mais il est aussi possible de déplacer vos fenêtres dans un autre espace de travail."; restore=$(expr $restore + 1) ;&
 103) echo -n 103 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Remettez donc la fenêtre de GameScript dans l'espace de travail 1 avec 'Super + Shift + 1', puis revenez sur l'espace de travail 1 pour retrouver GameScript et continuer."; restore=$(expr $restore + 1) ;&
 104) echo -n 104 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 1 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 105) echo -n 105 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ ! `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done; restore=$(expr $restore + 1) ;&
@@ -843,15 +843,13 @@ function start_quiz(){
   answer_text_fr "Quel est la touche 'INCONNU' dans cette phrase : Pour quitter i3 faites Super + Shift + INCONNU" "e"
   answer_text_fr "La combinaison de touche 'Super + Shift + Entrée' ouvre un nouveau terminal. (vrai/faux)" "faux"
   answer_text_fr "Les fenêtres flottantes sont toujours au premier plan. (vrai/faux)" "vrai"
-  answer_text_fr "Le code de configuration pour que leafpad soit dans une fenêtre flottante est (vrai/faux) : assign [class=\"Leafpad\"] floating enable" "vrai"
+  answer_text_fr "Le code de configuration pour que leafpad soit dans une fenêtre flottante est (vrai/faux) : assign [class=\"Leafpad\"] floating enable" "faux"
   answer_text_fr "Quel est le code à ajouter dans le fichier de configuration d'i3 pour lancer le script '/this/script.sh' au démarrage d'i3." "exec /this/script.sh"
   answer_text_fr "Quel est le mot clef responsable de la création des nouveaux raccourcis clavier dans le fichier de configuration d'i3 ?" "bindsym"
   answer_text_fr "Quel est le code à ajouter dans le fichier de configuration d'i3 pour lancer le script '/this/script.sh' avec la combinaison de touche Alt + o ?" "bindsym mod1+o exec /this/script"
   answer_text_fr "Justumen aime bien i3. (vrai/faux)" "vrai"
   
-  wget "https://github.com/justUmen/WallpaperGenerator/raw/master/Wallpaper/fr/i3wm_1/`xrandr | grep ' connected' | sed 's/.*primary //' | sed 's/+.*//'`.jpg" -O ~/.GameScript/i3wm_1_wallpaper.jpg
-  
-  sleep 2
+  wget "https://github.com/justUmen/WallpaperGenerator/raw/master/Wallpaper/fr/i3wm_1/`xrandr | grep ' connected' | sed 's/.*primary //' | sed 's/+.*//'`.jpg" -O ~/.GameScript/i3wm_1_wallpaper.jpg &>/dev/null
   feh --bg-scale ~/.GameScript/i3wm_1_wallpaper.jpg
 
   echo -e "Je viens de changer votre fond d'écran avec un rappel de ce que vous venez d'apprendre dans ce chapitre. (Commande : 'feh --bg-scale ~/.GameScript/i3wm_1_wallpaper.jpg')"
