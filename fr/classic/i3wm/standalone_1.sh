@@ -435,7 +435,7 @@ case $1 in
 29) echo -n 29 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Vous pouvez passer d'un espace de travail à l'autre avec la touche 'Super', parfois appelée par certains novices : 'touche windows'."; restore=$(expr $restore + 1) ;&
 30) echo -n 30 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Il faudra en même temps appuyer sur la touche 'Super' et le numéro de l'espace de travail ou vous voulez aller."; restore=$(expr $restore + 1) ;&
 31) echo -n 31 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Gamescript est en ce moment dans l'espace de travail 1, souvenez vous donc que pour continuer à interagir avec GameScript, il vous faudra faire 'Super + 1'."; restore=$(expr $restore + 1) ;&
-32) echo -n 32 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Maintenant, déplacez vous dans l'espace de travail 2 avec Super + 2, regardez la liste de vos espaces de travail en bas à gauche votre écran, puis faites 'Super + 1' pour revenir sur GameScript."; restore=$(expr $restore + 1) ;&
+32) echo -n 32 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Maintenant, déplacez vous dans l'espace de travail 2 avec 'Super + 2', regardez la liste de vos espaces de travail en bas à gauche votre écran, puis faites 'Super + 1' pour revenir sur GameScript."; restore=$(expr $restore + 1) ;&
 33) echo -n 33 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 2 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 34) echo -n 34 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ ! `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done; restore=$(expr $restore + 1) ;&
 35) echo -n 35 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "De retour dans l'espace de travail 1, vous pouvez remarquer que l'espace de travail 2 n'est pas affiché en bas à gauche."; restore=$(expr $restore + 1) ;&
@@ -458,11 +458,11 @@ case $1 in
 52) echo -n 52 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Bien évidemment, il est possible d'avoir plusieurs fenêtres dans un même espace de travail."; restore=$(expr $restore + 1) ;&
 53) echo -n 53 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; i3-msg 'exec lxterminal' &>/dev/null; while [ `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done; i3-msg focus left; restore=$(expr $restore + 1) ;&
 54) echo -n 54 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Je viens d'ouvrir un nouveau terminal dans votre espace de travail, vous devriez maintenant voir deux onglets différents en haut de votre écran."; restore=$(expr $restore + 1) ;&
-55) echo -n 55 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Chaque onglet correspond a une fenêtre, celui de gauche en bleu est le titre de la fenêtre de gamescript."; restore=$(expr $restore + 1) ;&
-56) echo -n 56 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Les titres de fenêtres s'affichent de gauche à droite, des plus anciennes aux plus récentes."; restore=$(expr $restore + 1) ;&
+55) echo -n 55 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Chaque onglet correspond a une fenêtre, celui de gauche en bleu est le titre de la fenêtre de GameScript."; restore=$(expr $restore + 1) ;&
+56) echo -n 56 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Les fenêtres s'affichent dans ces onglets de gauche à droite, des plus anciennes aux plus récentes."; restore=$(expr $restore + 1) ;&
 57) echo -n 57 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Chaque nouvelle fenêtre s'ajoutera donc a droite des onglets deja présents."; restore=$(expr $restore + 1) ;&
 58) echo -n 58 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Le terminal qui contient GameScript ayant été ouvert en premier, il restera le plus à gauche."; restore=$(expr $restore + 1) ;&
-59) echo -n 59 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Cliquez sur l'onglet de la deuxième fenêtre pour l'afficher, et revenez sur gamescript en cliquant sur le premier onglet."; restore=$(expr $restore + 1) ;&
+59) echo -n 59 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Cliquez sur l'onglet de la deuxième fenêtre pour l'afficher, et revenez sur GameScript en cliquant sur le premier onglet."; restore=$(expr $restore + 1) ;&
 60) echo -n 60 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done;sleep 1;while [ ! `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done; restore=$(expr $restore + 1) ;&
 61) echo -n 61 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Bien évidemment, je vous conseille d'utiliser votre clavier pour faire cela bien plus rapidement, vous pouvez tout simplement utiliser 'Super + flèche de gauche/droite'."; restore=$(expr $restore + 1) ;&
 62) echo -n 62 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Faites le donc maintenant, utilisez 'Super + la flèche de droite' pour cibler la seconde fenêtre et revenez sur GameScript avec 'Super + flèche de gauche'."; restore=$(expr $restore + 1) ;&
@@ -490,7 +490,7 @@ case $1 in
 84) echo -n 84 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Essayez ce mode d'affichage en faisant 'Super + e'."; restore=$(expr $restore + 1) ;&
 85) echo -n 85 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "En étant dans ce mode, vous pouvez continuer à utiliser 'Super + e' pour alterner entre découpage vertical et horizontal."; restore=$(expr $restore + 1) ;&
 86) echo -n 86 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Faites donc 'Super + e' jusqu'à avoir le nouveau terminal en dessous de la fenêtre de GameScript."; restore=$(expr $restore + 1) ;&
-87) echo -n 87 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Ici même si les deux fenêtres sont visibles a l'écran, seulement l'une d'entre elles a le focus."; restore=$(expr $restore + 1) ;&
+87) echo -n 87 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Ici même si les deux fenêtres sont visibles à l'écran, seulement l'une d'entre elles a le focus."; restore=$(expr $restore + 1) ;&
 88) echo -n 88 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Ici la fenêtre qui a le focus a sa barre de titre ainsi que ses contours colorés en bleu."; restore=$(expr $restore + 1) ;&
 89) echo -n 89 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Toujours de la même maniere, vous pouvez changer le focus avec 'Super + les flèches de votre clavier'."; restore=$(expr $restore + 1) ;&
 90) echo -n 90 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Donnez le focus à la fenêtre du bas et lancer la commande ${learn}ls${reset} dedans, puis redonnez le focus à la fenêtre de GameScript."; restore=$(expr $restore + 1) ;&
@@ -532,7 +532,7 @@ case $1 in
 126) echo -n 126 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; i3-msg exec pcmanfm ~/.GameScript_i3wm_1/ &>/dev/null; restore=$(expr $restore + 1) ;&
 127) echo -n 127 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Je viens de préparer pour vous un exemple complet, avec une fenêtre par espace de travail."; restore=$(expr $restore + 1) ;&
 128) echo -n 128 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Cet exemple utilise mes configurations personnelles, mais libre à vous d'avoir votre propre organisation plus tard, en fonction des programmes que vous utilisez le plus souvent."; restore=$(expr $restore + 1) ;&
-129) echo -n 129 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "L'espace de travail 2 contient un fichier index.html ouvert dans un éditeur de texte (leafpad), visitez cet espace de travail avant de revenir sur GameScript."; restore=$(expr $restore + 1) ;&
+129) echo -n 129 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "L'espace de travail 2 contient un fichier 'index.html' ouvert dans un éditeur de texte (leafpad), visitez cet espace de travail avant de revenir sur GameScript."; restore=$(expr $restore + 1) ;&
 130) echo -n 130 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 2 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 131) echo -n 131 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 1 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 132) echo -n 132 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ ! `xdotool getwindowfocus` = $gamescript_window ];do sleep .5; done; restore=$(expr $restore + 1) ;&
@@ -551,12 +551,12 @@ case $1 in
 145) echo -n 145 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Affichez maintenant le changement en actualisant votre navigateur web dans l'espace de travail 3, puis revenez sur GameScript. (Touche F5)"; restore=$(expr $restore + 1) ;&
 146) echo -n 146 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 3 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 147) echo -n 147 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 1 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
-148) echo -n 148 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Allez maintenant sur l'espace de travail 4 et ouvrez le fichier "style.css" avec leafpad en faisant clic droit sur le fichier, ouvrir avec, Leafpad, puis revenez sur GameScript."; restore=$(expr $restore + 1) ;&
+148) echo -n 148 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Allez maintenant sur l'espace de travail 4 et ouvrez le fichier 'style.css' avec leafpad en faisant clic droit sur le fichier, ouvrir avec, Leafpad, puis revenez sur GameScript."; restore=$(expr $restore + 1) ;&
 149) echo -n 149 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 4 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 150) echo -n 150 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 1 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 151) echo -n 151 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Vous avez surement remarqué que leafpad ne s'est pas ouvert dans l'espace de travail 4, mais dans l'espace de travail 2 !"; restore=$(expr $restore + 1) ;&
 152) echo -n 152 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "C'est en fait parce que j'ai configuré votre i3 pour que cela soit le cas."; restore=$(expr $restore + 1) ;&
-153) echo -n 153 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Votre espace de travail 2 devrait d'ailleurs être en ce moment de couleur rouge."; restore=$(expr $restore + 1) ;&
+153) echo -n 153 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Votre espace de travail 2 devrait d'ailleurs être en ce moment de couleur rouge dans la liste des espaces de travail."; restore=$(expr $restore + 1) ;&
 154) echo -n 154 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Ce rouge veut dire qu'une nouvelle fenêtre vient de s'ouvrir dans cet espace de travail, et cette couleur restera rouge tant que cette fenêtre n'aura pas recu de focus."; restore=$(expr $restore + 1) ;&
 155) echo -n 155 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Modifiez donc ce fichier 'style.css' en changeant 'red' par 'blue', enregistrez les modifications, verifiez l'effet de vos changements dans l'espace de travail 3 avec F5 et revenez sur GameScript."; restore=$(expr $restore + 1) ;&
 156) echo -n 156 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 2 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
@@ -588,11 +588,11 @@ case $1 in
 182) echo -n 182 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Dans ce genre de situation, il existe un mode particulier dit ${voc}flottant${reset} (anglais floating${reset}), que vous pouvez activer et désactiver avec la combinaison de touche 'Super + Shift + Espace'."; restore=$(expr $restore + 1) ;&
 183) echo -n 183 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Après avoir 'focus' la calculatrice, utilisez donc cette combinaison de touche pour la rendre indépendante des autres."; restore=$(expr $restore + 1) ;&
 184) echo -n 184 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Vous pouvez remarquer que sur i3 une fenêtre flottante est toujours au premier plan, même si le focus est sur une autre fenêtre !"; restore=$(expr $restore + 1) ;&
-185) echo -n 185 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Mais ce changement pour une fenêtre flottante est temporaire et n'affectera que cette instance de galculator !"; restore=$(expr $restore + 1) ;&
+185) echo -n 185 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Mais ce changement est temporaire : Il n'affectera que cette instance de galculator !"; restore=$(expr $restore + 1) ;&
 186) echo -n 186 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Pour que 'galculator' soit toujours en mode flottant, il va falloir encore une fois modifier le fichier de configuration."; restore=$(expr $restore + 1) ;&
-187) echo -n 187 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Le code ${code}assign [class=\"Leafpad\"] workspace 2${reset} que nous avons déjà vu, cible toutes les nouvelles instances de leafpad en utilisant en argument ${code}class${reset} qui est égal à ${code}Leafpad${reset}."; restore=$(expr $restore + 1) ;&
-188) echo -n 188 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Pour connaitre la classe (anglais ${voc}class${reset}) d'une fenêtre vous pouvez utiliser la commande : ${code}xprop${reset}."; restore=$(expr $restore + 1) ;&
-189) echo -n 189 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Tapez donc la commande ${learn}xprop${reset}, le curseur de votre souris deviendra une croix, puis cliquez sur le terminal qui contient GameScript."; restore=$(expr $restore + 1) ;&
+187) echo -n 187 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Le code ${code}assign [class=\"Leafpad\"] workspace 2${reset} que nous avons déjà vu, cible toutes les nouvelles instances de leafpad en utilisant en argument ${code}class${reset} qui doit  être égal à ${code}Leafpad${reset}."; restore=$(expr $restore + 1) ;&
+188) echo -n 188 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Pour connaitre la classe (anglais ${voc}class${reset}) d'une fenêtre vous pouvez utiliser la commande : ${code}xprop${reset}"; restore=$(expr $restore + 1) ;&
+189) echo -n 189 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Lancez donc la commande ${learn}xprop${reset}, le curseur de votre souris deviendra une croix, puis cliquez sur le terminal qui contient GameScript."; restore=$(expr $restore + 1) ;&
 190) echo -n 190 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; answer_run "xprop" justumen ""; restore=$(expr $restore + 1) ;&
 191) echo -n 191 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Le nom de la 'class' de la fenêtre que vous avez ciblée est le deuxième nom de la ligne qui commence par 'WM_CLASS'."; restore=$(expr $restore + 1) ;&
 192) echo -n 192 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Si seul cette ligne vous intéresse, vous pouvez utiliser ${code}grep${reset}."; restore=$(expr $restore + 1) ;&
@@ -608,7 +608,7 @@ case $1 in
 202) echo -n 202 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; answer_run "echo 'for_window [class=\"Galculator\"] floating enable, sticky enable'>>~/.config/i3/config" justumen ""; restore=$(expr $restore + 1) ;&
 203) echo -n 203 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Affichez les deux dernières lignes de votre fichier de configuration avec : ${learn}tail -n 2 ~/.config/i3/config${reset}"; restore=$(expr $restore + 1) ;&
 204) echo -n 204 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; answer_run "tail -n 2 ~/.config/i3/config" justumen ""; restore=$(expr $restore + 1) ;&
-205) echo -n 205 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Bien sur, n'oubliez pas de réactualiser le fichier de configuration maintenant avec Super + Shift + c."; restore=$(expr $restore + 1) ;&
+205) echo -n 205 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Bien sur, n'oubliez pas de réactualiser le fichier de configuration maintenant avec 'Super + Shift + c'."; restore=$(expr $restore + 1) ;&
 206) echo -n 206 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Apres avoir réactualisé le fichier de configuration, relancez donc 'galculator' avec : ${learn}galculator&>/dev/null&${reset}"; restore=$(expr $restore + 1) ;&
 207) echo -n 207 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; answer_run "galculator&>/dev/null&" justumen ""; restore=$(expr $restore + 1) ;&
 208) echo -n 208 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Ici vous pouvez voir que la calculatrice est maintenant en mode flottant grâce au code ${code}floating enable${reset}."; restore=$(expr $restore + 1) ;&
@@ -624,7 +624,7 @@ case $1 in
 218) echo -n 218 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Nous allons donc créer notre premier raccourci clavier personnalisé pour ce lanceur d'application."; restore=$(expr $restore + 1) ;&
 219) echo -n 219 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Pour créer un nouveau raccourci clavier, il faudra utiliser ${code}bindsym${reset}. ('bind' est l'anglais de 'lier')"; restore=$(expr $restore + 1) ;&
 220) echo -n 220 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Pour cet exemple nous utiliserons comme lanceur d'application : ${code}rofi${reset}, plus précisement la commande ${code}rofi -show run${reset} et la combinaison de touche 'Alt + F2'."; restore=$(expr $restore + 1) ;&
-221) echo -n 221 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Si vous voulez lancez un autre programme il faudra précéder la commande par le mot clef ${code}exec${reset} dans le fichier de configuration."; restore=$(expr $restore + 1) ;&
+221) echo -n 221 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Dans le fichier de configuration d'i3, si vous voulez lancez une commande, il faudra la précéder par le mot clef ${code}exec${reset}."; restore=$(expr $restore + 1) ;&
 222) echo -n 222 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Pour i3, la touche 'Alt' est ${code}mod1${reset}, et la touche 'Super' est ${code}mod4${reset}. Le code de configuration sera donc : ${code}bindsym mod1+F2 exec rofi -show run${reset}"; restore=$(expr $restore + 1) ;&
 223) echo -n 223 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Ajoutez donc ce code à la suite de votre fichier de configuration avec : ${learn}echo 'bindsym mod1+F2 exec rofi -show run'>>~/.config/i3/config${reset}"; restore=$(expr $restore + 1) ;&
 224) echo -n 224 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; answer_run "echo 'bindsym mod1+F2 exec rofi -show run'>>~/.config/i3/config" justumen ""; restore=$(expr $restore + 1) ;&
@@ -641,7 +641,7 @@ case $1 in
 235) echo -n 235 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Par exemple, pour recharger votre fichier de configuration vous devez faire : 'Super+Shift+c'."; restore=$(expr $restore + 1) ;&
 236) echo -n 236 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Mais ce code est modifiable comme tous les autres dans votre fichier de configuration. Faites donc : ${learn}grep reload ~/.config/i3/config${reset}"; restore=$(expr $restore + 1) ;&
 237) echo -n 237 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; answer_run "grep reload ~/.config/i3/config" justumen ""; restore=$(expr $restore + 1) ;&
-238) echo -n 238 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Ici vous devriez voir le "bindsym" responsable de cette combinaison de touche, mais libre à vous de le modifier si vous le désirez."; restore=$(expr $restore + 1) ;&
+238) echo -n 238 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Ici vous devriez voir le 'bindsym' responsable de cette combinaison de touche, mais libre à vous de le modifier si vous le désirez."; restore=$(expr $restore + 1) ;&
 239) echo -n 239 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Par exemple, pour voir la ligne responsable pour quitter i3, faites : ${learn}grep exit ~/.config/i3/config${reset}"; restore=$(expr $restore + 1) ;&
 240) echo -n 240 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; answer_run "grep exit ~/.config/i3/config" justumen ""; restore=$(expr $restore + 1) ;&
 241) echo -n 241 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Essayez de faire maintenant 'Super + Shift + e' pour voir ce code en action : vous recevrez un message demandant votre confirmation, cliquez ensuite sur la croix pour annuler la fermeture de i3."; restore=$(expr $restore + 1) ;&
@@ -655,181 +655,6 @@ case $1 in
 249) echo -n 249 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "En avant pour le questionnaire !"; restore=$(expr $restore + 1) ;&
 250) echo -n 250 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; clean; restore=$(expr $restore + 1) ;&
 esac
-}
-CLREOL=$'\x1B[K'
-
-function real_tree_1(){
-echo -e "$basic
-                                              .         ;${CLREOL}
-                 .              .              ;%     ;;${CLREOL}
-                   ,           ,                :;%  %;${CLREOL}
-                    :         ;                   :;%;'     .,${CLREOL}
-           ,.        %;     %;            ;        %;'    ,;${CLREOL}
-             ;       ;%;  %%;        ,     %;    ;%;    ,%'${CLREOL}
-              %;       %;%;      ,  ;       %;  ;%;   ,%;'%;%;;,.${CLREOL}
-               ;%;      %;        ;%;        % ;%;  ,%;'${CLREOL}
-                '%;.     ;%;     %;'         ';%%;.%;'${CLREOL}
-                 ':;%.    ;%%. %@;        %; ;@%;%'${CLREOL}
-                    ':%;.  :;bd%;          %;@%;'${CLREOL}
-                      '@%:.  :;%.         ;@@%;'${CLREOL}
-                        '@%.  ';@%.      ;@@%;${CLREOL}
-                          '@%%. '@%%    ;@@%;${CLREOL}
-                            ;@%. :@%%  %@@%;${CLREOL}
-                             %@bd%%%bd%%:;${CLREOL}
-                                #@%%%%%@@;${CLREOL}
-                                %@@%%%@@;${CLREOL}
-                                %@@@%(o);  . '${CLREOL}
-                                %@@@o%@@(.,'${CLREOL}
-                            '.. %@@@o%@@;${CLREOL}
-                               ')@@@o%@@;${CLREOL}
-                                %@@(o)@@;${CLREOL}
-                               .%@@@@%@@;${CLREOL}
-                               ;%@@@@%@@;.${CLREOL}
-                              ;%@@@$code / $reset$basic@@@;.${CLREOL}
-                         ...;%@@@@@@@@@@@@%..${CLREOL}$reset"
-#~ restore=$(expr $restore + 1)
-}
-
-
-function real_tree_2(){
-echo -e "$basic
-                                              .         ;${CLREOL}
-                 .              .              ;%     ;;${CLREOL}
-                   ,           ,                :;%  %;${CLREOL}
-                    :         ;                   :;%;'     .,${CLREOL}
-           ,.        %;     %;            ;        %;'    ,;${CLREOL}
-             ;       ;%;  %%;        ,     %;    ;%;    ,%'${CLREOL}
-              %;       %;%;      ,  ;       %;  ;%;   ,%;'%;%;;,.$code /home/user/Images/ $reset$basic${CLREOL}
-               ;%;      %;        ;%;        % ;%;  ,%;'${CLREOL}
-                '%;.     ;%;     %;'         ';%%;.%;'${CLREOL}
-                 ':;%.    ;%%. %@;        %; ;@%;%'$code /home/user/ $reset$basic${CLREOL}
-                    ':%;.  :;bd%;          %;@%;'${CLREOL}
-                      '@%:.  :;%.         ;@@%;'${CLREOL}
-                        '@%.  ';@%.      ;@@%;${CLREOL}
-                          '@%%. $code /var/ $reset$basic  ;@@%;${CLREOL}
-                            ;@%. :@%%  %@@%;${CLREOL}
-                       $code /bin/ $reset$basic%@bd%%%bd%%:;$code /home/ $reset$basic${CLREOL}
-                                #@%%%%%@@;${CLREOL}
-                                %@@%%%@@;${CLREOL}
-                                %@@@%(o);  . '${CLREOL}
-                                %@@@o%@@(.,'${CLREOL}
-                            '.. %@@@o%@@;${CLREOL}
-                               ')@@@o%@@;${CLREOL}
-                                %@@(o)@@;${CLREOL}
-                               .%@@@@%@@;${CLREOL}
-                               ;%@@@@%@@;.${CLREOL}
-                              ;%@@@$code / $reset$basic@@@;.${CLREOL}
-                         ...;%@@@@@@@@@@@@%..${CLREOL}$reset"
-#~ restore=$(expr $restore + 1)
-}
-
-
-function real_tree_3(){
-echo -e "$basic
-                                              .         ;${CLREOL}
-                 .              .              ;%     ;;${CLREOL}
-                   ,           ,                :;%  %;${CLREOL}
-                    :         ;                   :;%;'     .,${CLREOL}
-           ,.        %;     %;            ;        %;'    ,;${CLREOL}
-             ;       ;%;  %%;        ,     %;    ;%;    ,%'${CLREOL}
-              %;       %;%;      ,  ;       %;  ;%;   ,%;'%;%;;,.$code /home/user/Images/ $reset$basic${CLREOL}
-               ;%;      %;        ;%;        % ;%;  ,%;'${CLREOL}
-                '%;.     ;%;     %;'         ';%%;.%;'${CLREOL}
-                 ':;%.    ;%%. %@;        %; ;@%;%'$code /home/user/ $reset$basic${CLREOL}
-                    ':%;.  :;bd%;          %;@%;'${CLREOL}
-                      '@%:.  :;%.         ;@@%;'${CLREOL}
-                        '@%.  ';@%.      ;@@%;$codeFile /home/fichier1 $reset$basic${CLREOL}
-                          '@%%. $code /var/ $reset$basic  ;@@%;${CLREOL}
-                            ;@%. :@%%  %@@%;${CLREOL}
-                       $code /bin/ $reset$basic%@bd%%%bd%%:;$code /home/ $reset$basic${CLREOL}
-                                #@%%%%%@@;${CLREOL}
-                                %@@%%%@@;${CLREOL}
-                                %@@@%(o);  . '${CLREOL}
-                                %@@@o%@@(.,'${CLREOL}
-                            '.. %@@@o%@@;${CLREOL}
-                               ')@@@o%@@;$codeError /home $reset$basic${CLREOL}
-                                %@@(o)@@;$codeFile /fichier1 $reset$basic${CLREOL}
-                               .%@@@@%@@;$codeError /fichier1 $reset$basic${CLREOL}
-                               ;%@@@@%@@;.${CLREOL}
-                              ;%@@@$code / $reset$basic@@@;.${CLREOL}
-                         ...;%@@@@@@@@@@@@%..${CLREOL}$reset"
-#~ restore=$(expr $restore + 1)
-}
-function real_tree_4(){
-echo -e "$basic
-                                              .         ;${CLREOL}
-                 .              .              ;%     ;;${CLREOL}
-                   ,           ,                :;%  %;${CLREOL}
-                    :         ;                   :;%;'     .,${CLREOL}
-           ,.        %;     %;            ;        %;'    ,;${CLREOL}
-             ;       ;%;  %%;        ,     %;    ;%;    ,%'      $codeFile /home/user/Images/linux.jpeg $reset$basic${CLREOL}
-              %;       %;%;      ,  ;       %;  ;%;   ,%;'%;%;;,.$code /home/user/Images/ $reset$basic${CLREOL}
-               ;%;      %;        ;%;        % ;%;  ,%;'${CLREOL}
-                '%;.     ;%;     %;'         ';%%;.%;'${CLREOL}
-                 ':;%.    ;%%. %@;        %; ;@%;%'$code /home/user/ $reset$basic${CLREOL}
-                    ':%;.  :;bd%;          %;@%;'${CLREOL}
-                      '@%:.  :;%.         ;@@%;'${CLREOL}
-                        '@%.  ';@%.      ;@@%;$codeFile /home/fichier1 $reset$basic${CLREOL}
-                          '@%%. $code /var/ $reset$basic  ;@@%;${CLREOL}
-                            ;@%. :@%%  %@@%;${CLREOL}
-                       $code /bin/ $reset$basic%@bd%%%bd%%:;$code /home/ $reset$basic${CLREOL}
-                                #@%%%%%@@;${CLREOL}
-                                %@@%%%@@;${CLREOL}
-                                %@@@%(o);  . '${CLREOL}
-                                %@@@o%@@(.,'${CLREOL}
-                            '.. %@@@o%@@;${CLREOL}
-                               ')@@@o%@@;$codeFile /Home $reset$basic${CLREOL}
-                                %@@(o)@@;$codeFile /fichier1 $reset$basic${CLREOL}
-                               .%@@@@%@@;$codeFile /fichier2 $reset$basic${CLREOL}
-                               ;%@@@@%@@;.${CLREOL}
-                              ;%@@@$code / $reset$basic@@@;.${CLREOL}
-                         ...;%@@@@@@@@@@@@%..${CLREOL}$reset"
-#~ restore=$(expr $restore + 1)
-}
-
-function tree_1(){
-echo -e "
-$code / $reset$basic
-|-- $code /home/ $reset$basic
-|   |-- $code /home/user/ $reset$basic
-|   |   |-- $code /home/user/Pictures/ $reset$basic
-|-- $code /bin/ $reset$basic
-|-- $code /var/ $reset"
-#~ restore=$(expr $restore + 1)
-}
-
-function tree_2(){
-echo -e "
-$code / $reset$basic
-|-- $code /home/ $reset$basic
-|   |-- $code /home/user/ $reset$basic
-|   |   |-- $code /home/user/Pictures/ $reset$basic
-|   |   |   |-- $codeFile /home/user/Pictures/linux.jpeg $reset$basic
-|   |-- $codeFile /home/fichier1 $reset$basic
-|   |-- $codeFile /home/fichier2 $reset$basic
-|-- $code /bin/ $reset$basic
-|-- $code /var/ $reset$basic
-|-- $codeFile /fichier1 $reset$basic
-|-- $codeFile /fichier2 $reset$basic
-|-- $codeFile /Home $reset"
-#~ restore=$(expr $restore + 1)
-}
-
-function tree_3(){
-echo -e "
-$code / $reset$basic
-$code /home/ $reset$basic
-$code /home/user/ $reset$basic
-$code /home/user/Pictures/ $reset$basic
-$codeFile /home/user/Pictures/linux.jpeg $reset$basic
-$codeFile /home/fichier1 $reset$basic
-$codeFile /home/fichier2 $reset$basic
-$code /bin/ $reset$basic
-$code /var/ $reset$basic
-$codeFile /fichier1 $reset$basic
-$codeFile /fichier2 $reset$basic
-$codeFile /Home $reset"
-#~ restore=$(expr $restore + 1)
 }
 function clean(){ #in enter_chapter
 rm $HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
@@ -870,7 +695,7 @@ CHAPTER_NUMBER="1"
 LANGUAGE="fr"
 SPEAKER="m1"
 
-LINES=248
+LINES=249
 if [ ! "$1" == "MUTE" ]; then prepare_audio; fi
 
 enter_chapter $CHAPTER_NAME $CHAPTER_NUMBER

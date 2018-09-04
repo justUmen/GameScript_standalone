@@ -537,7 +537,7 @@ case $1 in
 131) echo -n 131 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "You can also replace the ${code}\"${reset} by ${code}'${reset}. Do so with the ${learn}echo 'X X'${reset}"; restore=$(expr $restore + 1) ;&
 132) echo -n 132 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "echo 'X X'" justumen "No"; restore=$(expr $restore + 1) ;&
 133) echo -n 133 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "If you have many ${code}'${reset} to display, I advise you to use the ${code}\"${reset} as the delimiter, and if you have lots of ${code}\"${reset} to display, I advise you to use ${code}'${reset} as the delimiter."; restore=$(expr $restore + 1) ;&
-134) echo -n 134 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "For example, even if the display is equivalent ${learn}echo '\"Peter\" and \"Mary\"'${reset} is more readable than ${learn}echo \"\\\"Peter\\\" et \\\"Mary\\\"\"${reset}"; restore=$(expr $restore + 1) ;&
+134) echo -n 134 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "For example, even if the display is equivalent, ${learn}echo '\"Peter\" and \"Mary\"'${reset} is more readable than ${learn}echo \"\\\"Peter\\\" et \\\"Mary\\\"\"${reset}"; restore=$(expr $restore + 1) ;&
 135) echo -n 135 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "The ${voc}escape character${reset} ${code}\${reset} can also be used to display other special characters, such as line breaks or tabs."; restore=$(expr $restore + 1) ;&
 136) echo -n 136 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Quickly look at this list in the command manual ${code}echo${reset}."; restore=$(expr $restore + 1) ;&
 137) echo -n 137 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "man echo" justumen "No"; restore=$(expr $restore + 1) ;&
@@ -570,25 +570,25 @@ rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 
 function start_quiz(){
   echo ""
-  echo -e "\e[15;5;44m Bash 'Bourne Again SHell' : Questionnaire du chapitre 3 \e[0m"
-  echo -e "- La réponse doit être la plus courte possible, une commande valide mais ajoutant des caractères inutiles ne fonctionnera pas."
-  echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
-  answer_text_fr "Quel est la version abrégée de 'ls -a -l' ?" "ls -al"
-  answer_text_fr "Comment ajouter le mot 'non' à la fin du fichier texte 'oui' ?" "echo non>>oui"
-  answer_text_fr "Comment remplacer le contenu du fichier 'test' par 'exemple' ?" "echo exemple>test"
-  answer_text_fr "Comment afficher le contenu du fichier 'test' ?" "cat test"
-  answer_text_fr "Sur bash, quel est le caractère d'échappement ?" "\\"
-  answer_text_fr "Comment afficher dans le terminal : a>b" "echo a\>b"
-  answer_text_fr "Quel est la lettre à utiliser après le caractère d'échappement pour représenter une mise à la ligne ?" "n"
-  answer_text_fr "Affichez, sans utiliser le caractère d'échappement, la phrase : j'ai bon" "echo \"j'ai bon\""
-  answer_text_fr "Affichez trois guillemets (\"), sans utiliser le caractère d'échappement." "echo '\"\"\"'"
+  echo -e "\e[15;5;44m Bash 'Bourne Again SHell' : Quiz Chapter 3 \e[0m"
+  echo -e "- The answer should be as short as possible, a good answer adding uneeded characters will be considered as wrong."
+  echo -e "Example : If the answer is 'ls'. The answers 'ls .', 'ls ./' and 'ls ././' won't work."
+  answer_text_fr "What is the short version of 'ls -a -l' ?" "ls -al"
+  answer_text_fr "How to add the word 'no' at the end of the file 'yes' ?" "echo no>>yes"
+  answer_text_fr "How to replace the content of the file 'test' by 'example' ?" "echo example>test"
+  answer_text_fr "How to display the content of the file 'test' ?" "cat test"
+  answer_text_fr "On bash, what is the escape character ?" "\\"
+  answer_text_fr "How to display in a terminal : a>b" "echo a\>b"
+  answer_text_fr "Which letter need to be used after the escape character to represent a new line ?" "n"
+  answer_text_fr "Display, without using the escape character the sentence : I'll be there" "echo \"I'll be there\""
+  answer_text_fr "Display 3 quotation marks (\"), without using the escape character." "echo '\"\"\"'"
   unlock "bash" "3" "2452" "93a3"
 }
 
 
 CHAPTER_NAME="bash"
 CHAPTER_NUMBER="3"
-LANGUAGE="fr"
+LANGUAGE="en"
 SPEAKER="m1"
 
 LINES=154

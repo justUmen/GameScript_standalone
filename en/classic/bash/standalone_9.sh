@@ -404,7 +404,7 @@ function WAIT_FOR_USER(){
 function start_lecture(){
 restore=$1
 case $1 in
-1) echo -n 1 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; [ -d "$HOME/.GameScript_bash9" ] && echo "Erreur innatendu, ${HOME}/.GameScript_bash9 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_bash9 et relancer ce script." && exit; restore=$(expr $restore + 1) ;&
+1) echo -n 1 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; [ -d "$HOME/.GameScript_bash9" ] && echo "Unexpected error, ${HOME}/.GameScript_bash9 already exists on your system! Delete this $HOME/.GameScript_bash9 folder and restart this script." && exit; restore=$(expr $restore + 1) ;&
 2) echo -n 2 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; mkdir $HOME/.GameScript_bash9 2> /dev/null; restore=$(expr $restore + 1) ;&
 3) echo -n 3 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; cd $HOME/.GameScript_bash9; restore=$(expr $restore + 1) ;&
 4) echo -n 4 > $HOME/.GameScript/restore_bash9; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash9; echo -e "echo Je suis code_bash\\npwd;ls\\nmkdir FOLDER">$HOME/.GameScript_bash9/code_bash;echo -e "echo Je suis code_bash2 et je ne fais rien de spécial.">$HOME/.GameScript_bash9/code_bash2;chmod +x $HOME/.GameScript_bash9/code_bash2; restore=$(expr $restore + 1) ;&
@@ -561,9 +561,9 @@ rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 
 function start_quiz(){
   echo ""
-  echo -e "\e[15;5;44m Bash 'Bourne Again SHell' : Questionnaire du chapitre 9 \e[0m"
-  echo -e "- La réponse doit être la plus courte possible, une commande valide mais ajoutant des caractères inutiles ne fonctionnera pas."
-  echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
+  echo -e "\e[15;5;44m Bash 'Bourne Again SHell' : Quiz Chapter 9 \e[0m"
+  echo -e "- The answer should be as short as possible, a good answer adding uneeded characters will be considered as wrong."
+  echo -e "Example : If the answer is 'ls'. The answers 'ls .', 'ls ./' and 'ls ././' won't work."
   answer_text_fr "Comment afficher le contenu de la variable 'PATH' ?" 'echo $PATH'
   answer_text_fr "Comment ajouter ':/bin' à la fin de la variable 'PATH' ?" 'PATH=$PATH:/bin'
   answer_text_fr "En utilisant le caractère d'échappement, comment ajouter la lettre 'x' à la fin de la variable 'phrase' ?" 'phrase=$phrase\x'
