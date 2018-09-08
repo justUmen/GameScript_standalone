@@ -465,7 +465,7 @@ case $1 in
 32) echo -n 32 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Sans argument, la commande ${learn}ls${reset} cible par défaut le répertoire ${code}.${reset}."; restore=$(expr $restore + 1) ;&
 33) echo -n 33 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Pour supprimer ce fichier 'bOb', vous pouvez donc par exemple taper ${learn}rm ./bOb${reset}, allez-y."; restore=$(expr $restore + 1) ;&
 34) echo -n 34 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "rm ./bOb" justumen "Non"; restore=$(expr $restore + 1) ;&
-35) echo -n 35 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Il n'y a pas de message d'erreur, cela veut donc dire que la commande a bien fonctionnée."; restore=$(expr $restore + 1) ;&
+35) echo -n 35 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Il n'y a pas de message d'erreur, cela veut donc dire que la commande a bien fonctionné."; restore=$(expr $restore + 1) ;&
 36) echo -n 36 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Vérifions néanmoins le contenu du répertoire courant."; restore=$(expr $restore + 1) ;&
 37) echo -n 37 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "ls" justumen "Non"; restore=$(expr $restore + 1) ;&
 38) echo -n 38 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Parfait, il n'existe plus. Affichez maintenant le chemin du répertoire courant."; restore=$(expr $restore + 1) ;&
@@ -543,7 +543,7 @@ case $1 in
 110) echo -n 110 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; answer_run "man ls" justumen "Non"; restore=$(expr $restore + 1) ;&
 111) echo -n 111 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Si vous avez oublié certaines options d'une commande, vous pouvez toujours ouvrir son manuel."; restore=$(expr $restore + 1) ;&
 112) echo -n 112 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Si vous posez une question sur internet à propos d'une commande, mais que la réponse est dans le manuel, il est possible que vous ayez la réponse : RTFM."; restore=$(expr $restore + 1) ;&
-113) echo -n 113 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "C'est un acronyme anglais pour 'Read The Fucking Manual' ou 'Lit le Putain de Manuel'."; restore=$(expr $restore + 1) ;&
+113) echo -n 113 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "C'est un acronyme anglais pour 'Read The Fucking Manual' ou 'Lis le Putain de Manuel'."; restore=$(expr $restore + 1) ;&
 114) echo -n 114 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Apprendre à lire les manuels est indispensable pour pouvoir vous débrouiller seul face à des problèmes simples."; restore=$(expr $restore + 1) ;&
 115) echo -n 115 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk justumen "Avec la répétition vous devriez vous souvenir des options les plus importantes, mais ayez toujours le réflexe de visiter le manuel avant de demander de l'aide. Le manuel sera toujours là pour vous."; restore=$(expr $restore + 1) ;&
 116) echo -n 116 > $HOME/.GameScript/restore_bash2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash2; talk_not_press_key justumen "Faites le donc pour ${code}rmdir${reset}, regardez rapidement les options disponibles dans le manuel et quittez avec la touche 'q' : ${learn}man rmdir${reset}"; restore=$(expr $restore + 1) ;&
@@ -595,8 +595,8 @@ function start_quiz(){
   answer_text_fr "Comment se déplacer dans le répertoire grand parent ?" "cd ../.."
   answer_text_fr "Quel est le symbole qui représente le répertoire courant ?" "."
   answer_text_fr "Comment afficher le manuel de la commande rm" "man rm"
-  answer_text_fr "Par quel symbole commence les options courtes de commande données en argument ?" "-"
-  answer_text_fr "Par quel symboles commencent les options longues de commande donnée en argument ?" "--"
+  answer_text_fr "Par quel symbole commencent les options courtes de commande données en argument ?" "-"
+  answer_text_fr "Par quel symboles commencent les options longues de commande données en argument ?" "--"
   unlock "bash" "2" "246e" "1f13"
 }
 
