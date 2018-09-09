@@ -123,9 +123,7 @@ function new_video(){
 function talk(){
 	if [[ $VIDEO == 0 ]]; then 
 		if [[ $MUTE == 0 ]]; then 
-			if [[ $VOICE == 1 ]]; then 
-				new_sound
-			fi
+			new_sound
 		fi
 	else
 		new_video &
@@ -146,9 +144,7 @@ function talk(){
 function talk_not_press_key(){
 	if [[ $VIDEO == 0 ]]; then 
 		if [[ $MUTE == 0 ]]; then 
-			if [[ $VOICE == 1 ]]; then 
-				new_sound
-			fi
+			new_sound
 		fi
 	else
 		new_video
