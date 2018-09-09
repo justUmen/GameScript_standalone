@@ -82,8 +82,7 @@ function press_key(){
 
 #TODO ???
 function new_sound(){
-	VOICE_PID=$(ps -f|grep "$SOUNDPLAYER"|grep -v grep|grep -v MUSIC|awk '{print $2}')
-	#~ echo "VOICE_PID = $VOICE_PID"
+	VOICE_PID=$(ps -f|grep "$SOUNDPLAYER"|grep -v grep|grep -v MUSIC|awk '{print $2}'|head -n 1)
 	if [[ "$VOICE_PID" != "" ]]; then
 		kill $VOICE_PID
 	fi
