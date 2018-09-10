@@ -593,7 +593,7 @@ $code Processus: Votre terminal $reset$basic
 function clean(){ #in enter_chapter
 rm $HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
-	rmdir $HOME/.GameScript_bash1 2> /dev/null
+	rmdir $HOME/.GameScript_sys1 2> /dev/null
 }
 
 function start_quiz(){

@@ -560,10 +560,15 @@ case $1 in
 121) echo -n 121 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 122) echo -n 122 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 123) echo -n 123 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
-124) echo -n 124 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "ê"; restore=$(expr $restore + 1) ;&
-125) echo -n 125 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "é"; restore=$(expr $restore + 1) ;&
-126) echo -n 126 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "à"; restore=$(expr $restore + 1) ;&
-127) echo -n 127 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "è"; restore=$(expr $restore + 1) ;&
+124) echo -n 124 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+125) echo -n 125 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen " avant mise a la ligne to esacpe n (code peut continuer sur une autre ligne)"; restore=$(expr $restore + 1) ;&
+126) echo -n 126 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+127) echo -n 127 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+128) echo -n 128 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+129) echo -n 129 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "ê"; restore=$(expr $restore + 1) ;&
+130) echo -n 130 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "é"; restore=$(expr $restore + 1) ;&
+131) echo -n 131 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "à"; restore=$(expr $restore + 1) ;&
+132) echo -n 132 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "è"; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter
