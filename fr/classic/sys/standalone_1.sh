@@ -634,7 +634,7 @@ function start_quiz(){
   answer_text_fr "Un PID représente uniquement un seul processus à un moment donné. (vrai/faux)" "vrai"
   answer_text_fr "Un PPID en revanche peut représenter plusieurs processus à un moment donné. (vrai/faux)" "faux"
   answer_text_fr "Quelle est la commande pour envoyer le job numéro 4 en arrière plan ?" "bg %4"
-  answer_text_fr "Quelle est la commande pour fermer le processus avec le PID 666 ?" "kill 666"
+  answer_text_fr "Quelle est la commande pour demander sa fermeture au processus avec le PID 666 ?" "kill 666"
   answer_text_fr "Quelle est la commande qui permet d'éviter que le job numéro 4 ne se ferme en même temps que son terminal parent ?" "disown %4"
   answer_text_fr "Quelle est la lettre INCONNU dans la phrase ? : Pour envoyer le signal SIGTSTP au processus, vous devez faire 'Ctrl + INCONNU'." "z"
   answer_text_fr "Quelle est la commande qui peut fermer le processus avec le PID 666 même s'il ne répond plus ? (la commande doit utiliser la syntaxe -SIG...)" "kill -SIGKILL 666"
