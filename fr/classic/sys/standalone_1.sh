@@ -585,42 +585,35 @@ case $1 in
 144) echo -n 144 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "SIGTERM est le signal par défaut de la commande ${code}kill${reset}, c'est à dire que la commande ${code}kill${reset} est équivalente à la commande ${code}kill -SIGTERM${reset}."; restore=$(expr $restore + 1) ;&
 145) echo -n 145 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Le processus en argument de la commande ${code}kill${reset} recevra ce signal SIGTERM et tentera de se fermer proprement."; restore=$(expr $restore + 1) ;&
 146) echo -n 146 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Si votre processus ne répond plus pour une certaine raison, il ne sera pas possible de le fermer de cette manière..."; restore=$(expr $restore + 1) ;&
-147) echo -n 147 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Dans ce genre de situation, (qui ne devrait jamais se produire sans une excellente raison) vous pouvez envoyez le signal SIGKILL."; restore=$(expr $restore + 1) ;&
+147) echo -n 147 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Dans ce genre de situation, (qui ne devrait jamais se produire sans une excellente raison) vous pouvez envoyez le signal SIGKILL !"; restore=$(expr $restore + 1) ;&
 148) echo -n 148 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Contrairement à SIGTERM, le signal SIGKILL ne peut pas être capturé par le processus cible, il ne pourra donc pas se fermer proprement."; restore=$(expr $restore + 1) ;&
-149) echo -n 149 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Pour afficher le status de vos processus, vous pouvez utiliser ps avec son option -l. Essayez donc ${learn}ps -lfH${reset} dans votre terminal."; restore=$(expr $restore + 1) ;&
-150) echo -n 150 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Le status de vos processus est dans le résultat de ${code}ps -f${reset} une lettre : ${code}T${reset} est l'équivalent du status job 'Running', et ${code}S${reset} est l'équivalent du status 'Stopped'."; restore=$(expr $restore + 1) ;&
-151) echo -n 151 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Pour plus de détails sur ces status et leur signification, n'hésitez pas à visitez le manuel de la commande ${code}ps${reset}."; restore=$(expr $restore + 1) ;&
-152) echo -n 152 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; THISPID=`ps -e|grep leafpad|head -n 1|awk '{ print $1 }'`; restore=$(expr $restore + 1) ;&
-153) echo -n 153 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Voyons maintenant deux autres signaux, capable de changer le status de vos processus : SIGTSTP, SIGCONT."; restore=$(expr $restore + 1) ;&
-154) echo -n 154 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Le signal SIGTSTP a le même effet que la combinaison de touche 'Ctrl + z', votre processus sera 'suspendu'."; restore=$(expr $restore + 1) ;&
-155) echo -n 155 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk_not_press_key justumen "Listez le status de vos processus leafpad avec : ${learn}ps -elf|grep leafpad${reset}"; restore=$(expr $restore + 1) ;&
-156) echo -n 156 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; answer_run "ps -elf|grep leafpad" justumen "Non"; restore=$(expr $restore + 1) ;&
-157) echo -n 157 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk_not_press_key justumen "Suspendez un processus leafpad avec : ${learn}kill -SIGTSTP $THISPID${reset}"; restore=$(expr $restore + 1) ;&
-158) echo -n 158 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; answer_run "kill -SIGTSTP $THISPID" justumen "Non"; restore=$(expr $restore + 1) ;&
-159) echo -n 159 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk_not_press_key justumen "Puis listez à nouveau le status de vos processus leafpad avec : ${learn}ps -lf|grep leafpad${reset}"; restore=$(expr $restore + 1) ;&
-160) echo -n 160 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; answer_run "ps -elf|grep leafpad" justumen "Non"; restore=$(expr $restore + 1) ;&
-161) echo -n 161 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Cette commande confirme que cette instance de leafpad à été suspendue (T), mais vous pouvez tester par vous-même."; restore=$(expr $restore + 1) ;&
-162) echo -n 162 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk_not_press_key justumen "Pour permettre au processus de continuer à exister, faites : ${learn}kill -SIGCONT $THISPID${reset}"; restore=$(expr $restore + 1) ;&
-163) echo -n 163 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; answer_run "kill -SIGCONT $THISPID" justumen "Non"; restore=$(expr $restore + 1) ;&
-164) echo -n 164 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk_not_press_key justumen "Puis faites à nouveau : ${learn}ps -elf|grep leafpad${reset}"; restore=$(expr $restore + 1) ;&
-165) echo -n 165 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; answer_run "ps -elf|grep leafpad" justumen "Non"; restore=$(expr $restore + 1) ;&
-166) echo -n 166 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Cette commande confirme que cette instance de leafpad est à nouveau utilisable (S), mais vous pouvez tester par vous-même."; restore=$(expr $restore + 1) ;&
-167) echo -n 167 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Mais... qu'en est-il de la combinaison 'Ctrl + c' que nous avions déjà vu ? Est-ce un signal ?"; restore=$(expr $restore + 1) ;&
-168) echo -n 168 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Et bien oui, le signal en question est SIGINT, qui représente une interruption par l'intermédiaire du clavier."; restore=$(expr $restore + 1) ;&
-169) echo -n 169 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Mais son effet est similaire à SIGTERM : il donne donc au processus l'occasion de se fermer correctement."; restore=$(expr $restore + 1) ;&
-170) echo -n 170 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Avant de finir ce chapitre, ferme le terminal que vous avez ouvert."; restore=$(expr $restore + 1) ;&
-171) echo -n 171 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Comme promis, l'un des processus de leafpad a survécu : celui que vous avez ${code}disown${reset}."; restore=$(expr $restore + 1) ;&
-172) echo -n 172 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Vous devriez être prêt pour le questionnaire !"; restore=$(expr $restore + 1) ;&
-173) echo -n 173 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; clean; restore=$(expr $restore + 1) ;&
+149) echo -n 149 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Pour afficher le statut de vos processus, vous pouvez utiliser ps avec son option -l. Essayez donc ${learn}ps -lfH${reset} dans votre terminal."; restore=$(expr $restore + 1) ;&
+150) echo -n 150 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Le statut de vos processus est dans le résultat de ${code}ps -l${reset} une lettre dans la colonne S (statut)."; restore=$(expr $restore + 1) ;&
+151) echo -n 151 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "${code}T${reset} est l'équivalent du statut job 'Running', et ${code}S${reset} est l'équivalent du statut 'Stopped'."; restore=$(expr $restore + 1) ;&
+152) echo -n 152 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Pour plus de détails sur ces statut et leur signification, n'hésitez pas à visitez le manuel de la commande ${code}ps${reset}."; restore=$(expr $restore + 1) ;&
+153) echo -n 153 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; THISPID=`ps -e|grep leafpad|head -n 1|awk '{ print $1 }'`; restore=$(expr $restore + 1) ;&
+154) echo -n 154 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Voyons maintenant deux autres signaux, capables de changer le statut de vos processus : SIGTSTP, SIGCONT."; restore=$(expr $restore + 1) ;&
+155) echo -n 155 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Le signal SIGTSTP a le même effet que la combinaison de touche 'Ctrl + z', votre processus sera 'suspendu'."; restore=$(expr $restore + 1) ;&
+156) echo -n 156 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk_not_press_key justumen "Listez les statut de vos processus leafpad avec : ${learn}ps -elf|grep leafpad${reset} ('elf' est l'anglais de 'elfe' :p)"; restore=$(expr $restore + 1) ;&
+157) echo -n 157 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; answer_run "ps -elf|grep leafpad" justumen "Non"; restore=$(expr $restore + 1) ;&
+158) echo -n 158 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk_not_press_key justumen "Suspendez un processus leafpad avec : ${learn}kill -SIGTSTP $THISPID${reset}"; restore=$(expr $restore + 1) ;&
+159) echo -n 159 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; answer_run "kill -SIGTSTP $THISPID" justumen "Non"; restore=$(expr $restore + 1) ;&
+160) echo -n 160 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk_not_press_key justumen "Puis listez à nouveau le statut de vos processus leafpad avec : ${learn}ps -lf|grep leafpad${reset}"; restore=$(expr $restore + 1) ;&
+161) echo -n 161 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; answer_run "ps -elf|grep leafpad" justumen "Non"; restore=$(expr $restore + 1) ;&
+162) echo -n 162 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Cette commande confirme que cette instance de leafpad à été suspendue (T), mais vous pouvez tester par vous-même."; restore=$(expr $restore + 1) ;&
+163) echo -n 163 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk_not_press_key justumen "Pour permettre au processus de continuer à exister, faites : ${learn}kill -SIGCONT $THISPID${reset}"; restore=$(expr $restore + 1) ;&
+164) echo -n 164 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; answer_run "kill -SIGCONT $THISPID" justumen "Non"; restore=$(expr $restore + 1) ;&
+165) echo -n 165 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk_not_press_key justumen "Puis faites à nouveau : ${learn}ps -elf|grep leafpad${reset}"; restore=$(expr $restore + 1) ;&
+166) echo -n 166 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; answer_run "ps -elf|grep leafpad" justumen "Non"; restore=$(expr $restore + 1) ;&
+167) echo -n 167 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Cette commande confirme que cette instance de leafpad est à nouveau utilisable (S), mais vous pouvez tester par vous-même."; restore=$(expr $restore + 1) ;&
+168) echo -n 168 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Mais... qu'en est-il de la combinaison 'Ctrl + c' que nous avions déjà vu ? Est-ce un signal ?"; restore=$(expr $restore + 1) ;&
+169) echo -n 169 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Et bien oui, le signal en question est SIGINT, qui représente une interruption par l'intermédiaire du clavier."; restore=$(expr $restore + 1) ;&
+170) echo -n 170 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Mais son effet est similaire à SIGTERM : il donne donc au processus l'occasion de se fermer correctement."; restore=$(expr $restore + 1) ;&
+171) echo -n 171 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Avant de finir ce chapitre, ferme le terminal que vous avez ouvert."; restore=$(expr $restore + 1) ;&
+172) echo -n 172 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Comme promis, l'un des processus de leafpad a survécu : celui que vous avez ${code}disown${reset}."; restore=$(expr $restore + 1) ;&
+173) echo -n 173 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; talk justumen "Vous être prêt pour le questionnaire de ce chapitre !"; restore=$(expr $restore + 1) ;&
+174) echo -n 174 > $HOME/.GameScript/restore_sys1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys1; clean; restore=$(expr $restore + 1) ;&
 esac
-}
-CLREOL=$'\x1B[K'
-
-function tree_1(){
-echo -e "
-$code Processus: Votre terminal $reset$basic
-|-- $code Processus: Son instance de bash $reset$basic
-|   |-- $code Processus: Son instance de GameScript $reset$basic"
 }
 function clean(){ #in enter_chapter
 rm $HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
@@ -630,19 +623,21 @@ rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 
 function start_quiz(){
   echo ""
-  echo -e "\e[15;44m Bash 'Bourne Again SHell' : Questionnaire du chapitre 1 \e[0m"
+  echo -e "\e[15;44m System : Questionnaire du chapitre 1 \e[0m"
   echo -e "- La réponse doit être la plus courte possible, une commande valide mais ajoutant des caractères inutiles ne fonctionnera pas."
   echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
-  answer_text_fr "Quel symbole représente le répertoire racine sur Linux ?" "/"
-  answer_text_fr "Quelle commande affiche le chemin absolu du répertoire courant ?" "pwd"
-  answer_text_fr "Quelle commande affiche le contenu du répertoire racine ?" "ls /"
-  answer_text_fr "Quelle commande change le répertoire courant du terminal par son répertoire parent ?" "cd .."
-  answer_text_fr "Quelle commande affiche le contenu du répertoire courant ?" "ls"
-  answer_text_fr "Quelle commande supprime le dossier vide 'test' du répertoire courant ?" "rmdir test"
-  answer_text_fr "Par quel symbole commence le chemin absolu d'un fichier ?" "/"
-  answer_text_fr "Le nom du chemin relatif d'un fichier est souvent plus court que son équivalent en chemin absolu. (vrai/faux)" "vrai"
-  answer_text_fr "Quelle commande peut supprimer le fichier /home/test quel que soit votre répertoire courant ?" "rm /home/test"
-  unlock "bash" "1" "24d8" "f016"
+#^C+c , ^C+z , jobs , fg , bg , kill , disown , PID , PPID , SIGCONT , SIGINT , SIGTSTP , SIGKILL
+  answer_text_fr "Quelle est la commande qui affiche la liste de vos 'jobs' ?" "jobs"
+  answer_text_fr "Si votre job est 'Stopped', quel signal devez vous envoyer pour le rendre utilisable ? (le signal doit la syntaxe -SIG...)" "SIGCONT"
+  answer_text_fr "Quelle est la lettre INCONNU dans la phrase ? : Pour envoyer le signal SIGINT au processus, vous devez faire 'Ctrl + INCONNU'." "c"
+  answer_text_fr "Un PID représente uniquement un seul processus à un moment donné. (vrai/faux)" "vrai"
+  answer_text_fr "Un PPID en revanche peut représenter plusieurs processus à un moment donné. (vrai/faux)" "faux"
+  answer_text_fr "Quelle est la commande pour envoyer le job numéro 4 en arrière plan ?" "bg %4"
+  answer_text_fr "Quelle est la commande pour fermer le processus avec le PID 666 ?" "kill 666"
+  answer_text_fr "Quelle est la commande qui permet d'éviter que le job numéro 4 ne se ferme en même temps que son terminal parent ?" "disown %4"
+  answer_text_fr "Quelle est la lettre INCONNU dans la phrase ? : Pour envoyer le signal SIGTSTP au processus, vous devez faire 'Ctrl + INCONNU'." "z"
+  answer_text_fr "Quelle est la commande qui peut fermer le processus avec le PID 666 même s'il ne répond plus ? (la commande doit utiliser la syntaxe -SIG...)" "kill -SIGKILL 666"
+  unlock "sys" "1" "bbb2" "112b"
 }
 
 
@@ -651,7 +646,7 @@ CHAPTER_NUMBER="1"
 LANGUAGE="fr"
 SPEAKER="m1"
 
-LINES=158
+LINES=173
 if [ "$1" == "VIDEO" ]; then
 	prepare_video
 else

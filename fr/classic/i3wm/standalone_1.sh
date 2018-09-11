@@ -694,6 +694,7 @@ esac
 function clean(){ #in enter_chapter
 rm $HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
+rmdir $HOME/.GameScript_i3wm_1
 }
 
 function start_quiz(){
