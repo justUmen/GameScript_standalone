@@ -66,6 +66,7 @@ function encode_b64(){
 }
 
 function press_key(){
+	sleep 1
 	echo -en "\e[0;33m...\e[0m"
 	read -s -n1 key < /dev/tty
 	#OBSOLETE ?
