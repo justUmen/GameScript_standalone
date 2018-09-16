@@ -2,6 +2,8 @@
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
 shopt -s expand_aliases
 source ~/.bashrc
+#Needed ?
+#~ source ~/.GameScript/config
 
 function pause_music(){
 	echo "PAUSE MUSIC"
