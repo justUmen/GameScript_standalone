@@ -3,6 +3,15 @@
 shopt -s expand_aliases
 source ~/.bashrc
 
+function start_quiz_music(){
+	VOICE_PID=$(ps -f|grep "mplayer"|grep Music|awk '{print $2}'|head -n 1)
+	if [[ "$MUSIC_PID" != "" ]]; then
+		kill $MUSIC_PID
+	fi
+	mplayer -volume 50 /home/umen/.GameScript/Sounds/$SOUND_FAMILY/Music/quiz1.mp3 &>/dev/null &
+	#??? change with $SOUNDPLAYER OR SMT
+}
+
 function download_all_sounds(){
 	#~ echo "Downloading..."
 	cd $AUDIO_LOCAL || exit
@@ -221,10 +230,12 @@ function answer_quiz(){
 						case $choice in
 							1)  cd `cat "$HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER"`
 								start_lecture `cat "$HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER"`
+								start_quiz_music
 								start_quiz
 								;;
 							2) 	clean
 								start_lecture 1
+								start_quiz_music
 								start_quiz
 								;;
 							3) exit ;;
@@ -473,7 +484,7 @@ case $1 in
 8) echo -n 8 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Of course you can use the long versions in the same way, or even mix them with short options."; restore=$(expr $restore + 1) ;&
 9) echo -n 9 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Try doing the same thing with: ${learn}ls -a --width=1${reset}"; restore=$(expr $restore + 1) ;&
 10) echo -n 10 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "ls -a --width=1" justumen "No"; restore=$(expr $restore + 1) ;&
-11) echo -n 11 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "But do not forget the short options start with ${code}-${reset} and the long options start with ${code}--${reset}."; restore=$(expr $restore + 1) ;&
+11) echo -n 11 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "But do not forget that the short options start with ${code}-${reset} and the long options start with ${code}--${reset}."; restore=$(expr $restore + 1) ;&
 12) echo -n 12 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "If you use short options, you can also group them with the same ${code}-${reset}."; restore=$(expr $restore + 1) ;&
 13) echo -n 13 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "For example to pass the option ${code}-a${reset} and the option ${code}-w 10${reset} to ${code}ls${reset}, you can type ${code}ls -aw 10${reset}"; restore=$(expr $restore + 1) ;&
 14) echo -n 14 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Try this command: ${learn}ls -aw 10${reset}"; restore=$(expr $restore + 1) ;&
@@ -488,12 +499,12 @@ case $1 in
 23) echo -n 23 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "ls --version" justumen "No"; restore=$(expr $restore + 1) ;&
 24) echo -n 24 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Perfect !"; restore=$(expr $restore + 1) ;&
 25) echo -n 25 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "GameScript is currently displaying text in your device."; restore=$(expr $restore + 1) ;&
-26) echo -n 26 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "GameScript using the same commands you are currently learning, but which one is used here to display these sentences?"; restore=$(expr $restore + 1) ;&
-27) echo -n 27 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "To display something in a terminal, you will need to use the command ${code}echo${reset}."; restore=$(expr $restore + 1) ;&
+26) echo -n 26 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "GameScript uses the same commands you are currently learning, but can you tell which one is used here to display these sentences?"; restore=$(expr $restore + 1) ;&
+27) echo -n 27 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "To display something in a terminal, you will need to use the ${code}echo${reset} command."; restore=$(expr $restore + 1) ;&
 28) echo -n 28 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "This command will simply return an echo of what you gave it as an argument."; restore=$(expr $restore + 1) ;&
 29) echo -n 29 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Display the word 'hello' in your terminal with the command: ${learn}echo hello${reset}"; restore=$(expr $restore + 1) ;&
 30) echo -n 30 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "echo hello" justumen "No"; restore=$(expr $restore + 1) ;&
-31) echo -n 31 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "The command ${code}echo${reset} accepts several arguments, you can test: ${learn}echo hello everyone${reset}"; restore=$(expr $restore + 1) ;&
+31) echo -n 31 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "The command ${code}echo${reset} can accept several arguments, you can test: ${learn}echo hello everyone${reset}"; restore=$(expr $restore + 1) ;&
 32) echo -n 32 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "echo hello everyone" justumen "No"; restore=$(expr $restore + 1) ;&
 33) echo -n 33 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Easy as pie !"; restore=$(expr $restore + 1) ;&
 34) echo -n 34 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "We've already seen that ${code}mkdir${reset} is used to create new folders."; restore=$(expr $restore + 1) ;&
@@ -535,7 +546,7 @@ case $1 in
 70) echo -n 70 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Then display the contents of the 'test' file."; restore=$(expr $restore + 1) ;&
 71) echo -n 71 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "cat test" justumen "No"; restore=$(expr $restore + 1) ;&
 72) echo -n 72 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Here the word 'hello' has been added at the end of the text file."; restore=$(expr $restore + 1) ;&
-73) echo -n 73 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "You can continue to use ${code}>>${reset} to add your new content one after the other."; restore=$(expr $restore + 1) ;&
+73) echo -n 73 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "You can continue to use ${code}>>${reset} to add new content in the file."; restore=$(expr $restore + 1) ;&
 74) echo -n 74 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "But the redirects (${code}>${reset} and ${code}>>${reset}) are not limited to the command ${code}echo${reset}."; restore=$(expr $restore + 1) ;&
 75) echo -n 75 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "It can work with any command !."; restore=$(expr $restore + 1) ;&
 76) echo -n 76 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "For example, put the result of the ${learn}ls${reset} command at the end the 'test' file!"; restore=$(expr $restore + 1) ;&
@@ -562,7 +573,7 @@ case $1 in
 97) echo -n 97 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "It therefore displays the two arguments separated by a space."; restore=$(expr $restore + 1) ;&
 98) echo -n 98 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "It is therefore sometimes useful to limit the number of arguments to one!"; restore=$(expr $restore + 1) ;&
 99) echo -n 99 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "But how to display this space so that the sequel is not considered as a new argument?"; restore=$(expr $restore + 1) ;&
-100) echo -n 100 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "It will be necessary to use what one calls in computer a ${voc}escape character${reset}."; restore=$(expr $restore + 1) ;&
+100) echo -n 100 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "It will be necessary to use what one calls in computer an ${voc}escape character${reset}."; restore=$(expr $restore + 1) ;&
 101) echo -n 101 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Here it is the character ${code}\${reset}."; restore=$(expr $restore + 1) ;&
 102) echo -n 102 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "This escape character will affect ${voc}only${reset} the next character."; restore=$(expr $restore + 1) ;&
 103) echo -n 103 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "In our case, to represent a space with the command ${code}echo${reset} we can use ${code}\\${reset}."; restore=$(expr $restore + 1) ;&
@@ -574,11 +585,11 @@ case $1 in
 109) echo -n 109 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "echo a \ b" justumen "No"; restore=$(expr $restore + 1) ;&
 110) echo -n 110 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Now, try to display a second space between a and b."; restore=$(expr $restore + 1) ;&
 111) echo -n 111 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "echo a \ \ b" justumen "No"; restore=$(expr $restore + 1) ;&
-112) echo -n 112 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "This escape character is very useful for displaying characters that you wouldn't show otherwise."; restore=$(expr $restore + 1) ;&
+112) echo -n 112 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "This escape character is very useful for displaying characters that wouldn't show up otherwise."; restore=$(expr $restore + 1) ;&
 113) echo -n 113 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "For example, the ${learn}>${reset} symbol, which as you know, is also interpreted by your terminal as a special character."; restore=$(expr $restore + 1) ;&
 114) echo -n 114 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk_not_press_key justumen "Test this command: ${learn}echo x\\>y${reset}"; restore=$(expr $restore + 1) ;&
 115) echo -n 115 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; answer_run "echo x\>y" justumen "No"; restore=$(expr $restore + 1) ;&
-116) echo -n 116 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Here, you understand the ${} Voice huge reset} ${difference there is between ${learn}echo \ x> y {reset} $ and ${learn}echo x> y${reset} ."; restore=$(expr $restore + 1) ;&
+116) echo -n 116 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "Here, you can understand the ${} Voice huge reset} ${difference there is between ${learn}echo \ x> y {reset} $ and ${learn}echo x> y${reset} ."; restore=$(expr $restore + 1) ;&
 117) echo -n 117 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "${learn}echo x> y${reset} will create a new 'y' file with the content 'x'!"; restore=$(expr $restore + 1) ;&
 118) echo -n 118 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "${learn}echo x \\> y${reset} simply displays text in the terminal."; restore=$(expr $restore + 1) ;&
 119) echo -n 119 > $HOME/.GameScript/restore_bash3; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; talk justumen "To display the symbol ${code}\${reset} with echo, just add it just before your escape character."; restore=$(expr $restore + 1) ;&
