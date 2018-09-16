@@ -22,11 +22,14 @@ function stop_quiz_music(){
 	fi
 }
 function start_quiz_music(){
-	MUSIC_PID=$(ps -f|grep "mplayer"|grep Music|awk '{print $2}'|head -n 1)
-	if [[ "$MUSIC_PID" != "" ]]; then
-		pause_music $MUSIC_PID
+	if [[ "$MUTE" == "0" ]] && [[ "$MUSIC" == "1" ]]; then
+		MUSIC_PID=$(ps -f|grep "mplayer"|grep Music|awk '{print $2}'|head -n 1)
+		if [[ "$MUSIC_PID" != "" ]]; then
+			pause_music $MUSIC_PID
+		fi
+		mplayer -ss 4 /home/umen/.GameScript/Sounds/default/Music/quiz_1.m4a &>/dev/null &
+		#-ss 4 for mortal kombat
 	fi
-	mplayer /home/umen/.GameScript/Sounds/$SOUND_FAMILY/Music/quiz1.mp3 &>/dev/null &
 	#??? change with $SOUNDPLAYER OR SMT
 }
 
@@ -248,26 +251,20 @@ function answer_quiz(){
 						case $choice in
 							1)  cd `cat "$HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER"`
 								start_lecture `cat "$HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER"`
-start_quiz_music
 								start_quiz
 								;;
 							2) 	clean
 								start_lecture 1
-start_quiz_music
 								start_quiz
 								;;
 							3) exit ;;
 						esac
 					done
 				fi
-#HERE ?
-stop_quiz_music
 				start_lecture 1
-start_quiz_music
 				start_quiz
 				;;
-			2) 	start_quiz_music
-				start_quiz ;;
+			2) 	start_quiz ;;
 			e) exit ;;
 		esac
 	done
@@ -652,6 +649,7 @@ rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 }
 
 function start_quiz(){
+  start_quiz_music
   echo ""
   echo -e "\e[15;44m Bash 'Bourne Again SHell' : Questionnaire du chapitre 9 \e[0m"
   echo -e "- La réponse doit être la plus courte possible, une commande valide mais ajoutant des caractères inutiles ne fonctionnera pas."
