@@ -15,6 +15,12 @@ function unpause_music(){
 		kill $QUIZ_MUSIC_PID
 	fi
 }
+function stop_quiz_music(){
+	QUIZ_MUSIC_PID=$(ps -f|grep "mplayer"|grep Music|grep quiz|awk '{print $2}'|head -n 1)
+	if [[ "$QUIZ_MUSIC_PID" != "" ]]; then
+		kill $QUIZ_MUSIC_PID
+	fi
+}
 function start_quiz_music(){
 	MUSIC_PID=$(ps -f|grep "mplayer"|grep Music|awk '{print $2}'|head -n 1)
 	if [[ "$MUSIC_PID" != "" ]]; then
@@ -242,12 +248,12 @@ function answer_quiz(){
 						case $choice in
 							1)  cd `cat "$HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER"`
 								start_lecture `cat "$HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER"`
-								start_quiz_music
+start_quiz_music
 								start_quiz
 								;;
 							2) 	clean
 								start_lecture 1
-								start_quiz_music
+start_quiz_music
 								start_quiz
 								;;
 							3) exit ;;
@@ -255,14 +261,13 @@ function answer_quiz(){
 					done
 				fi
 #HERE ?
-MUSIC_PID=$(ps -f|grep "mplayer"|grep Music|grep -v quiz|awk '{print $2}'|head -n 1)
-if [[ "$MUSIC_PID" != "" ]]; then
-	unpause_music $MUSIC_PID
-fi
+stop_quiz_music
 				start_lecture 1
+start_quiz_music
 				start_quiz
 				;;
-			2) start_quiz ;;
+			2) 	start_quiz_music
+				start_quiz ;;
 			e) exit ;;
 		esac
 	done
