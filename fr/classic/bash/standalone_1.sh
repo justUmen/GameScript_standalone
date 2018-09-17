@@ -2,7 +2,6 @@
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
 shopt -s expand_aliases
 source ~/.bashrc
-bind -x '"\C-j":"exit"'
 #Needed ?
 #~ source ~/.GameScript/config
 
@@ -87,6 +86,9 @@ function encode_b64(){
 function press_key(){
 	echo -en "\e[0;33m...\e[0m"
 	read -s -n1 key < /dev/tty
+	if [ "$key" == 'Q' ]; then
+		exit
+	fi
 	#OBSOLETE ?
 	#~ if [ "$key" == 'q' ] || [ "$key" == 'e' ]; then
 		#~ pkill mpg123  > /dev/null 2>&1
