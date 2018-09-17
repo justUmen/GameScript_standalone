@@ -8,8 +8,7 @@ function pause_music(){
 }
 function start_quiz_music(){
 	if [[ "$MUTE" == "0" ]]; then
-		MUSIC_PID=$(ps -ef|grep "$SOUNDPLAYER"|grep Music|grep -v quiz|awk '{print $2}'|head -n 1)
-		echo "BACKGROUND MUSIC = $MUSIC_PID"
+		MUSIC_PID=$(ps -ef|grep "$SOUNDPLAYER_MUSIC"|grep Music|grep -v quiz|awk '{print $2}'|head -n 1)
 		if [[ "$MUSIC_PID" != "" ]]; then
 			pause_music $MUSIC_PID
 		fi
@@ -18,9 +17,9 @@ function start_quiz_music(){
 }
 function stop_quiz_music(){
 	if [[ "$MUTE" == "0" ]]; then
-		MUSIC_PID=$(ps -ef|grep "$SOUNDPLAYER_MUSIC_QUIZ"|grep quiz|awk '{print $2}'|head -n 1)
-		if [[ "$MUSIC_PID" != "" ]]; then
-			kill $MUSIC_PID
+		MUSIC_QUIZ_PID=$(ps -ef|grep "$SOUNDPLAYER_MUSIC_QUIZ"|grep quiz|awk '{print $2}'|head -n 1)
+		if [[ "$MUSIC_QUIZ_PID" != "" ]]; then
+			kill $MUSIC_QUIZ_PID
 		fi
 	fi
 }
