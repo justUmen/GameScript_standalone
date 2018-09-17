@@ -8,11 +8,11 @@ function pause_music(){
 }
 function start_quiz_music(){
 	if [[ "$MUTE" == "0" ]]; then
-		MUSIC_PID=$(ps -ef|grep "SOUNDPLAYER_MUSIC"|grep Music|awk '{print $2}'|head -n 1)
+		MUSIC_PID=$(ps -ef|grep "$SOUNDPLAYER_MUSIC"|grep Music|awk '{print $2}'|head -n 1)
 		if [[ "$MUSIC_PID" != "" ]]; then
 			pause_music $MUSIC_PID
 		fi
-		mplayer -ss 4 /home/umen/.GameScript/Sounds/default/Music/quiz_1.m4a &>/dev/null &
+		$SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.m4a &>/dev/null &
 	fi
 	#??? change with $SOUNDPLAYER OR SMT
 }
