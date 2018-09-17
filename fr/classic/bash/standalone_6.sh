@@ -13,6 +13,7 @@ function start_quiz_music(){
 			pause_music $MUSIC_PID
 		fi
 		echo "$SOUNDPLAYER_MUSIC_QUIZ !!"
+		command -v mplayer &> /dev/null && SOUNDPLAYER_MUSIC_QUIZ="mplayer" || SOUNDPLAYER_MUSIC_QUIZ="mpg123"
 		$SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.mp3 &>/dev/null &
 	fi
 	#??? change with $SOUNDPLAYER OR SMT
