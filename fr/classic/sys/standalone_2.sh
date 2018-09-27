@@ -461,6 +461,12 @@ restore=$1
 case $1 in
 1) echo -n 1 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; [ -d "$HOME/.GameScript_sys1" ] && echo "Erreur inattendue, ${HOME}/.GameScript_sys1 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_sys1 et relancez ce script." && exit; restore=$(expr $restore + 1) ;&
 2) echo -n 2 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; command -v xdotool >/dev/null 2>&1 || { echo "Veuillez installer les dépendances requises. Faites en tant qu'administrateur : apt-get install xdotool" >&2; exit 3; }; restore=$(expr $restore + 1) ;&
+3) echo -n 3 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+4) echo -n 4 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+5) echo -n 5 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+6) echo -n 6 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "systemd :"; restore=$(expr $restore + 1) ;&
+7) echo -n 7 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "systemctl"; restore=$(expr $restore + 1) ;&
+8) echo -n 8 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "systemctl status ..."; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter
