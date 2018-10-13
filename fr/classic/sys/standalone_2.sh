@@ -470,6 +470,14 @@ case $1 in
 6) echo -n 6 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "systemd :"; restore=$(expr $restore + 1) ;&
 7) echo -n 7 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "systemctl"; restore=$(expr $restore + 1) ;&
 8) echo -n 8 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "systemctl status ..."; restore=$(expr $restore + 1) ;&
+9) echo -n 9 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+10) echo -n 10 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "/proc/PID/status"; restore=$(expr $restore + 1) ;&
+11) echo -n 11 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "man proc"; restore=$(expr $restore + 1) ;&
+12) echo -n 12 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+13) echo -n 13 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "https://unix.stackexchange.com/questions/224015/memory-usage-of-a-given-process-using-linux-proc-filesystem#224016"; restore=$(expr $restore + 1) ;&
+14) echo -n 14 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+15) echo -n 15 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+16) echo -n 16 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "tmpfs /tmp tmpfs mode=1777,nosuid,nodev 0 0"; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter

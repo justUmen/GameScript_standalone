@@ -572,31 +572,39 @@ case $1 in
 108) echo -n 108 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "SUBSHELLS"; restore=$(expr $restore + 1) ;&
 109) echo -n 109 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "subshells and variables : x=2;echo $x;(echo $x;x=1;echo $x);echo $x"; restore=$(expr $restore + 1) ;&
 110) echo -n 110 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
-111) echo -n 111 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "CODE PLANNING BEFORE CODING"; restore=$(expr $restore + 1) ;&
-112) echo -n 112 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+111) echo -n 111 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "Regroup with subshells (notice ; is needed)"; restore=$(expr $restore + 1) ;&
+112) echo -n 112 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "exec 6<>/dev/tcp/127.0.0.1/9999 	&& echo "Server available on port 9999" 	|| { echo "Please run the server with : php -S 127.0.0.1:9999 -t /home/umen/SyNc/Projects/GameScript/PopUpLearn" && exec 6>&- && exec 6<&- && exit; }"; restore=$(expr $restore + 1) ;&
 113) echo -n 113 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 114) echo -n 114 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 115) echo -n 115 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
-116) echo -n 116 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
-117) echo -n 117 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "type source ---> built-in ----> man bash"; restore=$(expr $restore + 1) ;&
+116) echo -n 116 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "CODE PLANNING BEFORE CODING"; restore=$(expr $restore + 1) ;&
+117) echo -n 117 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 118) echo -n 118 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 119) echo -n 119 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 120) echo -n 120 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 121) echo -n 121 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
-122) echo -n 122 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
-123) echo -n 123 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen " avant mise a la ligne to esacpe n (code peut continuer sur une autre ligne)"; restore=$(expr $restore + 1) ;&
+122) echo -n 122 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "type source ---> built-in ----> man bash"; restore=$(expr $restore + 1) ;&
+123) echo -n 123 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 124) echo -n 124 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 125) echo -n 125 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 126) echo -n 126 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 127) echo -n 127 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
-128) echo -n 128 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "case esac"; restore=$(expr $restore + 1) ;&
+128) echo -n 128 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen " avant mise a la ligne to esacpe n (code peut continuer sur une autre ligne)"; restore=$(expr $restore + 1) ;&
 129) echo -n 129 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 130) echo -n 130 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
 131) echo -n 131 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
-132) echo -n 132 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "ê"; restore=$(expr $restore + 1) ;&
-133) echo -n 133 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "é"; restore=$(expr $restore + 1) ;&
-134) echo -n 134 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "à"; restore=$(expr $restore + 1) ;&
-135) echo -n 135 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "è"; restore=$(expr $restore + 1) ;&
+132) echo -n 132 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+133) echo -n 133 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "case esac"; restore=$(expr $restore + 1) ;&
+134) echo -n 134 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+135) echo -n 135 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+136) echo -n 136 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+137) echo -n 137 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+138) echo -n 138 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+139) echo -n 139 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen ""; restore=$(expr $restore + 1) ;&
+140) echo -n 140 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "ê"; restore=$(expr $restore + 1) ;&
+141) echo -n 141 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "é"; restore=$(expr $restore + 1) ;&
+142) echo -n 142 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "à"; restore=$(expr $restore + 1) ;&
+143) echo -n 143 > $HOME/.GameScript/restore_bash12; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; talk justumen "è"; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter
