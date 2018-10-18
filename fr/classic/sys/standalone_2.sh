@@ -199,7 +199,7 @@ function answer_quiz(){
 					echo -e "      \\e[0;100m 2) \\e[0m $TEXT_RESTART"
 					echo -e "      \\e[0;100m e) \\e[0m $TEXT_BACK"
 					choice="x"
-					while [ "$choice" != "1" ] && [ "$choice" != "2" ] && [ "$choice" != "3" ]; do
+					while [ "$choice" != "1" ] && [ "$choice" != "2" ] && [ "$choice" != "e" ]; do
 						echo -en "      \\e[97;45m # \\e[0m"
 						read choice < /dev/tty
 					done
@@ -478,6 +478,12 @@ case $1 in
 14) echo -n 14 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
 15) echo -n 15 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
 16) echo -n 16 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "tmpfs /tmp tmpfs mode=1777,nosuid,nodev 0 0"; restore=$(expr $restore + 1) ;&
+17) echo -n 17 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+18) echo -n 18 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+19) echo -n 19 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "https://unix.stackexchange.com/questions/4004/how-can-i-close-a-terminal-without-killing-the-command-running-in-it"; restore=$(expr $restore + 1) ;&
+20) echo -n 20 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "galculator&! (galculator&; disown)"; restore=$(expr $restore + 1) ;&
+21) echo -n 21 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "setsid galculator"; restore=$(expr $restore + 1) ;&
+22) echo -n 22 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter
@@ -492,7 +498,7 @@ function start_quiz(){
   echo -e "\e[15;44m System : Questionnaire du chapitre 1 \e[0m"
   echo -e "- La réponse doit être la plus courte possible, une commande valide mais ajoutant des caractères inutiles ne fonctionnera pas."
   echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
-#^C+c , ^C+z , jobs , fg , bg , kill , disown , PID , PPID , SIGCONT , SIGINT , SIGTSTP , SIGKILL
+#^C+c , ^C+z , jobs , fg , bg , kill , disown , PID , PPID , SIGCONT , SIGINT , SIGTSTP , SIGSTOP , SIGKILL
   answer_text_fr "Quelle est la commande qui affiche la liste de vos 'jobs' ?" "jobs"
   answer_text_fr "Comment lancer le gestionnaire de fichier 'pcmanfm' en arrière plan à partir d'un terminal ?" "pcmanfm&"
   answer_text_fr "Si votre job est 'Stopped', quel signal devez vous envoyer pour le rendre utilisable ? (Votre réponse doit commencer par SIG)" "SIGCONT"
