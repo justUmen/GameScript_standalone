@@ -484,6 +484,23 @@ case $1 in
 20) echo -n 20 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "galculator&! (galculator&; disown)"; restore=$(expr $restore + 1) ;&
 21) echo -n 21 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "setsid galculator"; restore=$(expr $restore + 1) ;&
 22) echo -n 22 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+23) echo -n 23 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+24) echo -n 24 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+25) echo -n 25 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+26) echo -n 26 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+27) echo -n 27 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "xsessions"; restore=$(expr $restore + 1) ;&
+28) echo -n 28 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "https://www.linuxquestions.org/questions/linux-desktop-74/usr-share-xsessions-4175614506/"; restore=$(expr $restore + 1) ;&
+29) echo -n 29 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+30) echo -n 30 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+31) echo -n 31 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+32) echo -n 32 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+33) echo -n 33 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "distro ?"; restore=$(expr $restore + 1) ;&
+34) echo -n 34 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "https://www.binarytides.com/enable-testing-repo-debian/"; restore=$(expr $restore + 1) ;&
+35) echo -n 35 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+36) echo -n 36 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen ""; restore=$(expr $restore + 1) ;&
+37) echo -n 37 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "echo "1" > /proc/sys/kernel/sysrq"; restore=$(expr $restore + 1) ;&
+38) echo -n 38 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "/etc/sysctl.conf (kernel.sysrq=1) : https://www.kernel.org/doc/Documentation/sysrq.txt"; restore=$(expr $restore + 1) ;&
+39) echo -n 39 > $HOME/.GameScript/restore_sys2; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2; talk justumen "echo b > /proc/sysrq-trigger"; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter
