@@ -374,7 +374,7 @@ function unlock(){
 			command -v xclip &> /dev/null && echo "This password was automaticaly copied with 'xclip'." || echo "[ Install 'xclip' to copy this password automaticaly after a quiz. ]"
 			;;
 	esac
-	command -v xclip &> /dev/null && echo "$PASS" | xclip -i -selection clipboard
+	command -v xclip &> /dev/null && echo "password$PASS" | xclip -i -selection clipboard
 	#AUTOMATICALLY DO THIS ?
 	touch "$HOME/.GameScript/good_$1$2" 2> /dev/null
 	mkdir $HOME/.GameScript/passwords/ 2> /dev/null
@@ -608,7 +608,7 @@ case $1 in
 144) echo -n 144 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Modifiez le mot 'bonjour' du fichier html par le mot 'bonsoir' dans l'espace de travail 2, sauvegardez le fichier, puis revenez sur GameScript."; restore=$(expr $restore + 1) ;&
 145) echo -n 145 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 2 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 146) echo -n 146 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 1 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
-147) echo -n 147 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Affichez maintenant le changement en actualisant votre navigateur web dans l'espace de travail 3, puis revenez sur GameScript. (Touche F5)"; restore=$(expr $restore + 1) ;&
+147) echo -n 147 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Affichez maintenant le changement en actualisant votre navigateur web dans l'espace de travail 3, puis revenez sur GameScript. (Ctrl + 'r')"; restore=$(expr $restore + 1) ;&
 148) echo -n 148 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 3 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 149) echo -n 149 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 1 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 150) echo -n 150 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Allez maintenant sur l'espace de travail 4 et ouvrez le fichier 'style.css' avec leafpad en faisant clic droit sur le fichier, ouvrir avec, Leafpad, puis revenez sur GameScript."; restore=$(expr $restore + 1) ;&
@@ -618,7 +618,7 @@ case $1 in
 154) echo -n 154 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "C'est en fait parce que j'ai configuré votre i3 pour que cela soit le cas."; restore=$(expr $restore + 1) ;&
 155) echo -n 155 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Votre espace de travail 2 devrait d'ailleurs être en ce moment de couleur rouge dans la liste des espaces de travail."; restore=$(expr $restore + 1) ;&
 156) echo -n 156 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk justumen "Ce rouge veut dire qu'une nouvelle fenêtre vient de s'ouvrir dans cet espace de travail, et cette couleur restera rouge tant que cette fenêtre n'aura pas recu de focus."; restore=$(expr $restore + 1) ;&
-157) echo -n 157 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Modifiez donc ce fichier 'style.css' en changeant 'red' par 'blue', enregistrez les modifications, verifiez l'effet de vos changements dans l'espace de travail 3 avec F5 et revenez sur GameScript."; restore=$(expr $restore + 1) ;&
+157) echo -n 157 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; talk_not_press_key justumen "Modifiez donc ce fichier 'style.css' en changeant 'red' par 'blue', enregistrez les modifications, verifiez l'effet de vos changements dans l'espace de travail 3 avec Ctrl + 'r' et revenez sur GameScript."; restore=$(expr $restore + 1) ;&
 158) echo -n 158 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 2 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 159) echo -n 159 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 3 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
 160) echo -n 160 > $HOME/.GameScript/restore_i3wm1; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_i3wm1; while [ `i3-msg -t get_workspaces | jq -r 'map(select(.focused))[0].name'` != 1 ]; do sleep .5; done; restore=$(expr $restore + 1) ;&
@@ -723,7 +723,7 @@ fi
 function clean(){ #in enter_chapter
 rm $HOME/.GameScript/restore_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
 rm $HOME/.GameScript/restore_pwd_$CHAPTER_NAME$CHAPTER_NUMBER 2> /dev/null
-rmdir $HOME/.GameScript_i3wm_1
+rmdir $HOME/.GameScript_i3wm_1 2> /dev/null
 }
 
 function start_quiz(){
