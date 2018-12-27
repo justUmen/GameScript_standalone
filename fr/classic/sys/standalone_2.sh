@@ -462,45 +462,45 @@ function WAIT_FOR_USER(){
 function start_lecture(){
 restore=$1
 case $1 in
-1) echo -n 1 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; [ -d "$HOME/.GameScript_sys1" ] && echo "Erreur inattendue, ${HOME}/.GameScript_sys1 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_sys1 et relancez ce script." && exit; restore=$(expr $restore + 1) ;&
-2) echo -n 2 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; command -v xdotool >/dev/null 2>&1 || { echo "Veuillez installer les dépendances requises. Faites en tant qu'administrateur : apt-get install xdotool" >&2; exit 3; }; restore=$(expr $restore + 1) ;&
-3) echo -n 3 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-4) echo -n 4 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-5) echo -n 5 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-6) echo -n 6 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "systemd :"; restore=$(expr $restore + 1) ;&
-7) echo -n 7 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "systemctl"; restore=$(expr $restore + 1) ;&
-8) echo -n 8 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "systemctl status ..."; restore=$(expr $restore + 1) ;&
-9) echo -n 9 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-10) echo -n 10 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "/proc/PID/status"; restore=$(expr $restore + 1) ;&
-11) echo -n 11 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "man proc"; restore=$(expr $restore + 1) ;&
-12) echo -n 12 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-13) echo -n 13 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "https://unix.stackexchange.com/questions/224015/memory-usage-of-a-given-process-using-linux-proc-filesystem#224016"; restore=$(expr $restore + 1) ;&
-14) echo -n 14 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-15) echo -n 15 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-16) echo -n 16 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "tmpfs /tmp tmpfs mode=1777,nosuid,nodev 0 0"; restore=$(expr $restore + 1) ;&
-17) echo -n 17 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-18) echo -n 18 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-19) echo -n 19 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "https://unix.stackexchange.com/questions/4004/how-can-i-close-a-terminal-without-killing-the-command-running-in-it"; restore=$(expr $restore + 1) ;&
-20) echo -n 20 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "galculator&! (galculator&; disown)"; restore=$(expr $restore + 1) ;&
-21) echo -n 21 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "setsid galculator"; restore=$(expr $restore + 1) ;&
-22) echo -n 22 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-23) echo -n 23 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-24) echo -n 24 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-25) echo -n 25 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-26) echo -n 26 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-27) echo -n 27 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "xsessions"; restore=$(expr $restore + 1) ;&
-28) echo -n 28 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "https://www.linuxquestions.org/questions/linux-desktop-74/usr-share-xsessions-4175614506/"; restore=$(expr $restore + 1) ;&
-29) echo -n 29 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-30) echo -n 30 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-31) echo -n 31 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-32) echo -n 32 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-33) echo -n 33 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "distro ?"; restore=$(expr $restore + 1) ;&
-34) echo -n 34 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "https://www.binarytides.com/enable-testing-repo-debian/"; restore=$(expr $restore + 1) ;&
-35) echo -n 35 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-36) echo -n 36 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-37) echo -n 37 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "echo "1" > /proc/sys/kernel/sysrq"; restore=$(expr $restore + 1) ;&
-38) echo -n 38 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "/etc/sysctl.conf (kernel.sysrq=1) : https://www.kernel.org/doc/Documentation/sysrq.txt"; restore=$(expr $restore + 1) ;&
-39) echo -n 39 > $HOME/.GameScript/restore_sys2 2>/dev/null ; echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 2>/dev/null ; talk justumen "echo b > /proc/sysrq-trigger"; restore=$(expr $restore + 1) ;&
+1) { echo -n 1 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; [ -d "$HOME/.GameScript_sys1" ] && echo "Erreur inattendue, ${HOME}/.GameScript_sys1 existe déjà sur votre système ! Supprimez ce dossier $HOME/.GameScript_sys1 et relancez ce script." && exit; restore=$(expr $restore + 1) ;&
+2) { echo -n 2 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; command -v xdotool >/dev/null 2>&1 || { echo "Veuillez installer les dépendances requises. Faites en tant qu'administrateur : apt-get install xdotool" >&2; exit 3; }; restore=$(expr $restore + 1) ;&
+3) { echo -n 3 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+4) { echo -n 4 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+5) { echo -n 5 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+6) { echo -n 6 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "systemd :"; restore=$(expr $restore + 1) ;&
+7) { echo -n 7 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "systemctl"; restore=$(expr $restore + 1) ;&
+8) { echo -n 8 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "systemctl status ..."; restore=$(expr $restore + 1) ;&
+9) { echo -n 9 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+10) { echo -n 10 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "/proc/PID/status"; restore=$(expr $restore + 1) ;&
+11) { echo -n 11 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "man proc"; restore=$(expr $restore + 1) ;&
+12) { echo -n 12 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+13) { echo -n 13 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "https://unix.stackexchange.com/questions/224015/memory-usage-of-a-given-process-using-linux-proc-filesystem#224016"; restore=$(expr $restore + 1) ;&
+14) { echo -n 14 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+15) { echo -n 15 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+16) { echo -n 16 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "tmpfs /tmp tmpfs mode=1777,nosuid,nodev 0 0"; restore=$(expr $restore + 1) ;&
+17) { echo -n 17 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+18) { echo -n 18 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+19) { echo -n 19 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "https://unix.stackexchange.com/questions/4004/how-can-i-close-a-terminal-without-killing-the-command-running-in-it"; restore=$(expr $restore + 1) ;&
+20) { echo -n 20 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "galculator&! (galculator&; disown)"; restore=$(expr $restore + 1) ;&
+21) { echo -n 21 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "setsid galculator"; restore=$(expr $restore + 1) ;&
+22) { echo -n 22 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+23) { echo -n 23 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+24) { echo -n 24 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+25) { echo -n 25 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+26) { echo -n 26 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+27) { echo -n 27 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "xsessions"; restore=$(expr $restore + 1) ;&
+28) { echo -n 28 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "https://www.linuxquestions.org/questions/linux-desktop-74/usr-share-xsessions-4175614506/"; restore=$(expr $restore + 1) ;&
+29) { echo -n 29 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+30) { echo -n 30 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+31) { echo -n 31 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+32) { echo -n 32 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+33) { echo -n 33 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "distro ?"; restore=$(expr $restore + 1) ;&
+34) { echo -n 34 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "https://www.binarytides.com/enable-testing-repo-debian/"; restore=$(expr $restore + 1) ;&
+35) { echo -n 35 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+36) { echo -n 36 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+37) { echo -n 37 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "echo "1" > /proc/sys/kernel/sysrq"; restore=$(expr $restore + 1) ;&
+38) { echo -n 38 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "/etc/sysctl.conf (kernel.sysrq=1) : https://www.kernel.org/doc/Documentation/sysrq.txt"; restore=$(expr $restore + 1) ;&
+39) { echo -n 39 > $HOME/.GameScript/restore_sys2 } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_sys2 } 2>/dev/null ; talk justumen "echo b > /proc/sysrq-trigger"; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter
