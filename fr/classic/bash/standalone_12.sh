@@ -599,12 +599,18 @@ case $1 in
 135) { echo -n 135 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
 136) { echo -n 136 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
 137) { echo -n 137 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-138) { echo -n 138 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+138) { echo -n 138 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen "https://www.gnu.org/software/bash/manual/html_node/Word-Designators.html"; restore=$(expr $restore + 1) ;&
 139) { echo -n 139 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
-140) { echo -n 140 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen "ê"; restore=$(expr $restore + 1) ;&
-141) { echo -n 141 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen "é"; restore=$(expr $restore + 1) ;&
-142) { echo -n 142 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen "à"; restore=$(expr $restore + 1) ;&
-143) { echo -n 143 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen "è"; restore=$(expr $restore + 1) ;&
+140) { echo -n 140 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+141) { echo -n 141 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen "https://www.gnu.org/software/bash/manual/html_node/History-Interaction.html#History-Interaction"; restore=$(expr $restore + 1) ;&
+142) { echo -n 142 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+143) { echo -n 143 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+144) { echo -n 144 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+145) { echo -n 145 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen ""; restore=$(expr $restore + 1) ;&
+146) { echo -n 146 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen "ê"; restore=$(expr $restore + 1) ;&
+147) { echo -n 147 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen "é"; restore=$(expr $restore + 1) ;&
+148) { echo -n 148 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen "à"; restore=$(expr $restore + 1) ;&
+149) { echo -n 149 > $HOME/.GameScript/restore_bash12; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash12; } 2>/dev/null ; talk justumen "è"; restore=$(expr $restore + 1) ;&
 esac
 }
 function clean(){ #in enter_chapter
