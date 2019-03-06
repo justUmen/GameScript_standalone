@@ -1,5 +1,6 @@
 #!/bin/bash
 #SOME ADDED AND CHANGE IN CLI learn_cli.sh in CLASSIC
+#sudo --non-interactive for usage of sound on docker (only root can use pulseaudio problem)
 shopt -s expand_aliases
 source ~/.bashrc
 
@@ -12,7 +13,7 @@ function start_quiz_music(){
 		if [[ "$MUSIC_PID" != "" ]]; then
 			pause_music $MUSIC_PID
 		fi
-		sudo --non-interactive $SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.mp3 || $SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.mp3 &>/dev/null &
+		{ sudo --non-interactive $SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.mp3 || $SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.mp3; } &>/dev/null &
 	fi
 }
 function stop_quiz_music(){
@@ -92,7 +93,8 @@ function new_sound(){
 	if [[ "$VOICE_PID" != "" ]]; then
 		kill $VOICE_PID
 	fi
-	$SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" &> /dev/null &
+	#~ $SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" &> /dev/null &
+	sudo --non-interactive $SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" || $SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" &> /dev/null &
 }
 
 function new_video(){
