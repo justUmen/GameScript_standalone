@@ -505,7 +505,7 @@ case $1 in
 39) { echo -n 39 > $HOME/.GameScript/restore_bash5; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; } 2>/dev/null ; talk justumen "Ici on peut imaginer l'existence d'un groupe 'familleEinstein' pour la famille Einstein."; restore=$(expr $restore + 1) ;&
 40) { echo -n 40 > $HOME/.GameScript/restore_bash5; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; } 2>/dev/null ; talk justumen "Exemple : -rw-r--${codeFile}---${reset} 2 albert familleEinstein 4096 Feb 19 00:51 Exemple"; restore=$(expr $restore + 1) ;&
 41) { echo -n 41 > $HOME/.GameScript/restore_bash5; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; } 2>/dev/null ; talk justumen "Et enfin, les trois derniers caractères sont les permissions des autres utilisateurs."; restore=$(expr $restore + 1) ;&
-42) { echo -n 42 > $HOME/.GameScript/restore_bash5; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; } 2>/dev/null ; talk justumen "Ceux qui ne sont ni albert, ni dans le groupe "familleEinstein"."; restore=$(expr $restore + 1) ;&
+42) { echo -n 42 > $HOME/.GameScript/restore_bash5; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; } 2>/dev/null ; talk justumen "Ceux qui ne sont ni albert, ni dans le groupe 'familleEinstein'."; restore=$(expr $restore + 1) ;&
 43) { echo -n 43 > $HOME/.GameScript/restore_bash5; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; } 2>/dev/null ; talk justumen "Dans cet exemple, albert, le propriétaire du fichier a le droit de lecture avec ce ${code}r${reset} et le droit d'écriture avec ce ${code}w${reset}, mais pas le droit d'exécution car le troisième caractère n'est pas un ${codeError}x${reset} mais un ${code}-${reset}."; restore=$(expr $restore + 1) ;&
 44) { echo -n 44 > $HOME/.GameScript/restore_bash5; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; } 2>/dev/null ; talk justumen "Les membres du groupe 'familleEinstein' ont uniquement le droit de lecture sur ce fichier avec ce ${code}r${reset}."; restore=$(expr $restore + 1) ;&
 45) { echo -n 45 > $HOME/.GameScript/restore_bash5; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash5; } 2>/dev/null ; talk justumen "Ils n'ont pas le droit de le modifier ou de le supprimer, car il n'y a pas de ${code}w${reset} !"; restore=$(expr $restore + 1) ;&
@@ -643,7 +643,7 @@ function start_quiz(){
   echo -e "\e[15;44m Bash 'Bourne Again SHell' : Questionnaire du chapitre 5 \e[0m"
   echo -e "- La réponse doit être la plus courte possible, une commande valide mais ajoutant des caractères inutiles ne fonctionnera pas."
   echo -e "Exemple : si la réponse est 'ls'. Les réponses 'ls .', 'ls ./' et 'ls ././' seront considérées comme fausses."
-  answer_text_fr "Comment afficher les permissions des éléments du répertoire personnel de l'utilisateur ?" "ls -l ~"
+  answer_text_fr "Comment afficher les permissions des éléments de votre répertoire personnel ?" "ls -l ~"
   answer_text_fr "Quelle lettre représente un dossier dans le résultat de 'ls -l' ?" "d"
   answer_text_fr "Quel symbole représente un fichier dans le résultat de 'ls -l' ?" "-"
   answer_text_fr "Quelle lettre représente le droit d'écriture dans le résultat de 'ls -l' ?" "w"
