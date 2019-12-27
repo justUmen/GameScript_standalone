@@ -5,7 +5,8 @@ shopt -s expand_aliases
 source ~/.bashrc
 
 function pause_music(){
-	{ sudo kill -SIGTSTP $1 || kill -SIGTSTP $1; } &> /dev/null
+	#~ { sudo kill -SIGTSTP $1 || kill -SIGTSTP $1; } &> /dev/null
+	kill -SIGTSTP $1 &> /dev/null
 }
 function start_quiz_music(){
 	if [[ "$MUTE" == "0" ]]; then
@@ -13,14 +14,16 @@ function start_quiz_music(){
 		if [[ "$MUSIC_PID" != "" ]]; then
 			pause_music $MUSIC_PID
 		fi
-		{ sudo --non-interactive $SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.mp3 || $SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.mp3; } &>/dev/null &
+		#~ { sudo --non-interactive $SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.mp3 || $SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.mp3; } &>/dev/null &
+		$SOUNDPLAYER_MUSIC_QUIZ /home/umen/.GameScript/Sounds/default/Music/quiz_1.mp3 &>/dev/null &
 	fi
 }
 function stop_quiz_music(){
 	if [[ "$MUTE" == "0" ]]; then
 		MUSIC_QUIZ_PID=$(ps -ef|grep "$SOUNDPLAYER_MUSIC_QUIZ"|grep quiz|awk '{print $2}'|head -n 1)
 		if [[ "$MUSIC_QUIZ_PID" != "" ]]; then
-			{ sudo kill $MUSIC_QUIZ_PID || kill $MUSIC_QUIZ_PID; } &> /dev/null
+			#~ { sudo kill $MUSIC_QUIZ_PID || kill $MUSIC_QUIZ_PID; } &> /dev/null
+			kill $MUSIC_QUIZ_PID &> /dev/null
 		fi
 	fi
 }
@@ -94,7 +97,8 @@ function new_sound(){
 		kill $VOICE_PID
 	fi
 	#~ $SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" &> /dev/null &
-	{ sudo --non-interactive $SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" || $SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3"; } &> /dev/null &
+	#~ { sudo --non-interactive $SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" || $SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3"; } &> /dev/null &
+	$SOUNDPLAYER "$AUDIO_LOCAL/$restore.mp3" &> /dev/null &
 }
 
 function new_video(){
@@ -586,15 +590,15 @@ case $1 in
 120) { echo -n 120 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk_not_press_key justumen "For example, try to display in your terminal: ${code}\\hello${reset}."; restore=$(expr $restore + 1) ;&
 121) { echo -n 121 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; answer_run "echo \\\\hello" justumen "No"; restore=$(expr $restore + 1) ;&
 122) { echo -n 122 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "In ${code} \\\\\\hello ${reset}, the first ${code} \ ${reset} is the escape character, but the second one is just the character that must be interpreted literally by your terminal."; restore=$(expr $restore + 1) ;&
-123) { echo -n 123 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "To avoid having to use this ${code} \ ${reset} for each space, you can also use ${code}\"${reset}."; restore=$(expr $restore + 1) ;&
+123) { echo -n 123 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "To avoid having to use this ${code} \ ${reset} for each space or special characters, you can also use ${code}\"${reset}."; restore=$(expr $restore + 1) ;&
 124) { echo -n 124 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "Two ${code}\"${reset} can act as a ${code}delimiter${reset} of arguments."; restore=$(expr $restore + 1) ;&
 125) { echo -n 125 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "That is, ${learn}echo x\>y${reset} can be replaced by ${learn}echo \"x>y\"${reset}."; restore=$(expr $restore + 1) ;&
-126) { echo -n 126 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "The content between the first ${code}\"${reset} and the second ${code}\"${reset} will be considered as a single argument to the command ${code}echo${reset}."; restore=$(expr $restore + 1) ;&
+126) { echo -n 126 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "The content between the first ${code}\"${reset} and the second ${code}\"${reset} will be considered as a ${voc}single argument${reset} to the command ${code}echo${reset}."; restore=$(expr $restore + 1) ;&
 127) { echo -n 127 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "As part of the argument, spaces will be treated and displayed as such."; restore=$(expr $restore + 1) ;&
 128) { echo -n 128 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk_not_press_key justumen "Try doing: ${learn}echo \"X  X\"${reset}"; restore=$(expr $restore + 1) ;&
 129) { echo -n 129 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; answer_run "echo \"X  X\"" justumen "No"; restore=$(expr $restore + 1) ;&
-130) { echo -n 130 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "Here, the spaces are displayed correctly."; restore=$(expr $restore + 1) ;&
-131) { echo -n 131 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk_not_press_key justumen "You can also replace the ${code}\"${reset} by ${code}'${reset}. Do so with the ${learn}echo 'X   X'${reset}"; restore=$(expr $restore + 1) ;&
+130) { echo -n 130 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "Here, the two spaces are displayed correctly."; restore=$(expr $restore + 1) ;&
+131) { echo -n 131 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk_not_press_key justumen "You can also replace the ${code}\"${reset} by ${code}'${reset}. Do so with three spaces : ${learn}echo 'X   X'${reset}"; restore=$(expr $restore + 1) ;&
 132) { echo -n 132 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; answer_run "echo 'X   X'" justumen "No"; restore=$(expr $restore + 1) ;&
 133) { echo -n 133 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "If you have many ${code}'${reset} to display, I advise you to use the ${code}\"${reset} as the delimiter, and if you have lots of ${code}\"${reset} to display, I advise you to use ${code}'${reset} as the delimiter."; restore=$(expr $restore + 1) ;&
 134) { echo -n 134 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "For example, even if the display is equivalent, ${learn}echo '\"Peter\" and \"Mary\"'${reset} is more readable than ${learn}echo \"\\\"Peter\\\" et \\\"Mary\\\"\"${reset}"; restore=$(expr $restore + 1) ;&
