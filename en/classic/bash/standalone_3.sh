@@ -372,12 +372,13 @@ function unlock(){
 	PASS=`encode_b64 $PSEUDO "$3" "$4"`
 	echo ""
 	case $LANGUAGE in
-		fr) echo -e "Pour débloquer '$1 $2' sur rocketchat (https://rocket.bjornulf.org), ouvrez une conversation privée avec '@boti' et copiez/collez :\n\t\e[97;42mpassword$PASS\e[0m"
-			echo -e "Pour débloquer '$1 $2' sur discord (https://discord.gg/25eRgvD), ouvrez le channel '#mots-de-passe-boti' et copiez/collez :\n\t\e[97;42mpassword$PASS\e[0m"
+		fr) 
+			#~ echo -e "Pour débloquer '$1 $2' sur rocketchat (https://rocket.bjornulf.org), ouvrez une conversation privée avec '@boti' et copiez/collez :\n\t\e[97;42mpassword$PASS\e[0m" ??? TMP NO MORE ROCKETCHAT...
+			echo -e "Pour débloquer '$1 $2' sur discord (https://discord.gg/25eRgvD), ouvrez le channel '#mots-de-passe-boti' et copiez/collez :\n\t\e[97;42mpassword$PASS\e[0m (Mot de passe uniquement valide pour l'utilisateur : $PSEUDO - Si besoin, demandez @justumen pour faire correspondre votre pseudo Discord avec votre pseudo GameScript)"
 			command -v xclip &> /dev/null && echo "Ce mot de passe a été copié automatiquement avec 'xclip'." || echo "[ Installez 'xclip' pour copier ce mot de passe automatiquement après un questionnaire. ]"
 			;;
 		en) #echo -e "To unlock '$1 $2' on rocketchat (https://rocket.bjornulf.org), open a private conversation with '@boti' and copy/paste :\n\t\e[97;42mpassword$PASS\e[0m"
-			echo -e "To unlock '$1 $2' on discord (https://discord.gg/Dj47Tpf), open the channel '#passwords-boti' and copy/paste :\n\t\e[97;42mpassword$PASS\e[0m"
+			echo -e "To unlock '$1 $2' on discord (https://discord.gg/Dj47Tpf), open the channel '#passwords-boti' and copy/paste :\n\t\e[97;42mpassword$PASS\e[0m (Password only valid for the user : $PSEUDO - If needed, ask @justumen to change your nickname on the Discord to be the same as GameScript)"
 			command -v xclip &> /dev/null && echo "This password was automaticaly copied with 'xclip'." || echo "[ Install 'xclip' to copy this password automaticaly after a quiz. ]"
 			;;
 	esac
@@ -586,7 +587,7 @@ case $1 in
 116) { echo -n 116 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "Here, you can understand the ${voc} huge ${reset} difference between ${learn}echo x\>y${reset} and ${learn}echo x>y${reset} ."; restore=$(expr $restore + 1) ;&
 117) { echo -n 117 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "${learn}echo x>y${reset} will create a new 'y' file with the content 'x'!"; restore=$(expr $restore + 1) ;&
 118) { echo -n 118 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "${learn}echo x\\>y${reset} simply displays text in the terminal."; restore=$(expr $restore + 1) ;&
-119) { echo -n 119 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "To display the symbol ${code} \ ${reset} with echo, just add it just before your escape character."; restore=$(expr $restore + 1) ;&
+119) { echo -n 119 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "To display the symbol ${code} \ ${reset} with echo, just add it just after your escape character."; restore=$(expr $restore + 1) ;&
 120) { echo -n 120 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk_not_press_key justumen "For example, try to display in your terminal: ${code}\\hello${reset}."; restore=$(expr $restore + 1) ;&
 121) { echo -n 121 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; answer_run "echo \\\\hello" justumen "No"; restore=$(expr $restore + 1) ;&
 122) { echo -n 122 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk justumen "In ${code} \\\\\\hello ${reset}, the first ${code} \ ${reset} is the escape character, but the second one is just the character that must be interpreted literally by your terminal."; restore=$(expr $restore + 1) ;&
@@ -611,7 +612,7 @@ case $1 in
 141) { echo -n 141 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; answer_run "echo -e 'a\nb'" justumen "No"; restore=$(expr $restore + 1) ;&
 142) { echo -n 142 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk_not_press_key justumen "Find the syntax for a tabulation in the ${code}echo${reset} command manual."; restore=$(expr $restore + 1) ;&
 143) { echo -n 143 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; answer_run "man echo" justumen "No"; restore=$(expr $restore + 1) ;&
-144) { echo -n 144 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk_not_press_key justumen "Using the ${code}'${reset}, display the letter 'a', followed by a tab, and then the letter' b '."; restore=$(expr $restore + 1) ;&
+144) { echo -n 144 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk_not_press_key justumen "Using the ${code}'${reset}, display the letter 'a', followed by a tab, and then the letter 'b'."; restore=$(expr $restore + 1) ;&
 145) { echo -n 145 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; answer_run "echo -e 'a\tb'" justumen "No"; restore=$(expr $restore + 1) ;&
 146) { echo -n 146 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; talk_not_press_key justumen "Now instead of displaying the result in the terminal, put it in a file with named 'tab'."; restore=$(expr $restore + 1) ;&
 147) { echo -n 147 > $HOME/.GameScript/restore_bash3; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_bash3; } 2>/dev/null ; answer_run "echo -e 'a\tb'>tab" justumen "No"; restore=$(expr $restore + 1) ;&
@@ -640,7 +641,7 @@ function start_quiz(){
   echo -e "Example : If the answer is 'ls'. The answers 'ls .', 'ls ./' and 'ls ././' won't work."
   answer_text_fr "What is the short version of 'ls -a -l' ?" "ls -al"
   answer_text_fr "How to add the word 'no' at the end of the file 'yes' ?" "echo no>>yes"
-  answer_text_fr "How to replace the content of the file 'test' by 'example' ?" "echo example>test"
+  answer_text_fr "How to replace the content of the file 'test' by the word 'example' ?" "echo example>test"
   answer_text_fr "How to display the content of the file 'test' ?" "cat test"
   answer_text_fr "On bash, what is the escape character ?" "\\"
   answer_text_fr "How to display in a terminal : a>b" "echo a\>b"
