@@ -470,7 +470,7 @@ function start_lecture(){
 restore=$1
 case $1 in
 1) { echo -n 1 > $HOME/.GameScript/restore_data1; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_data1; } 2>/dev/null ; talk justumen "Hello everyone, and welcome to the most boring subject ever."; restore=$(expr $restore + 1) ;&
-2) { echo -n 2 > $HOME/.GameScript/restore_data1; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_data1; } 2>/dev/null ; talk justumen "I'm pretty sure you are going to hate me right away, but i decided to talk to you about what you need and not what you want."; restore=$(expr $restore + 1) ;&
+2) { echo -n 2 > $HOME/.GameScript/restore_data1; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_data1; } 2>/dev/null ; talk justumen "I'm pretty sure you are going to hate me right away, but i decided to talk to you about what you need to know and not about what you want to learn."; restore=$(expr $restore + 1) ;&
 3) { echo -n 3 > $HOME/.GameScript/restore_data1; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_data1; } 2>/dev/null ; talk justumen "Skipping the basics and jumping into the exciting stuff would be a classic mistake."; restore=$(expr $restore + 1) ;&
 4) { echo -n 4 > $HOME/.GameScript/restore_data1; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_data1; } 2>/dev/null ; talk justumen "But what am im gonna talk about here is very important and I dont think you know everything."; restore=$(expr $restore + 1) ;&
 5) { echo -n 5 > $HOME/.GameScript/restore_data1; } 2>/dev/null ; { echo -n $(pwd) > $HOME/.GameScript/restore_pwd_data1; } 2>/dev/null ; talk justumen "Even if you think you do..."; restore=$(expr $restore + 1) ;&
